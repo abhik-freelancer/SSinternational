@@ -41,3 +41,5 @@ D:\SSinternational\SSinternational.presentation\SSinternational.presentation\bin
 D:\SSinternational\SSinternational.presentation\SSinternational.presentation\obj\Debug\SSinternational.presentation.csprojResolveAssemblyReference.cache
 D:\SSinternational\SSinternational.presentation\SSinternational.presentation\obj\Debug\SSinternational.presentation.dll
 D:\SSinternational\SSinternational.presentation\SSinternational.presentation\obj\Debug\SSinternational.presentation.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.presentation\bin\SSinternational.presentation.dll.CodeAnalysisLog.xml
+D:\SSinternational\SSinternational.presentation\SSinternational.presentation\bin\SSinternational.presentation.dll.lastcodeanalysissucceeded
