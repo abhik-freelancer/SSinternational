@@ -1,0 +1,5 @@
+D:\SSinternational\SSinternational.presentation\SSinternational.viewmodel\bin\Debug\SSinternational.viewmodel.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.viewmodel\bin\Debug\SSinternational.viewmodel.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.viewmodel\obj\Debug\SSinternational.viewmodel.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.viewmodel\obj\Debug\SSinternational.viewmodel.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.viewmodel\obj\Debug\SSinternational.viewmodel.csprojResolveAssemblyReference.cache

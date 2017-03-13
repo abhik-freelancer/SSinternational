@@ -1,0 +1,14 @@
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\AutoMapper.Net4.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.business.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.business.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.service.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.viewmodel.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.dataaccess.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\AutoMapper.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.service.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.viewmodel.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\SSinternational.dataaccess.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.business\bin\Debug\AutoMapper.xml
+D:\SSinternational\SSinternational.presentation\SSinternational.business\obj\Debug\SSinternational.business.csprojResolveAssemblyReference.cache
+D:\SSinternational\SSinternational.presentation\SSinternational.business\obj\Debug\SSinternational.business.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.business\obj\Debug\SSinternational.business.pdb

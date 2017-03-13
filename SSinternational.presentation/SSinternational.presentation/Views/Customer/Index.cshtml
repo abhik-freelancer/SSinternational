@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SSinternational.viewmodel.CustomerVM>
+@{
+    ViewBag.Title = "S.S.International";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>List of customers</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                <ul class="header-info-right">
+                    <li>
+                        <a href="@Url.Action("addEdit","Customer")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Customer")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+    </div>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="company-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Customer</th>
+                                                    <th>Phone</th>
+                                                    <th>Address</th>
+                                                    <th>Action</th>
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var customer in Model){
+												<tr>
+                                                        <td>@customer.customername</td>
+                                                        <td>@customer.customerphone</td>
+                                                        <td>@customer.customeraddress</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addEdit", "Customer", new  {customerId=customer.customerId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <a href="#" class="btn btn-xs btn-danger" role="button">Delete</a>
+
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+    </div>
+</div>

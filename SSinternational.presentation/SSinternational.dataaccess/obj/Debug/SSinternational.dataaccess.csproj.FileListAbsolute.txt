@@ -1,0 +1,5 @@
+D:\SSinternational\SSinternational.presentation\SSinternational.dataaccess\bin\Debug\SSinternational.dataaccess.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.dataaccess\bin\Debug\SSinternational.dataaccess.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.dataaccess\obj\Debug\SSinternational.dataaccess.dll
+D:\SSinternational\SSinternational.presentation\SSinternational.dataaccess\obj\Debug\SSinternational.dataaccess.pdb
+D:\SSinternational\SSinternational.presentation\SSinternational.dataaccess\obj\Debug\SSinternational.dataaccess.csprojResolveAssemblyReference.cache
