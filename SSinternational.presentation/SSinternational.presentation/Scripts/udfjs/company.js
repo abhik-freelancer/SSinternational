@@ -15,15 +15,15 @@ $(document).ready(function () {
             searchPlaceholder: "Search..."
         }
     });
-    $(document).on("click", ".cust-del", function () {
-
+ 
+    /**
         $('[data-toggle=customerdelete]').confirmation({
             rootSelector: '[data-toggle=customerdelete]'
             // other options
         });
+        **/
 
-
-    });
+   
     
 
 
