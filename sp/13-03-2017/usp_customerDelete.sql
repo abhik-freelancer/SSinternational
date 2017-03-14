@@ -18,7 +18,7 @@ GO
 -- Create date: 13-03-2017
 -- Description:	Deletion of customer
 -- =============================================
-CREATE PROCEDURE usp_customerDelet 
+CREATE PROCEDURE usp_customerDelete 
 	-- Add the parameters for the stored procedure here
 	@customerId int  
 	 

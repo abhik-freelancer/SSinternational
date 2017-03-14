@@ -50,8 +50,7 @@
                                                         <td>@customer.customeraddress</td>
                                                         <td>
                                                             <a href="@Url.Action("addEdit", "Customer", new  {customerId=customer.customerId })" class="btn btn-xs btn-primary" role="button">Edit</a>
-                          <a class="btn btn-xs btn-danger" data-toggle="customerdelete" data-title="Are u sure for delete?"
-   href="https://google.com" target="_blank">Delete</a>
+                                                            <button class='btn btn-danger btn-xs cus-del' data-id="@customer.customerId"  data-toggle="modal" data-target="#myModal"><span class="fa fa-times"></span> Delete</button>
                                                         </td>
                                                         
                                                 </tr>
@@ -60,5 +59,54 @@
 									</table>
             </div>
         </div>
+
     </div>
+
 </div>
+
+
+
+<!-- Modal for confirmation-->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Customer Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are sure to delete this record ?</p>
+          <p><input type="hidden" value="" id="hd-custid" /></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default cus-del-confirm" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal for successfull/unsuccessfull delete-->
+<div id="cus-delete-success" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Customer Delete</h4>
+      </div>
+      <div class="modal-body message">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-succdel" data-dismiss="modal">Okay</button>
+       </div>
+    </div>
+
+  </div>
+</div>
+
+<

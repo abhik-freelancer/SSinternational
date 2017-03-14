@@ -87,6 +87,34 @@ namespace SSinternational.presentation.Controllers
             
         }
 
+        [HttpPost]
+        public ActionResult DeleteCustomer(string customerId)
+        {
+            var returnData = new object();
+            if (this.LoggedUserId != 0)
+            {
+                customerBL _customerBL = new customerBL();
+                Boolean deletionCustomer = _customerBL.deleteCustomer(Convert.ToInt32(customerId));
+
+                if (deletionCustomer)
+                {
+                    returnData = new { msg_code = "1", msg_data = "<p>Customer has removed from your database</p>" };
+                }
+                else {
+                    returnData = new { msg_code = "0", msg_data = "<p>Permission deny for deletion</p>" };
+                }
+
+
+            }
+            else {
+
+                return RedirectToAction("Index", "Login");    
+            }
+
+
+            return Json(returnData, JsonRequestBehavior.DenyGet);  
+        }
+
 
 
 

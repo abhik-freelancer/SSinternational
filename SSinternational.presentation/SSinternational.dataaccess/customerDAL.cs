@@ -126,7 +126,7 @@ namespace SSinternational.dataaccess
                 {
                     cnn.Open();
 
-                    SqlCommand cmd = new SqlCommand("usp_customerDelet", cnn);
+                    SqlCommand cmd = new SqlCommand("usp_customerDelete", cnn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@customerId", SqlDbType.Int, 0, "id"));
                     cmd.Parameters["@customerId"].Value = customerId;
