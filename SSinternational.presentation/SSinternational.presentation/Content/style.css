@@ -58,8 +58,8 @@
 }
 .container-fluid
 {
-    padding-left:0px !important;
-    padding-right:0px !important;
+   /* padding-left:0px !important;
+    padding-right:0px !important;*/
 }
     .header-panel-info .row
     {
@@ -80,6 +80,7 @@
    width: auto;
     float: right !important;
     list-style: none;
+    margin-right: 13px;
 }
 .header-info-left  li
 {
