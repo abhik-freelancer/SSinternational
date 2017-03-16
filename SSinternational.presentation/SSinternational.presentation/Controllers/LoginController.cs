@@ -15,7 +15,7 @@ namespace SSinternational.presentation.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Title = "S.S.International";
+            ViewBag.Title = "WMSPro";
             loginBL _loginBL = new loginBL();
             LoginVM _loginViewModel = new LoginVM();
             _loginViewModel.companylist = _loginBL.getCompanyList();
@@ -27,8 +27,9 @@ namespace SSinternational.presentation.Controllers
         [HttpPost]
         public ActionResult Index(LoginVM _loginVM)
         {
-            ViewBag.Title = "S.S.International";
-             loginBL _loginBL = new loginBL();
+            ViewBag.Title = "WMSPro";
+            loginBL _loginBL = new loginBL();
+            companyBL _companyBL = new companyBL(); 
             if (ModelState.IsValid)
             {
                 try
@@ -50,6 +51,7 @@ namespace SSinternational.presentation.Controllers
                         Session["username"] = _userVM.firstname + " " + _userVM.lastname;
                         Session["companyid"] = _loginVM.selectedCompanyId;
                         Session["yearid"] = _loginVM.selectedYearId;
+                        Session["companyname"] = _companyBL.getCompanyNameById(_loginVM.selectedCompanyId);
 
                         _loginBL.getUpdateUserLoginTime(_userVM.userid);
 
@@ -67,6 +69,8 @@ namespace SSinternational.presentation.Controllers
                 catch (Exception error)
                 {
                     ModelState.AddModelError(string.Empty, error.Message);
+                    _loginVM.companylist = _loginBL.getCompanyList();
+                    _loginVM.yearlist = _loginBL.getFinancialList();
 
                 }
                 //to do

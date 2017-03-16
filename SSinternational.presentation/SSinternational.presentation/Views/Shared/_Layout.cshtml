@@ -48,7 +48,7 @@
 	            <li>
                     @Html.ActionLink("Customer","Index","Customer")
 	            </li>
-	            <li><a href="#">Grades</a></li>
+	            <li>@Html.ActionLink("Estate","Index","Estate")</li>
 	            <li><a href="#">Groups</a></li>
 
 	            <li role="separator" class="divider"></li>
@@ -92,9 +92,16 @@
 
      
            @RenderBody()
+
+
+     <footer class="footer">
+      <div class="container">
+        <p class="text-muted">@ViewBag.companyName</p>
+      </div>
+    </footer>
      
  </div>
-   
+  
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
@@ -104,6 +111,7 @@
     <script src="~/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="~/Scripts/dataTbleBootstrap.js" type="text/javascript"></script>
     <script src="~/Scripts/udfjs/company.js" type="text/javascript" ></script>
+    <script src="~/Scripts/udfjs/estate.js" type="text/javascript" ></script>
 </body>
 </html>
 <!--http://getbootstrap.com/2.3.2/components.html#buttonGroups-->

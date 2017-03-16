@@ -16,5 +16,10 @@ namespace SSinternational.service
             companies _companiesPOCO = new companies();
             return Mapper.Map<IEnumerable<companies>, IEnumerable<CompanyVM>>(_companiesPOCO.getCompanyList());
            }
+
+        public string getCompanyNameById(int companyId) {
+            companies _companies = new companies();
+            return _companies.getCompanyNameById(companyId);
+        }
     }
 }

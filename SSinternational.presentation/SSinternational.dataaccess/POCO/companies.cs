@@ -50,6 +50,13 @@ namespace SSinternational.dataaccess.POCO
 
        
        }
+
+       public string getCompanyNameById(int companyId) {
+           companyDAL _companyDAL = new companyDAL();
+           return _companyDAL.getCompanyNameById(companyId);
+       
+       
+       }
    
    
    

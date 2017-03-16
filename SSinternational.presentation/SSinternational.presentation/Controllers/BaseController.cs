@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace SSinternational.presentation.Controllers
 {
     public class BaseController : Controller
     {
+        
         public int LoggedUserId {
             get {
                 if (Session["userId"] != null)
@@ -48,6 +50,15 @@ namespace SSinternational.presentation.Controllers
                 return Convert.ToInt32(Session["yearid"].ToString());
             }
         }
+
+        public string LoggedCompanyName {
+            get {
+                    return Session["companyname"].ToString();
+                }
+        
+        }
+
+
 
     }
 }

@@ -22,6 +22,7 @@ namespace SSinternational.common
       protected override void Configure()
       {
           Mapper.CreateMap<CustomerVM, customers>();
+          Mapper.CreateMap<EsatetVM, estates>();
         }
     }
 }

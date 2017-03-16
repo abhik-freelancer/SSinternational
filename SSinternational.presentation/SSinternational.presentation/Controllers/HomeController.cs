@@ -13,6 +13,8 @@ namespace SSinternational.presentation.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.companyName = this.LoggedCompanyName;
+            
             return View();
         }
 

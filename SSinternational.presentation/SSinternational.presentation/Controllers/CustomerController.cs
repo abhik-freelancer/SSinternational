@@ -15,8 +15,12 @@ namespace SSinternational.presentation.Controllers
 
         public ActionResult Index()
         {
+           
+
             if (this.LoggedUserId !=0)
             {
+                ViewBag.companyName = this.LoggedCompanyName;
+
                 int companyId = this.companyId;
                 customerBL _customerBl = new customerBL();
                 IEnumerable<CustomerVM> _custLstvm = _customerBl.getCustomerList(companyId).ToList();    
@@ -30,8 +34,12 @@ namespace SSinternational.presentation.Controllers
         }
 
         public ActionResult addEdit(int? customerId) {
+           
+
             if (this.LoggedUserId != 0)
             {
+                ViewBag.companyName = this.LoggedCompanyName;
+
                 CustomerVM _customerEditVM = new CustomerVM();
                 if (customerId != null)
                 {
