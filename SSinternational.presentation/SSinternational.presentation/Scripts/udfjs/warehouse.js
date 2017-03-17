@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
 
-    $("#garden-tbl").DataTable({
+
+    $("#warehouse-tbl").DataTable({
         "columnDefs": [{
-            "targets": 3,
+            "targets": 2,
             "orderable": false
         }],
         language: {
@@ -13,28 +14,29 @@
 
 
 
-    $(document).on("click", ".garden-del", function () {
-        var gardenId = $(this).data("id");
-        $("#hd-gardenId").val(gardenId);
+
+    $(document).on("click", ".warehouse-del", function () {
+        var warehouseId = $(this).data("id");
+        $("#hd-warehouse").val(warehouseId);
     });
 
-    $(document).on("click", ".garden-del-confirm", function () {
+    $(document).on("click", ".wharehouse-del-confirm", function () {
         //alert($("#hd-custid").val());
-        var gardenId = $("#hd-gardenId").val() || 0;
+        var warehouseId = $("#hd-warehouse").val() || 0;
         $.ajax({
             type: "POST",
-            url: "/Garden/DeleteGarden",
+            url: "/Warehouse/DeleteWarehouse",
             dataType: "json",
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            data: { gardenId: gardenId },
+            data: { warehouseId: warehouseId },
             success: function (result) {
                 if (result.msg_code == 1) {
-                    $(".grden-message").html(result.msg_data);
-                    $("#garden-delete-success").modal("show");
+                    $(".warehouse-message").html(result.msg_data);
+                    $("#warehouse-delete-success").modal("show");
                     return false;
                 } else {
-                    $(".grden-message").html(result.msg_data);
-                    $("#garden-delete-success").modal("show");
+                    $(".warehouse-message").html(result.msg_data);
+                    $("#warehouse-delete-success").modal("show");
                     return false;
                 }
             }, error: function (jqXHR, exception) {
@@ -63,8 +65,8 @@
     });
 
 
-    $(document).on("click", ".btn-garden-succdel", function () {
-        window.location = "/Garden/Index";
+    $(document).on("click", ".btn-warehouse-succdel", function () {
+        window.location = "/Warehouse/Index";
     });
 
 });

@@ -26,10 +26,10 @@ namespace SSinternational.service
 
         }
         
-        public void DeleteWarehouse(int WarehouseId)
+        public Boolean DeleteWarehouse(int WarehouseId)
         {
             Warehouses _warehousePoco = new Warehouses();
-            _warehousePoco.DeleteWarehouse(WarehouseId);
+            return _warehousePoco.DeleteWarehouse(WarehouseId);
 
         }
 
@@ -46,15 +46,15 @@ namespace SSinternational.service
             return Mapper.Map<Warehouses, WarehousesVM>(_warehousePoco.GetById(WarehouseId));
         }
 
-        public IEnumerable<WarehousesVM> GetAllWarehouse(int WarehouseId)
+        public IEnumerable<WarehousesVM> GetAllWarehouse(int companyId)
         {
             Warehouses _warehousePoco = new Warehouses();
-            return Mapper.Map < IEnumerable<Warehouses>, IEnumerable<WarehousesVM>>(_warehousePoco.GetAllWarehouse(WarehouseId));
+            return Mapper.Map<IEnumerable<Warehouses>, IEnumerable<WarehousesVM>>(_warehousePoco.GetAllWarehouse(companyId));
         }
-        public IEnumerable<WarehousesVM> GetAllActiveWarehouse(int WarehouseId)
+        public IEnumerable<WarehousesVM> GetAllActiveWarehouse(int companyId)
         {
             Warehouses _warehousePoco = new Warehouses();
-            return Mapper.Map<IEnumerable<Warehouses>, IEnumerable<WarehousesVM>>(_warehousePoco.GetAllActiveWarehouse(WarehouseId));
+            return Mapper.Map<IEnumerable<Warehouses>, IEnumerable<WarehousesVM>>(_warehousePoco.GetAllActiveWarehouse(companyId));
         }
     }
 }

@@ -24,10 +24,10 @@ namespace SSinternational.business
 
         }
 
-        public void DeleteWarehouse(int WarehouseId)
+        public Boolean DeleteWarehouse(int WarehouseId)
         {
             WarehousesSL _SL = new WarehousesSL();
-            _SL.DeleteWarehouse(WarehouseId);
+            return _SL.DeleteWarehouse(WarehouseId);
 
         }
 
@@ -44,15 +44,15 @@ namespace SSinternational.business
             return _SL.GetById(WarehouseId);
         }
 
-        public IEnumerable<WarehousesVM> GetAllWarehouse(int WarehouseId)
+        public IEnumerable<WarehousesVM> GetAllWarehouse(int companyId)
         {
             WarehousesSL _SL = new WarehousesSL();
-            return _SL.GetAllWarehouse(WarehouseId);
+            return _SL.GetAllWarehouse(companyId);
         }
-        public IEnumerable<WarehousesVM> GetAllActiveWarehouse(int WarehouseId)
+        public IEnumerable<WarehousesVM> GetAllActiveWarehouse(int companyId)
         {
             WarehousesSL _SL = new WarehousesSL();
-            return _SL.GetAllActiveWarehouse(WarehouseId);
+            return _SL.GetAllActiveWarehouse(companyId);
         }
     }
 }

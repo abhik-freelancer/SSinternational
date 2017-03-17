@@ -191,21 +191,31 @@ namespace SSinternational.dataaccess
             }       
         }
 
-        public void DeleteWarehouse(int WarehouseId)
+        public Boolean DeleteWarehouse(int WarehouseId)
         {
-
-            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            try
             {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand("Usp_WarehouseDelete", cnn))
+
+                #region
+                using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@WarehouseId", WarehouseId);
-                    cmd.ExecuteNonQuery();
+                    cnn.Open();
+                    using (SqlCommand cmd = new SqlCommand("Usp_WarehouseDelete", cnn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@WarehouseId", WarehouseId);
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    cnn.Close();
 
                 }
-                cnn.Close();
-
+                #endregion
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                return false;
             }
         }
     }

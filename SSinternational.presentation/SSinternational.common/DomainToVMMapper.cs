@@ -29,6 +29,7 @@ namespace SSinternational.common
             Mapper.CreateMap<gardens, GardenAddEditVM>();
             Mapper.CreateMap<gardens, GardenListVM>();
             Mapper.CreateMap<Warehouses, WarehousesVM>();
+            Mapper.CreateMap<Packages, PackagesVM>();
         }
     }
 }

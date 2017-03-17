@@ -31,10 +31,10 @@ namespace SSinternational.dataaccess.POCO
            return _DAL.UpdateWarehouse(_warehouse);
 
        }
-       public void DeleteWarehouse(int WarehouseId)
+       public Boolean DeleteWarehouse(int WarehouseId)
        {
            WarehousesDAL _DAL = new WarehousesDAL();
-           _DAL.DeleteWarehouse(WarehouseId);
+           return _DAL.DeleteWarehouse(WarehouseId);
 
        }
 
@@ -67,7 +67,7 @@ namespace SSinternational.dataaccess.POCO
        {
            WarehousesDAL _DAL = new WarehousesDAL();
            List<Warehouses> _warehouseList = new List<Warehouses>();
-           DataTable dt = _DAL.GetAllWarehouse(WarehouseId);
+           DataTable dt = _DAL.GetAllWarehouse(CompanyId);
 
            
            if (dt.Rows.Count > 0)
@@ -90,7 +90,7 @@ namespace SSinternational.dataaccess.POCO
        {
            WarehousesDAL _DAL = new WarehousesDAL();
            List<Warehouses> _warehouseList = new List<Warehouses>();
-           DataTable dt = _DAL.GetAllActiveWarehouse(WarehouseId);
+           DataTable dt = _DAL.GetAllActiveWarehouse(CompanyId);
 
 
            if (dt.Rows.Count > 0)

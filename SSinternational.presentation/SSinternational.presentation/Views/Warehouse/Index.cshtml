@@ -1,17 +1,15 @@
-﻿@model IEnumerable<SSinternational.viewmodel.GardenListVM>
+﻿@model IEnumerable<SSinternational.viewmodel.WarehousesVM>
 @{
     ViewBag.Title = "WmsPro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <div class="container-fluid">
     <div class="header-panel-info">
         <div class="row">
         
             <div class="col-md-6">
                 <ul class="header-info-left">
-                    <li>List of Garden</li>
+                    <li>List of Warehouse</li>
                      
                 </ul>
             </div>
@@ -21,9 +19,9 @@
                
                 <ul class="header-info-right">
                     <li>
-                        <a href="@Url.Action("addEdit","Garden")" class="btn btn-primary" role="button">ADD NEW</a>
+                        <a href="@Url.Action("addEdit","Warehouse")" class="btn btn-primary" role="button">ADD NEW</a>
                     </li>
-                    <li><a href="@Url.Action("Index","Garden")" class="btn btn-primary" role="button">LIST</a></li>
+                    <li><a href="@Url.Action("Index","Warehouse")" class="btn btn-primary" role="button">LIST</a></li>
                 </ul> 
             </div>
        
@@ -34,24 +32,23 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="table-responsive">
-									<table class="table table-bordered table-hover" id="garden-tbl" > 
+									<table class="table table-bordered table-hover" id="warehouse-tbl" > 
 										<thead>
 												 <tr>
-                                                    <th>Garden</th>
-                                                    <th>Code</th>
-                                                    <th>Customer</th>
+                                                    <th>Warehouse</th>
+                                                    <th>Desc</th>
                                                     <th>Action</th>
                                                  </tr>
 											</thead>
 											<tbody>
-                                                @foreach(var garden in Model){
+                                                @foreach(var warehouse in Model){
 												<tr>
-                                                        <td>@garden.gardenname</td>
-                                                        <td>@garden.gardencode</td>
-                                                        <td>@garden.customername</td>
+                                                        <td>@warehouse.Name</td>
+                                                       
+                                                        <td>@warehouse.Description</td>
                                                         <td>
-                                                            <a href="@Url.Action("addEdit", "Garden", new  {gardenId=@garden.gardenId })" class="btn btn-xs btn-primary" role="button">Edit</a>
-                                                            <button class='btn btn-danger btn-xs garden-del' data-id="@garden.gardenId"  data-toggle="modal" data-target="#cnf-modal-garden"><span class="fa fa-times"></span> Delete</button>
+                                                            <a href="@Url.Action("addEdit", "Warehouse", new  {WarehouseId=@warehouse.WarehouseId})" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <button class='btn btn-danger btn-xs warehouse-del' data-id="@warehouse.WarehouseId"  data-toggle="modal" data-target="#cnf-modal-warehouse"><span class="fa fa-times"></span> Delete</button>
                                                         </td>
                                                         
                                                 </tr>
@@ -66,44 +63,43 @@
 </div>
 
 
-
 <!-- Modal for confirmation-->
-<div id="cnf-modal-garden" class="modal fade" role="dialog">
+<div id="cnf-modal-warehouse" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Garden Delete</h4>
+        <h4 class="modal-title">Warehouse Delete</h4>
       </div>
       <div class="modal-body">
         <p>Are sure to delete this record ?</p>
-          <p><input type="hidden" value="" id="hd-gardenId" /></p>
+          <p><input type="hidden" value="" id="hd-warehouse" /></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-default garden-del-confirm" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-default wharehouse-del-confirm" data-dismiss="modal">Yes</button>
       </div>
     </div>
 
   </div>
 </div>
 <!-- Modal for successfull/unsuccessfull delete-->
-<div id="garden-delete-success" class="modal fade" role="dialog">
+<div id="warehouse-delete-success" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Garden Delete</h4>
+        <h4 class="modal-title">Warehouse Delete</h4>
       </div>
-      <div class="modal-body grden-message">
+      <div class="modal-body warehouse-message">
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-garden-succdel" data-dismiss="modal">Okay</button>
+        <button type="button" class="btn btn-default btn-warehouse-succdel" data-dismiss="modal">Okay</button>
        </div>
     </div>
 
