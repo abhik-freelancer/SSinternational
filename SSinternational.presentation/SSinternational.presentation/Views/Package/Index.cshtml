@@ -1,0 +1,110 @@
+﻿@model IEnumerable<SSinternational.viewmodel.PackagesVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>List of Packages</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                <ul class="header-info-right">
+                    <li>
+                        <a href="@Url.Action("addEdit","Package")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Package")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+    </div>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="package-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Package</th>
+                                                    <th>Code</th>
+                                                    <th>Action</th>
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach (var Package in Model)
+                                                {
+												<tr>
+                                                        <td>@Package.Description</td>
+                                                       
+                                                        <td>@Package.Code</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addEdit", "Package", new  {PackageId=@Package.PackageId})" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <button class='btn btn-danger btn-xs package-del' data-id="@Package.PackageId"  data-toggle="modal" data-target="#cnf-modal-package"><span class="fa fa-times"></span> Delete</button>
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Modal for confirmation-->
+<div id="cnf-modal-package" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Package Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are sure to delete this record ?</p>
+          <p><input type="hidden" value="" id="hd-package" /></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default package-del-confirm" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal for successfull/unsuccessfull delete-->
+<div id="package-delete-success" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Warehouse Delete</h4>
+      </div>
+      <div class="modal-body package-message">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-package-succdel" data-dismiss="modal">Okay</button>
+       </div>
+    </div>
+
+  </div>
+</div>
