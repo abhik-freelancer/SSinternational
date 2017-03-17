@@ -63,7 +63,7 @@
     });
 
 
-    $(document).on("click", ".btn-succdel", function () {
+    $(document).on("click", ".btn-garden-succdel", function () {
         window.location = "/Garden/Index";
     });
 
