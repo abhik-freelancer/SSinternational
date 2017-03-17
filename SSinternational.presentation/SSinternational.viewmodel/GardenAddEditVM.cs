@@ -22,6 +22,8 @@ namespace SSinternational.viewmodel
        [Display (Name="Customer")]
        public int customerid { get; set; }
        public IEnumerable<CustomerVM> customerList { get; set; }
+
+       public int companyid { get; set; }
        
        
 

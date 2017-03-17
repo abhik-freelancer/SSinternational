@@ -21,9 +21,9 @@
                
                 <ul class="header-info-right">
                     <li>
-                        <a href="@Url.Action("addEdit","Customer")" class="btn btn-primary" role="button">ADD NEW</a>
+                        <a href="@Url.Action("addEdit","Garden")" class="btn btn-primary" role="button">ADD NEW</a>
                     </li>
-                    <li><a href="@Url.Action("Index","Customer")" class="btn btn-primary" role="button">LIST</a></li>
+                    <li><a href="@Url.Action("Index","Garden")" class="btn btn-primary" role="button">LIST</a></li>
                 </ul> 
             </div>
        
@@ -50,7 +50,7 @@
                                                         <td>@garden.gardencode</td>
                                                         <td>@garden.customername</td>
                                                         <td>
-                                                            <a href="@Url.Action("addEdit", "Customer", new  {gardenId=@garden.gardenId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <a href="@Url.Action("addEdit", "Garden", new  {gardenId=@garden.gardenId })" class="btn btn-xs btn-primary" role="button">Edit</a>
                                                             <button class='btn btn-danger btn-xs garden-del' data-id="@garden.gardenId"  data-toggle="modal" data-target="#cnf-modal-garden"><span class="fa fa-times"></span> Delete</button>
                                                         </td>
                                                         
@@ -79,7 +79,7 @@
       </div>
       <div class="modal-body">
         <p>Are sure to delete this record ?</p>
-          <p><input type="hidden" value="" id="hd-custid" /></p>
+          <p><input type="hidden" value="" id="hd-gardenId" /></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
@@ -90,7 +90,7 @@
   </div>
 </div>
 <!-- Modal for successfull/unsuccessfull delete-->
-<div id="cus-delete-success" class="modal fade" role="dialog">
+<div id="garden-delete-success" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
