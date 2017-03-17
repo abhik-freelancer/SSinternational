@@ -26,6 +26,8 @@ namespace SSinternational.common
             Mapper.CreateMap<financialyears, financialVM>();
             Mapper.CreateMap<customers, CustomerVM>();
             Mapper.CreateMap<estates, EsatetVM>();
+            Mapper.CreateMap<gardens, GardenAddEditVM>();
+            Mapper.CreateMap<gardens, GardenListVM>();
 
         }
     }
