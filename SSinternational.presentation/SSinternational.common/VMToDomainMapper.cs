@@ -24,6 +24,8 @@ namespace SSinternational.common
           Mapper.CreateMap<CustomerVM, customers>();
           Mapper.CreateMap<EsatetVM, estates>();
           Mapper.CreateMap<GardenAddEditVM, gardens>();
+          Mapper.CreateMap<WarehousesVM, Warehouses>();
+          
         }
     }
 }
