@@ -132,6 +132,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\EstateController.cs" />
+    <Compile Include="Controllers\GardenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -190,6 +192,7 @@
     <Content Include="Scripts\menujs.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\udfjs\company.js" />
+    <Content Include="Scripts\udfjs\estate.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -210,6 +213,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\addEdit.cshtml" />
+    <Content Include="Views\Estate\Index.cshtml" />
+    <Content Include="Views\Estate\addEdit.cshtml" />
+    <Content Include="Views\Garden\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

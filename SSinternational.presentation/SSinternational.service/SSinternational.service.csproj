@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="companySL.cs" />
     <Compile Include="customerSL.cs" />
+    <Compile Include="estateSL.cs" />
     <Compile Include="financialyearSL.cs" />
+    <Compile Include="gardenSL.cs" />
     <Compile Include="loginSL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

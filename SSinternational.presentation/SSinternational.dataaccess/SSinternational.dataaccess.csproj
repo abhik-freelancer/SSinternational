@@ -44,10 +44,12 @@
     <Compile Include="customerDAL.cs" />
     <Compile Include="estateDAL.cs" />
     <Compile Include="financialyearsDAL.cs" />
+    <Compile Include="gardenDAL.cs" />
     <Compile Include="POCO\companies.cs" />
     <Compile Include="POCO\customers.cs" />
     <Compile Include="POCO\estates.cs" />
     <Compile Include="POCO\financialyears.cs" />
+    <Compile Include="POCO\gardens.cs" />
     <Compile Include="POCO\users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="userDAL.cs" />
