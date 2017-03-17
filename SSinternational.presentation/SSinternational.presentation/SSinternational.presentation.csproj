@@ -193,6 +193,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\udfjs\company.js" />
     <Content Include="Scripts\udfjs\estate.js" />
+    <Content Include="Scripts\udfjs\garden.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
