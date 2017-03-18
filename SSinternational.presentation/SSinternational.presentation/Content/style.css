@@ -130,14 +130,32 @@
   {
         color:#323232 !important;
   }
-/*
-.nav-container .navbar-default .navbar-nav > .open > a:focus, .nav-container .navbar-default .navbar-nav > .open > a:hover {
-    color: #555;
-    background-color: #369aef !important;
-}*/
+
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
   
     background-color: #1d9fe7 !important;
+}
+
+.welcome-home-text
+{
+text-align: center;
+font-size: 4em;
+font-family: Sans-serif;
+font-weight: 700;
+color: #0D7AA5;
+text-shadow: 2px 2px 2px #BCBCBC;
+
+}
+.welcome-logo
+{
+    padding-top:12%;
+    text-align:center;
+}
+.welcome-logo .fa-leaf
+{
+ 
+color: #0D7AA5;
+text-shadow: 2px 2px 2px #BCBCBC;
 }
 /*----Footer-----*/
 .footer
