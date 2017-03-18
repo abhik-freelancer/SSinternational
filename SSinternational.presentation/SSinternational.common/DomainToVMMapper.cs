@@ -30,6 +30,7 @@ namespace SSinternational.common
             Mapper.CreateMap<gardens, GardenListVM>();
             Mapper.CreateMap<Warehouses, WarehousesVM>();
             Mapper.CreateMap<Packages, PackagesVM>();
+            Mapper.CreateMap<Shorttypes, ShorttypesVM>();
         }
     }
 }
