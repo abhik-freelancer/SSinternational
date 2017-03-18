@@ -113,7 +113,7 @@ namespace SSinternational.dataaccess
                     cmd.Parameters.AddWithValue("@Code", _package.Code);
                     cmd.Parameters.AddWithValue("@Description", _package.Description);
                     cmd.Parameters.AddWithValue("@ComapnyId", _package.CompanyId);
-                    cmd.Parameters.Add("@WarehouseId", SqlDbType.Int);
+                    cmd.Parameters.Add("@PackageId", SqlDbType.Int);
                     cmd.Parameters["@PackageId"].Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                     PackageId = Convert.ToInt32(cmd.Parameters["@PackageId"].Value);
@@ -146,7 +146,7 @@ namespace SSinternational.dataaccess
                         cmd.Parameters.AddWithValue("@Code", _package.Code);
                         cmd.Parameters.AddWithValue("@Description", _package.Description);
                         cmd.Parameters.AddWithValue("@ComapnyId", _package.CompanyId);
-                        cmd.Parameters.AddWithValue("@WarehouseId", _package.PackageId);
+                        cmd.Parameters.AddWithValue("@PackageId", _package.PackageId);
                         
                         cmd.ExecuteNonQuery();
                         PackageId = Convert.ToInt32(cmd.Parameters["@PackageId"].Value);

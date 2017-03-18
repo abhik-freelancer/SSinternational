@@ -26,10 +26,10 @@ namespace SSinternational.business
 
         }
 
-       public void DeletePackage(int PackageId)
+       public Boolean DeletePackage(int PackageId)
         {
             PackagesSL _SL = new PackagesSL();
-            _SL.DeletePackage(PackageId);
+           return _SL.DeletePackage(PackageId);
 
         }
 
