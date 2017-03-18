@@ -1,0 +1,111 @@
+﻿@model IEnumerable<SSinternational.viewmodel.BrokersVM>
+@{
+    ViewBag.Title = "WmsPro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>List of Broker</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                <ul class="header-info-right">
+                    <li>
+                        <a href="@Url.Action("addEdit","Brokers")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Brokers")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+    </div>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="broker-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Broker</th>
+                                                    <th>Code</th>
+                                                    <th>Estate</th>
+                                                    <th>Action</th>
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var broker in Model){
+												<tr>
+                                                        <td>@broker.BrokerName</td>
+                                                        <td>@broker.BrokerCode</td>
+                                                        <td>@broker.EstateName</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addEdit", "Brokers", new  {BrokerId=@broker.BrokerId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <button class='btn btn-danger btn-xs broker-del' data-id="@broker.BrokerId"  data-toggle="modal" data-target="#cnf-modal-broker"><span class="fa fa-times"></span> Delete</button>
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Modal for confirmation-->
+<div id="cnf-modal-broker" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Broker Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are sure to delete this record ?</p>
+          <p><input type="hidden" value="" id="hd-BrokerId" /></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default broker-del-confirm" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal for successfull/unsuccessfull delete-->
+<div id="broker-delete-success" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Broker Delete</h4>
+      </div>
+      <div class="modal-body broker-message">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-broker-succdel" data-dismiss="modal">Okay</button>
+       </div>
+    </div>
+
+  </div>
+</div>

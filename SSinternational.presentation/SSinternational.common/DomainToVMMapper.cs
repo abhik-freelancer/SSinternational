@@ -32,6 +32,7 @@ namespace SSinternational.common
             Mapper.CreateMap<Packages, PackagesVM>();
             Mapper.CreateMap<Shorttypes, ShorttypesVM>();
             Mapper.CreateMap<Damagetypes, DamagetypesVM>();
+            Mapper.CreateMap<Brokers, BrokersVM>();
         }
     }
 }
