@@ -107,4 +107,56 @@
 .body-container
 {
     padding: 0 4% !important;
+    
+}
+#page-wrapper
+{
+  margin-bottom:8%;
+}
+
+/*Nav*/
+.nav-container
+{
+    background: #31BAE7;
+}
+.nav-container ul li a
+    {
+        color:#FFF !important;
+    }
+.nav-container  .navbar-brand {
+    color: #FFF !important;
+}
+.nav-container ul li ul a
+  {
+        color:#323232 !important;
+  }
+/*
+.nav-container .navbar-default .navbar-nav > .open > a:focus, .nav-container .navbar-default .navbar-nav > .open > a:hover {
+    color: #555;
+    background-color: #369aef !important;
+}*/
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+  
+    background-color: #1d9fe7 !important;
+}
+/*----Footer-----*/
+.footer
+{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:50px;
+    background: #31BAE7;
+    line-height:50px;
+    z-index: 999;
+}
+.footer-company-name
+{
+    color:#FFF;
+    float:left;
+}
+.footer-year
+{
+    color:#FFF;
+    float:right;
 }
