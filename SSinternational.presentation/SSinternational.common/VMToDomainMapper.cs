@@ -27,6 +27,7 @@ namespace SSinternational.common
           Mapper.CreateMap<WarehousesVM, Warehouses>();
           Mapper.CreateMap<PackagesVM, Packages>();
           Mapper.CreateMap<ShorttypesVM, Shorttypes>();
+          Mapper.CreateMap<DamagetypesVM, Damagetypes>();
           
         }
     }

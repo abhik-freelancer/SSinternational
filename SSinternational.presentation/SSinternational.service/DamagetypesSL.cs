@@ -24,7 +24,7 @@ namespace SSinternational.service
         {
             Damagetypes _damagesPoco = new Damagetypes();
             _damagesPoco = Mapper.Map<DamagetypesVM, Damagetypes>(_damage);
-            return _damagesPoco.InsertDamageType(_damagesPoco);
+            return _damagesPoco.UpdateDamageType(_damagesPoco);
 
         }
       public Boolean DeleteDeleteByDamageId(int DamageId)
