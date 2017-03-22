@@ -32,10 +32,10 @@ namespace SSinternational.business
 
         }
 
-        public void upadateGarden(GardenAddEditVM _gardenAddEditVM)
+        public int upadateGarden(GardenAddEditVM _gardenAddEditVM)
         {
             gardenSL _gardenSL = new gardenSL();
-            _gardenSL.updateGarden(_gardenAddEditVM);
+           return _gardenSL.updateGarden(_gardenAddEditVM);
 
         }
 

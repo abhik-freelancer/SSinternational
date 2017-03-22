@@ -46,19 +46,29 @@ namespace SSinternational.dataaccess
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand("usp_gardenInsertion", cnn))
                 {
+                    try
+                    {
+                        #region
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@gardenname", _gardensPOCO.gardenname);
+                        cmd.Parameters.AddWithValue("@gardencode", _gardensPOCO.gardencode);
+                        cmd.Parameters.AddWithValue("@customerid", _gardensPOCO.customerid);
+                        cmd.Parameters.AddWithValue("@companyid", _gardensPOCO.companyid);
+                        cmd.Parameters.AddWithValue("@gardenalias", _gardensPOCO.gardenalias);
+                        cmd.Parameters.AddWithValue("@invoiceformatid", _gardensPOCO.invoiceformatid);
 
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@gardenname", _gardensPOCO.gardenname);
-                    cmd.Parameters.AddWithValue("@gardencode", _gardensPOCO.gardencode);
-                    cmd.Parameters.AddWithValue("@customerid", _gardensPOCO.customerid);
-                    cmd.Parameters.AddWithValue("@companyid", _gardensPOCO.companyid);
-                    cmd.Parameters.Add("@lastInsertId", SqlDbType.Int);
-                    cmd.Parameters["@lastInsertId"].Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@lastInsertId", SqlDbType.Int);
+                        cmd.Parameters["@lastInsertId"].Direction = ParameterDirection.Output;
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
 
-                    lastinsertId = Convert.ToInt32(cmd.Parameters["@lastInsertId"].Value);
-
+                        lastinsertId = Convert.ToInt32(cmd.Parameters["@lastInsertId"].Value);
+                        #endregion
+                    }
+                    catch (SqlException sExp) {
+                        lastinsertId = sExp.ErrorCode;
+                    
+                    }
                 }
                 cnn.Close();
 
@@ -94,30 +104,39 @@ namespace SSinternational.dataaccess
             return ds.Tables[0];
         }
 
-        public void upadateGarden(gardens _gardenPOCO)
+        public int upadateGarden(gardens _gardenPOCO)
         {
-
+            int updation = 0;
             using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
             {
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand("usp_gardenUpdate", cnn))
                 {
+                    try
+                    {
+                        #region
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@gardenId", _gardenPOCO.gardenId);
+                        cmd.Parameters.AddWithValue("@gardenname", _gardenPOCO.gardenname);
+                        cmd.Parameters.AddWithValue("@gardencode", _gardenPOCO.gardencode);
+                        cmd.Parameters.AddWithValue("@customerid", _gardenPOCO.customerid);
+                        cmd.Parameters.AddWithValue("@companyid", _gardenPOCO.companyid);
+                        cmd.Parameters.AddWithValue("@gardenalias", _gardenPOCO.gardenalias);
+                        cmd.Parameters.AddWithValue("@invoiceformatid", _gardenPOCO.invoiceformatid);
 
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@gardenId", _gardenPOCO.gardenId);
-                    cmd.Parameters.AddWithValue("@gardenname", _gardenPOCO.gardenname);
-                    cmd.Parameters.AddWithValue("@gardencode", _gardenPOCO.gardencode);
-                    cmd.Parameters.AddWithValue("@customerid", _gardenPOCO.customerid);
-                    cmd.Parameters.AddWithValue("@companyid", _gardenPOCO.companyid);
+                        cmd.ExecuteNonQuery();
+                        #endregion
+                    }catch(SqlException sExp){
 
-                    cmd.ExecuteNonQuery();
-
-
+                        updation = sExp.ErrorCode;
+                    
+                    }
 
                 }
                 cnn.Close();
 
             }
+            return updation;
 
 
         }

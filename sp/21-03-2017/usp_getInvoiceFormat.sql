@@ -14,19 +14,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		usp_gardenInsertion
--- Create date: 16/03/2017
+-- Author:		Abhik
+-- Create date: 21/03/2017
 -- Description:	
 -- =============================================
-ALTER PROCEDURE  usp_gardenInsertion
+CREATE PROCEDURE usp_getInvoiceFormat 
 	-- Add the parameters for the stored procedure here
-	@gardenname varchar(100),
-	@gardencode varchar(50) = Null,
-	@customerid int = null,
-	@companyid int,
-	@invoiceformatid int =null,
-	@gardenalias varchar(100) =null,
-	@lastInsertId int output
+	 
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -34,17 +28,6 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	INSERT INTO [dbo].[gardens]
-           ([gardenname]
-           ,[gardencode]
-           ,[customerid]
-           ,[companyid],[invoiceformatid],[gardenalias])
-     VALUES
-           (@gardenname
-           ,@gardencode
-           ,@customerid
-           ,@companyid,@invoiceformatid,@gardenalias)
-
-	SET @lastInsertId = SCOPE_IDENTITY();
+	SELECT invoiceformat.id,invoiceformat.invoiceformat from invoiceformat order by invoiceformat.id
 END
 GO

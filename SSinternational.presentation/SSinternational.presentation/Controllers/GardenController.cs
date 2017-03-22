@@ -43,6 +43,7 @@ namespace SSinternational.presentation.Controllers
                 int companyId = this.companyId;
                 GardenAddEditVM _gardenAddEditVM = new GardenAddEditVM();
                 customerBL _customerBL = new customerBL();
+                invoiceformatBL _invoiceformatBL = new invoiceformatBL();
                 gardenBL _gardenBL = new gardenBL();
 
                 if (gardenId != null)
@@ -53,6 +54,7 @@ namespace SSinternational.presentation.Controllers
 
                 }
                 _gardenAddEditVM.customerList = _customerBL.getCustomerList(companyId);
+                _gardenAddEditVM.invoiceFormatList = _invoiceformatBL.getListOfInvoiceFormat();
                 return View(_gardenAddEditVM);
             }
             else
@@ -68,7 +70,9 @@ namespace SSinternational.presentation.Controllers
         {
             ModelState.Remove("gardenId");
             customerBL _customerBL = new customerBL();
+            invoiceformatBL _invoicefrmtBL = new invoiceformatBL();
             _gardenVM.customerList = _customerBL.getCustomerList(this.companyId);
+            _gardenVM.invoiceFormatList = _invoicefrmtBL.getListOfInvoiceFormat();
 
             if (ModelState.IsValid)
             {
@@ -79,12 +83,20 @@ namespace SSinternational.presentation.Controllers
                     gardenBL _gardenBL = new gardenBL();
                     if (gardenId != 0)
                     {
-                        _gardenBL.upadateGarden(_gardenVM);
+                       int upadteno= _gardenBL.upadateGarden(_gardenVM);
+                       if (upadteno == -2146232060)
+                       {
+                           throw new System.ArgumentException("This code  is already exist");
+                       }
                         return RedirectToAction("Index", "Garden");
                     }
                     else {
 
                        int lastinsertId= _gardenBL.insertGarden(_gardenVM);
+                       if (lastinsertId == -2146232060)
+                       {
+                           throw new System.ArgumentException("This code  is already exist");
+                       }
                        return RedirectToAction("Index", "Garden");
                     }
 

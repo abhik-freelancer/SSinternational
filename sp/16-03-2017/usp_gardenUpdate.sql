@@ -18,12 +18,14 @@ GO
 -- Create date: 16/03/2017
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_gardenUpdate 
+ALTER PROCEDURE usp_gardenUpdate 
 	-- Add the parameters for the stored procedure here
 	 @gardenId int,
 	 @gardenname varchar(100),
 	 @gardencode varchar(50),
 	 @customerid int =null,
+	 @invoiceformatid int =null,
+	 @gardenalias varchar(100) =null,
 	 @companyid  int
 AS
 BEGIN
@@ -37,6 +39,8 @@ UPDATE [dbo].[gardens]
       ,[gardencode] = @gardencode
       ,[customerid] = @customerid
       ,[companyid] = @companyid
+	  ,[invoiceformatid]=@invoiceformatid
+	  ,[gardenalias] = @gardenalias
   WHERE [gardens].gardenId=@gardenId
 END
 GO

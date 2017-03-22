@@ -40,6 +40,8 @@
                                                     <th>Garden</th>
                                                     <th>Code</th>
                                                     <th>Customer</th>
+                                                    <th>Alias</th>
+                                                    <th>Invoice format</th>
                                                     <th>Action</th>
                                                  </tr>
 											</thead>
@@ -49,6 +51,9 @@
                                                         <td>@garden.gardenname</td>
                                                         <td>@garden.gardencode</td>
                                                         <td>@garden.customername</td>
+                                                        <td>@garden.gardenalias</td>
+                                                        <td>@garden.invoiceformat</td>
+
                                                         <td>
                                                             <a href="@Url.Action("addEdit", "Garden", new  {gardenId=@garden.gardenId })" class="btn btn-xs btn-primary" role="button">Edit</a>
                                                             <button class='btn btn-danger btn-xs garden-del' data-id="@garden.gardenId"  data-toggle="modal" data-target="#cnf-modal-garden"><span class="fa fa-times"></span> Delete</button>

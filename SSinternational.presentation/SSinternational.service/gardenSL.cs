@@ -36,11 +36,11 @@ namespace SSinternational.service
 
         }
 
-        public void updateGarden(GardenAddEditVM _gardenAddEditVM)
+        public int updateGarden(GardenAddEditVM _gardenAddEditVM)
         {
             gardens _gardenPOCO = new gardens();
             _gardenPOCO = Mapper.Map<GardenAddEditVM, gardens>(_gardenAddEditVM);
-            _gardenPOCO.upadateGarden(_gardenPOCO);
+            return _gardenPOCO.upadateGarden(_gardenPOCO);
 
         }
 

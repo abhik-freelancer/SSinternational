@@ -18,7 +18,7 @@ GO
 -- Create date: 16/03/2017
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_gardenById 
+ALTER PROCEDURE usp_gardenById 
 
 	-- Add the parameters for the stored procedure here
 	@gardenId int
@@ -35,9 +35,14 @@ BEGIN
       ,[gardens].[customerid]
       ,[gardens].[companyid]
 	  ,[customers].customername
+	  ,[gardens].invoiceformatid
+	  ,[gardens].gardenalias
+	  ,[invoiceformat].invoiceformat
   FROM [gardens]
   LEFT JOIN
   [customers] ON [gardens].customerid = [customers].id
+  LEFT JOIN
+  [invoiceformat] ON [gardens].invoiceformatid = [invoiceformat].id
   WHERE [gardens].gardenId = @gardenId
 END
 GO

@@ -14,6 +14,8 @@ namespace SSinternational.viewmodel
         public int customerid { get; set; }
         public string customername { get; set; }
         public int companyid { get; set; }
+        public string invoiceformat { get; set; }
+        public string gardenalias { get; set; }
 
     }
 }

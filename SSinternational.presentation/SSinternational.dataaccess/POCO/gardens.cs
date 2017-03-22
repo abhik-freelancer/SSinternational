@@ -15,6 +15,9 @@ namespace SSinternational.dataaccess.POCO
         public int customerid { get; set; }
         public string customername { get; set; }
         public int companyid { get; set; }
+        public int invoiceformatid { get; set; }
+        public string invoiceformat { get; set; }
+        public string gardenalias { get; set; }
 
 
         public IEnumerable<gardens> getGardenList(int companyId)
@@ -49,6 +52,11 @@ namespace SSinternational.dataaccess.POCO
 
                         _garden.customername = row["customername"].ToString();
                     }
+
+                    _garden.invoiceformat = (row["invoiceformat"] == DBNull.Value ? null : row["invoiceformat"].ToString());
+                    _garden.gardenalias = row["gardenalias"] == DBNull.Value ? null : row["gardenalias"].ToString();
+                   
+
                     _garden.companyid = Convert.ToInt32(row["companyid"].ToString());
 
                     _lstgarden.Add(_garden);
@@ -98,6 +106,9 @@ namespace SSinternational.dataaccess.POCO
                     _garden.customerid = Convert.ToInt32(row["customerid"].ToString());
                     _garden.customername = row["customername"].ToString();
                 }
+                _garden.invoiceformatid = (row["invoiceformatid"] == DBNull.Value ? 0 : Convert.ToInt32( row["invoiceformatid"].ToString()));
+                _garden.invoiceformat = (row["invoiceformat"] == DBNull.Value ? null : row["invoiceformat"].ToString());
+                _garden.gardenalias = row["gardenalias"] == DBNull.Value ? null : row["gardenalias"].ToString();
                 
             }
 
@@ -105,10 +116,10 @@ namespace SSinternational.dataaccess.POCO
         }
 
 
-        public void upadateGarden(gardens garden)
+        public int upadateGarden(gardens garden)
         {
             gardenDAL _gardenDAL = new gardenDAL();
-            _gardenDAL.upadateGarden(garden);
+            return _gardenDAL.upadateGarden(garden);
 
         }
 
