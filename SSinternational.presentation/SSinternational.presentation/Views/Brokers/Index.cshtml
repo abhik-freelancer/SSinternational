@@ -50,7 +50,7 @@
                                                         <td>@broker.BrokerCode</td>
                                                         <td>@broker.EstateName</td>
                                                         <td>
-                                                            <a href="@Url.Action("addEdit", "Brokers", new  {BrokerId=@broker.BrokerId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <a href="@Url.Action("addEdit", "Brokers", new  {brokerId=@broker.BrokerId })" class="btn btn-xs btn-primary" role="button">Edit</a>
                                                             <button class='btn btn-danger btn-xs broker-del' data-id="@broker.BrokerId"  data-toggle="modal" data-target="#cnf-modal-broker"><span class="fa fa-times"></span> Delete</button>
                                                         </td>
                                                         

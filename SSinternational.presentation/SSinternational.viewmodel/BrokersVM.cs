@@ -11,18 +11,19 @@ namespace SSinternational.viewmodel
     {
         [Key]
         public int BrokerId { get; set; }
-         [Display(Name = "Code")]
+        
+        [Display(Name = "Code")]
         public string BrokerCode { get; set; }
 
         [Required(ErrorMessage = "Broker name is required")]
         [Display(Name = "Name")]
         public string BrokerName { get; set; }
 
-        public int EstateId { get; set; }
-         [Display(Name = "Estate")]
         public string EstateName { get; set; }
 
-        public IEnumerable<EsatetVM> _esateList { get; set; }
+        [Display(Name = "Estate")]
+        public int EstateId { get; set; }
+        public IEnumerable<EsatetVM> estateList { get; set; }
 
 
     }

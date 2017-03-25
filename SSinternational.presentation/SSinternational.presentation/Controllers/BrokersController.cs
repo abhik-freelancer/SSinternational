@@ -65,5 +65,90 @@ namespace SSinternational.presentation.Controllers
             return Json(returnData, JsonRequestBehavior.DenyGet);
         }
 
+
+
+        [HttpGet]
+        public ActionResult addEdit(int? brokerId) {
+
+            if (this.LoggedUserId != 0)
+            {
+                BrokersVM _brokerVM = new BrokersVM();
+                estateBL _estateBL = new estateBL();
+                BrokersBL _brokerBL = new BrokersBL();
+                int companyId = this.companyId;
+               
+                if (brokerId != 0)
+                {
+                    _brokerVM = _brokerBL.GetBrokerById(Convert.ToInt32(brokerId));
+
+                }
+                
+                _brokerVM.estateList = _estateBL.getEstateList(companyId);
+                return View(_brokerVM);
+            }
+            else {
+                return RedirectToAction("Index", "Login");
+            }
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addEdit(BrokersVM _brokerVM) {
+            ModelState.Remove("BrokerId");
+            ModelState.Remove("EstateId");
+            if (this.LoggedUserId != 0)
+            {
+               
+                estateBL _estateBL = new estateBL();
+                int companyId = this.companyId;
+                BrokersBL _brokerBL = new BrokersBL();
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                _brokerVM.estateList = _estateBL.getEstateList(companyId);
+ 
+                if (ModelState.IsValid)
+                {
+                    int brokerId = _brokerVM.BrokerId;
+                  
+                    try {
+                        if (brokerId != 0)
+                        {
+                            _brokerBL.UpdateBroker(_brokerVM);
+                            return RedirectToAction("Index", "Brokers");
+                        }
+                        else {
+
+                            int insertion = _brokerBL.InsertBroker(_brokerVM);
+                            return RedirectToAction("Index", "Brokers");
+                        }
+                            
+                    
+                    }catch(Exception ex){
+                        ModelState.AddModelError("", ex.Message);
+                        return View(_brokerVM);
+                    }
+
+                }
+                else {
+
+                    return View(_brokerVM);
+                
+                }
+
+
+                
+
+            }
+            else {
+
+                return RedirectToAction("Index", "Login");
+            
+            }
+            
+            
+            
+            
+        
+        }
     }
 }

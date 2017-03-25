@@ -48,7 +48,7 @@ namespace SSinternational.dataaccess.POCO
                 _broker.BrokerId = Convert.ToInt32(dt.Rows[0]["BrokerId"].ToString());
                 _broker.BrokerCode = (dt.Rows[0]["BrokerCode"].ToString());
                 _broker.BrokerName = (dt.Rows[0]["BrokerName"].ToString());
-                _broker.EstateId = dt.Rows[0]["EstateId"].ToString() == "" ? 0 : Convert.ToInt32(dt.Rows[0]["EstateId"].ToString());
+                _broker.EstateId = dt.Rows[0]["EstateId"]==DBNull.Value ? 0 : Convert.ToInt32(dt.Rows[0]["EstateId"].ToString());
                 _broker.EstateName = (dt.Rows[0]["EstateName"].ToString());
             }
             return _broker;

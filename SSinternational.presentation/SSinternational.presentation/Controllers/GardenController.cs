@@ -69,6 +69,7 @@ namespace SSinternational.presentation.Controllers
         public ActionResult addEdit(GardenAddEditVM _gardenVM)
         {
             ModelState.Remove("gardenId");
+            ModelState.Remove("invoiceformatid");
             customerBL _customerBL = new customerBL();
             invoiceformatBL _invoicefrmtBL = new invoiceformatBL();
             _gardenVM.customerList = _customerBL.getCustomerList(this.companyId);

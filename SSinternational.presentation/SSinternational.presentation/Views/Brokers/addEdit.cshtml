@@ -1,0 +1,89 @@
+﻿@model SSinternational.viewmodel.BrokersVM
+@{
+    ViewBag.Title = "WmsPro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var estateList = Model.estateList.Select(m => new SelectListItem { Value =m.estateId.ToString(),Text = m.estate.ToString()});
+}
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Add Brokers</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                 <ul class="header-info-right">
+                    
+                    
+                    <li>
+                        <a href="@Url.Action("addEdit","Brokers")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Brokers")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+<div style="width:60% ;margin:0 auto;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading"> <i class="fa fa-address-book-o" aria-hidden="true"></i> Broker</div>
+            <div class="panel-body">
+                @using (Html.BeginForm("addEdit", "Brokers", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.ValidationSummary(true, "", new { @class="text-danger"})
+                    
+                    @Html.HiddenFor(m=>m.BrokerId) 
+                   <div class="form-group">
+                         @Html.LabelFor(m => m.BrokerName, new {@class="col-sm-2 control-label"})
+                        <div class="col-sm-10">
+                             @Html.TextBoxFor(m=>m.BrokerName,new {@class="form-control",placeholder="Broker name"})
+                        <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.BrokerName)</span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                         @Html.LabelFor(m => m.BrokerCode, new {@class="col-sm-2 control-label"})
+                        <div class="col-sm-10">
+                             @Html.TextBoxFor(m=>m.BrokerCode,new {@class="form-control",placeholder="Broker code"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EstateId, new {@class="col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.EstateId, (IEnumerable<SelectListItem>)estateList, "--Select--", new {@class="form-control" })
+                             
+                        </div>
+
+                    </div>
+                    
+                    
+                    
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label"></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="@Url.Action("Index","Brokers")" class="btn btn-primary" role="button">Cancel</a>
+                        </div>
+                    </div>
+            
+                    
+                }
+            
+            
+            </div>
+    </div>
+
+</div>
