@@ -1,0 +1,209 @@
+﻿@model SSinternational.viewmodel.UnloadingmasterVM
+
+@{
+    ViewBag.Title = "WmsPro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var gardenlst = Model.gardenList.Select(m => new SelectListItem { Value=m.gardenId.ToString(),Text=m.gardenname.ToString()});
+    var brokerlst = Model.brokerList.Select(m => new SelectListItem { Value = m.BrokerId.ToString(), Text = m.BrokerName.ToString() });
+    var warehouselst = Model.warehouselist.Select(m => new SelectListItem { Value = m.WarehouseId.ToString(), Text = m.Name.ToString() });  
+  }
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Add Unloading</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                 <ul class="header-info-right">
+                    
+                    <li>
+                        <a href="@Url.Action("addEdit","Unloadingmaster")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Unloadingmaster")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+<div style="width:80% ;margin:0 auto;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading"> <i class="fa fa-ship" aria-hidden="true"></i> Unloading</div>
+            <div class="panel-body">
+                 @using (Html.BeginForm("addEdit", "Unloadingmaster", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                     <!--block1 -->
+                     
+                     @Html.AntiForgeryToken()
+                     @Html.ValidationSummary(true, "", new { @class="text-danger"})
+                     @Html.HiddenFor(m => m.id)
+                    <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.unloadingnumber, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.unloadingnumber, new {@class="form-control",@placeholder="Unload Number",@disabled = "disabled" })
+                                   
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.receiptdate, new { @class="col-sm-4 control-label"})
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.receiptdate, new { @class="form-control",@readonly="readonly", @Type="date",@id="rcptdt"})
+                                   <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.receiptdate)</span>
+                                </div>
+                           </div>
+                      </div>
+
+                    </div>
+                     
+                     <!--block2 -->
+                      <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.lotnumber, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.lotnumber, new {@class="form-control",@placeholder="Lot Number" })
+                                   <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.lotnumber)</span>
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.gardenid, new { @class="col-sm-4 control-label"})
+                               <div class="col-sm-8">
+                                  
+                                
+                                   @Html.DropDownListFor(m => m.gardenid, (IEnumerable<SelectListItem>)gardenlst, "--Select--", new {@class="form-control" }) 
+                               </div>
+                           </div>
+                      </div>
+
+                    </div>
+                     <!--block3-->
+                     <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.carrier, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.carrier, new {@class="form-control",@placeholder="Carrier" })
+                                   
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.lorrynum, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.lorrynum, new {@class="form-control",@placeholder="Lorry Number" })
+                                   
+                                </div>
+                           </div>
+                      </div>
+
+                    </div>
+                    <!--block4-->
+                      <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.brokerid, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.DropDownListFor(m => m.brokerid, (IEnumerable<SelectListItem>)brokerlst, "--Select--", new {@class="form-control" })
+                                  <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.brokerid)</span> 
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.warehouseid, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.DropDownListFor(m => m.warehouseid, (IEnumerable<SelectListItem>)warehouselst, "--Select--", new { @class="form-control"})
+                                   <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.warehouseid)</span> 
+                                </div>
+                           </div>
+                      </div>
+
+                    </div>
+                     <!--block 5-->
+                     <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.cnno, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.cnno, new {@class="form-control",@placeholder="Cn Number" })
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.cndate, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.cndate, new {@class="form-control",@readonly="readonly" ,@id="cnnDate"})
+                               </div>
+                           </div>
+                      </div>
+
+                    </div>
+                    
+                     <!--block6-->
+                      <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.gpno, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.gpno, new {@class="form-control",@placeholder="GP Number" })
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.wbno, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.wbno, new {@class="form-control",@placeholder="WB Number" })
+                               </div>
+                           </div>
+                      </div>
+
+                    </div> 
+                     <div class="row ">
+                      <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary" style="float:right;">Save</button>
+                      </div>
+                      <div class="col-md-6">
+                                <a href="@Url.Action("Index","Unloadingmaster")" class="btn btn-primary"  role="button">Cancel</a>
+                      </div>
+                    </div>
+                 }
+            </div>
+        </div>
+    </div>
+</div>

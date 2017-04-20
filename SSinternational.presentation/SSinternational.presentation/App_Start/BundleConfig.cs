@@ -14,11 +14,11 @@ namespace SSinternational.presentation
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
-                        "~/Scripts/bootstrap.min.js"));
+                        "~/Scripts/bootstrap.min.js", "~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
                         "~/Content/bootstrap.min.css",
-                        "~/Content/bootstrap-responsive.min.css"));
+                        "~/Content/bootstrap-responsive.min.css", "~/Content/bootstrap-datepicker.css"));
         }
     }
 }
