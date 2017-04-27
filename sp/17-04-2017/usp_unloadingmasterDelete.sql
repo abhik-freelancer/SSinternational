@@ -14,13 +14,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		Abhik
--- Create date: 17/04/2017
+-- Author:		Aveek Ghosh [9874141533]
+-- Create date: 
 -- Description:	
 -- =============================================
-ALTER PROCEDURE usp_GetUnloadingmasterById 
+CREATE PROCEDURE usp_unloadingmasterDelete 
 	-- Add the parameters for the stored procedure here
-	@unloadingmasterId int	
+	@unloadmasterId int 
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -28,25 +28,6 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [id]
-      ,[unloadingnumber]
-      ,CONVERT(VARCHAR(10), [receiptdate], 103)as [receiptdate]
-      ,[lotnumber]
-      ,[gardenid]
-      ,[carrier]
-      ,[lorrynum]
-      ,[brokerid]
-      ,[warehouseid]
-      ,[cnno]
-      ,CONVERT(Varchar(10),[cndate],103) as [cndate]
-      ,[gpno]
-      ,[wbno]
-      ,[companyid]
-      ,[yearid]
-  FROM [unloadingmaster]
-  WHERE unloadingmaster.id=@unloadingmasterId
-
-
-
+	DELETE FROM unloadingmaster where unloadingmaster.id =@unloadmasterId
 END
 GO

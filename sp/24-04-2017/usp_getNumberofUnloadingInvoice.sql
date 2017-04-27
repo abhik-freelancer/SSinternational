@@ -15,38 +15,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Abhik
--- Create date: 17/04/2017
+-- Create date: 24/04/2017
 -- Description:	
 -- =============================================
-ALTER PROCEDURE usp_GetUnloadingmasterById 
+CREATE PROCEDURE usp_getNumberofUnloadingInvoice 
 	-- Add the parameters for the stored procedure here
-	@unloadingmasterId int	
+	@unloadingmasterid int,
+	@numberofinvoice int output
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-
+	SET @numberofinvoice =0;
     -- Insert statements for procedure here
-	SELECT [id]
-      ,[unloadingnumber]
-      ,CONVERT(VARCHAR(10), [receiptdate], 103)as [receiptdate]
-      ,[lotnumber]
-      ,[gardenid]
-      ,[carrier]
-      ,[lorrynum]
-      ,[brokerid]
-      ,[warehouseid]
-      ,[cnno]
-      ,CONVERT(Varchar(10),[cndate],103) as [cndate]
-      ,[gpno]
-      ,[wbno]
-      ,[companyid]
-      ,[yearid]
-  FROM [unloadingmaster]
-  WHERE unloadingmaster.id=@unloadingmasterId
-
-
-
+	SELECT @numberofinvoice = COUNT(*) from  unloadingdetail 
+	WHERE unloadingdetail.unloadingmasterid =@unloadingmasterid
 END
 GO

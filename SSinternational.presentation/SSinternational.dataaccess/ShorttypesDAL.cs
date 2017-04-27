@@ -18,7 +18,7 @@ namespace SSinternational.dataaccess
     * return:  ShortType List 
     * date:17-03-2017 Shibu
     * */
-        public DataTable GetAllShortTypes(int CompanyId)
+        public DataTable GetAllShortTypes()
         {
             DataSet ds = new DataSet();
             using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
@@ -28,7 +28,7 @@ namespace SSinternational.dataaccess
                 {
                     SqlDataAdapter da;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@CompanyId", CompanyId);
+                   // cmd.Parameters.AddWithValue("@CompanyId", CompanyId);
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);
                 }

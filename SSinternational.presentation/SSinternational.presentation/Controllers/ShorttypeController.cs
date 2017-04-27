@@ -21,7 +21,7 @@ namespace SSinternational.presentation.Controllers
                 int companyId = this.companyId;
                 ShorttypesBL _shortTypeBL = new ShorttypesBL();
 
-                IEnumerable<ShorttypesVM> _shortTypeVM = _shortTypeBL.GetAllShortTypes(companyId).ToList();
+                IEnumerable<ShorttypesVM> _shortTypeVM = _shortTypeBL.GetAllShortTypes().ToList();
 
                 return View(_shortTypeVM);
             }

@@ -56,5 +56,12 @@ namespace SSinternational.viewmodel
 
        public int companyId { get; set; }
        public int yearId { get; set; }
+
+
+       //*****************************************//
+       public string gardenName { get; set; }
+       public string brokername { get; set; }
+       public string warehousename { get; set; }
+       public int numberofinvoices { get; set; }
     }
 }

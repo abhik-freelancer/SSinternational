@@ -107,6 +107,7 @@ namespace SSinternational.dataaccess
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
             {
+                conn.Open();
                 SqlTransaction sqlTrans = conn.BeginTransaction();
                 using (SqlCommand cmd = new SqlCommand("usp_unloadingmasterUpdate", conn, sqlTrans))
                 {
@@ -138,7 +139,9 @@ namespace SSinternational.dataaccess
                         updateStatus = 0;
                         sqlTrans.Rollback();
                     }
+                    conn.Close();
                 }
+
             }
 
             return updateStatus;
@@ -166,7 +169,81 @@ namespace SSinternational.dataaccess
 
         }
 
+        public Boolean deleteUnloadingMaster(int unloadmasterId)
+        {
+            try
+            {
 
+                using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+                {
+                    cnn.Open();
+                    SqlCommand cmd = new SqlCommand("usp_unloadingmasterDelete", cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@unloadmasterId", SqlDbType.Int, 0, "unloadmasterId"));
+                    cmd.Parameters["@unloadmasterId"].Value = unloadmasterId;
+                    cmd.ExecuteNonQuery();
+                    cnn.Close();
+                }
+
+
+                return true;
+            }
+            catch (SqlException ex)
+            {
+
+                return false;
+            }
+
+        }
+
+        public int getNumberofInvoices(int unldmstId) {
+
+            int numberofinvoices = 0;
+
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_getNumberofUnloadingInvoice", cnn)) {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@unloadingmasterid", unldmstId);
+                    cmd.Parameters.Add("@numberofinvoice", SqlDbType.Int);
+                    cmd.Parameters["@numberofinvoice"].Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    numberofinvoices = Convert.ToInt32(cmd.Parameters["@numberofinvoice"].Value.ToString());
+                
+                }
+                cnn.Close();
+            
+            }
+
+            return numberofinvoices;
+        }
+
+
+        public DataTable getListOfUnloadingInvoices(int unloadingmasterId) {
+
+            DataSet ds = new DataSet();
+
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_getListofUnloadingInvoices",cnn))
+                {
+                    SqlDataAdapter da;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@unloadingMasterId", unloadingmasterId);
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+
+                    
+                }
+                cnn.Close();
+            
+            
+            }
+            return ds.Tables[0];
+        
+        }
 
 
         /**********/

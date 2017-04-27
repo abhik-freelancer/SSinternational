@@ -40,10 +40,10 @@ namespace SSinternational.business
 
         }
 
-        public IEnumerable<ShorttypesVM> GetAllShortTypes(int CompanyId)
+        public IEnumerable<ShorttypesVM> GetAllShortTypes()
         {
             ShorttypesSL _SL = new ShorttypesSL();
-            return _SL.GetAllShortTypes(CompanyId);
+            return _SL.GetAllShortTypes();
 
         }
     }

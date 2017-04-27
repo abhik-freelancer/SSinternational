@@ -1,0 +1,307 @@
+﻿@model SSinternational.viewmodel.UnloadingDtlAddEditVM
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var floorLst = Model.floorList.Select(m => new SelectListItem { Value=m.floorId.ToString(),Text=m.floorName.ToString()});
+  
+  
+ }
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Invoice</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                 <ul class="header-info-right">
+                    
+                    <li>
+                        <a href="@Url.Action("addEdit","Unloadingmaster")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Unloadingmaster")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+<div style="width:100% ;margin:0 auto;">
+        <div class="container-fluid">
+             <div class="panel panel-default">
+                             <div class="panel-heading"> <i class="fa fa-files-o" aria-hidden="true"></i> Invoice</div>
+                           @using(Html.BeginForm("addInvoice","Unloadingdetail",FormMethod.Post, new { @class = "form-horizontal" })){
+                             <div class="panel-body">
+                                  <div class="row">
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.invoice, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.invoice, new {@class="form-control",@placeholder="Invoice number"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                              <div class="form-group">
+                                                 @Html.LabelFor(m => m.grade, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.grade, new {@class="form-control",@placeholder="Grade"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.package, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control",@placeholder="Package"})
+                                                </div>
+                                               </div>
+
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                                 @Html.LabelFor(m => m.yearofproduction, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.yearofproduction, new {@class="form-control",@placeholder="Cropping Year"})
+                                                </div>
+                                            </div>
+                                       </div>
+                                  </div>
+
+                                 <!--block2-->
+                                  <div class="row">
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.pkgsrlfrm, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.pkgsrlfrm, "{0:#.#}", new {@class="form-control",@placeholder="from"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                              <div class="form-group">
+                                                 @Html.LabelFor(m => m.pkgsrlto, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.pkgsrlto,"{0:#.#}", new {@class="form-control",@placeholder="to"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.invoicequantity, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.invoicequantity, "{0:#.#}",new {@class="form-control",@placeholder="Invoice quantity"})
+                                                </div>
+                                               </div>
+
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                                 @Html.LabelFor(m => m.receivequantity, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.receivequantity, "{0:#.#}",new {@class="form-control",@placeholder="Received Quantity"})
+                                                </div>
+                                            </div>
+                                       </div>
+                                  </div>
+                                 <!--block3-->
+                                  <div class="row">
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.gross, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.gross,"{0:#.#}", new {@class="form-control",@placeholder="Gross"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                              <div class="form-group">
+                                                 @Html.LabelFor(m => m.tare, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.tare, "{0:#.#}",new {@class="form-control",@placeholder="Tare"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.net, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.net,"{0:#.#}", new {@class="form-control",@placeholder="Net"})
+                                                </div>
+                                               </div>
+
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                                 @Html.LabelFor(m => m.floorId, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                @Html.DropDownListFor(m=>m.floorId,(IEnumerable<SelectListItem>)floorLst, "--Select--", new {@class="form-control" })
+                                                </div>
+                                            </div>
+                                       </div>
+                                  </div>
+
+
+                             </div>
+                                
+                           }
+             </div>
+        </div>
+
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">Damage & Short</div>
+            <div class="panel-body">
+                <div class="row">
+                    <!--Damage bags-->
+                        <div class="col-md-4">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">Damages</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                            <div class="col-sm-3">
+                                                
+                                                <select class="form-control input-sm" id="dmgType">
+                                                    <option value="">Select</option>
+                                                    @foreach (var damage in Model.damageSelectList) { 
+                                                            <option value="@damage.DamageId">@damage.DamageCode</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="dmgPkt">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="dmgPktNet">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm">Add</button>
+                                            </div>
+                                    </div>
+                                    <!-- table-->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Package</th>
+                                                    <th>Net</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>John</td>
+                                                    <td>Doe</td>
+                                                    <td>john@example.com</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mary</td>
+                                                    <td>Moe</td>
+                                                    <td>mary@example.com</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>July</td>
+                                                    <td>Dooley</td>
+                                                    <td>july@example.com</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--Short bags-->
+                        <div class="col-md-4">
+                             <div class="panel panel-primary">
+                                <div class="panel-heading">Shortage</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                            <div class="col-sm-3">
+                                               <select class="form-control input-sm" id="shrtType">
+                                                    <option value="">Select</option>
+                                                    @foreach (var shortype in Model.shorttypeSelectList) { 
+                                                            <option value="@shortype.ShortId">@shortype.ShortCode</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="shrtgPkt">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="shrtgPktNet">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm">Add</button>
+                                            </div>
+                                    </div>
+                                     <!-- table-->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Package</th>
+                                                    <th>Net</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>John</td>
+                                                    <td>Doe</td>
+                                                    <td>john@example.com</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mary</td>
+                                                    <td>Moe</td>
+                                                    <td>mary@example.com</td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--Remarks-->
+                        <div class="col-md-4">
+                             <div class="panel panel-success">
+                                <div class="panel-heading">Remarks</div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="5" id="remarks"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-6" style="text-align: right;">
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-primary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+   
+</div>
+

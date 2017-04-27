@@ -41,10 +41,10 @@ namespace SSinternational.service
            
         }
 
-        public IEnumerable<ShorttypesVM> GetAllShortTypes(int CompanyId)
+        public IEnumerable<ShorttypesVM> GetAllShortTypes()
         {
             Shorttypes _ShorttypesPoco = new Shorttypes();
-            return Mapper.Map<IEnumerable<Shorttypes>, IEnumerable<ShorttypesVM>>(_ShorttypesPoco.GetAllShortTypes(CompanyId));
+            return Mapper.Map<IEnumerable<Shorttypes>, IEnumerable<ShorttypesVM>>(_ShorttypesPoco.GetAllShortTypes());
           
         }
     }

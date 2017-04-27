@@ -54,11 +54,11 @@ namespace SSinternational.dataaccess.POCO
            return _shorttype;
        }
 
-       public IEnumerable<Shorttypes> GetAllShortTypes(int CompanyId)
+       public IEnumerable<Shorttypes> GetAllShortTypes()
        {
            ShorttypesDAL _DAL = new ShorttypesDAL();
            List<Shorttypes> _ShorttypeList = new List<Shorttypes>();
-           DataTable dt = _DAL.GetAllShortTypes(CompanyId);
+           DataTable dt = _DAL.GetAllShortTypes();
 
           
            if (dt.Rows.Count > 0)

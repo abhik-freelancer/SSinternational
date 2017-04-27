@@ -1,0 +1,126 @@
+﻿@model IEnumerable<SSinternational.viewmodel.UnloadingDtlListVM>
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>List of Invoices</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                <ul class="header-info-right">
+                    <li>
+                        <a href="@Url.Action("addEdit","Unloadingmaster")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Unloadingmaster")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+    </div>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="unloadDtl-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Unloading No.</th>
+                                                    <th>Receipt Date</th>
+                                                    <th>Invoice</th>
+                                                    <th>Grade</th>
+                                                    <th>Inv Qty</th>
+                                                    <th>Recv Qty</th>
+                                                    <th>Year of Prod</th>
+                                                    <th>Action</th>
+
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var unldDtl in Model){
+												<tr>
+                                                        <td>@unldDtl.unloadingnumber</td>
+                                                        <td>@unldDtl.receiptdate</td>
+                                                        <td>@unldDtl.invoice</td>
+                                                        <td>@unldDtl.grade</td>
+                                                        <td>@unldDtl.invoicequantity</td>
+                                                        <td>@unldDtl.receivequantity</td>
+                                                        <td>@unldDtl.yearofproduction</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addEdit", "Unloadingmaster", new  {unloadingDetailId = @unldDtl.unloadingDetailId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <button class='btn btn-danger btn-xs unldmst-del' data-id="@unldDtl.unloadingDetailId"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>
+                                                            
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Modal for confirmation-->
+<div id="unldmstMsgModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Unloding Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are sure to delete this record ?</p>
+          <p><input type="hidden" value="" id="hd-unldmst" />
+              <input type="hidden" value="@Url.Action("DeleteUnloadMaster","Unloadingmaster")" id="hdbasepth" />
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default unldmst-del-confirm" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal for successfull/unsuccessfull delete-->
+<div id="unloadmst-delete-success" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Unloading Master Delete</h4>
+      </div>
+      <div class="modal-body message-unldmst">
+        
+      </div>
+      <div class="modal-footer">
+          <input type="hidden" value="@Url.Action("Index","Unloadingmaster")" id="hdbasepthredirect" />
+        <button type="button" class="btn btn-default btn-unldmstsuccdel" data-dismiss="modal">Okay</button>
+       </div>
+    </div>
+
+  </div>
+</div>
+
+

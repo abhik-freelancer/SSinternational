@@ -15,7 +15,19 @@ namespace SSinternational.presentation.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (this.LoggedUserId != 0)
+            {
+                ViewBag.companyName = this.LoggedCompanyName;
+                unloadingBL _unloadingBL = new unloadingBL();
+                int companyId = this.companyId;
+                int yearId = this.financialyearId;
+                IEnumerable<UnloadingmasterVM> _lstVM = _unloadingBL.getUnloadingMasterList(companyId,yearId);
+                return View(_lstVM);
+            }
+            else {
+                return RedirectToAction("Index", "Login");
+            }
+           
         }
 
         [HttpGet]
@@ -31,10 +43,13 @@ namespace SSinternational.presentation.Controllers
                 gardenBL _gardenBL = new gardenBL();
                 BrokersBL _brokerBL = new BrokersBL();
                 WarehousesBL _warehouseBL = new WarehousesBL();
+                unloadingBL _unlndBL = new unloadingBL();
 
                 
                 if (unloadmstId != 0) { 
                     //to do
+                    _unloadmstVM = _unlndBL.getUnldMasterDataById(Convert.ToInt32(unloadmstId));
+
                 }
                 _unloadmstVM.gardenList = _gardenBL.getGardenList(companyId);
                 _unloadmstVM.brokerList = _brokerBL.GetAllBrokers();
@@ -54,6 +69,7 @@ namespace SSinternational.presentation.Controllers
         public ActionResult addEdit(UnloadingmasterVM _VM) {
             if (this.LoggedUserId != 0)
             {
+                ViewBag.companyName = this.LoggedCompanyName;
                 ModelState.Remove("id");
                 int companyid = this.companyId;
                 int financialYearId = this.financialyearId;
@@ -78,12 +94,14 @@ namespace SSinternational.presentation.Controllers
                         if (unloadingMasterId != 0)
                         {
 
+                           _unldmst.updateUnloadMaster(_VM);
+
                             //edit
+                            
                         }
                         else {
                             int insrt = _unldmst.insertUnloadingMaster(_VM);
-                            //insert
-                           // return View(_VM);//for test
+                         
                         }
                         return RedirectToAction("Index", "Unloadingmaster");
                          
@@ -102,6 +120,36 @@ namespace SSinternational.presentation.Controllers
 
                 return RedirectToAction("Index", "Login");
             }
+        }
+
+        public ActionResult DeleteUnloadMaster(string unloadmasterId) {
+            var returnData = new object();
+            if (this.LoggedUserId != 0)
+            {
+                unloadingBL _unloadingBl = new unloadingBL();
+                Boolean deletionUnloadingMaster = _unloadingBl.deleteUnloadingMaster(Convert.ToInt32(unloadmasterId));
+
+                if (deletionUnloadingMaster)
+                {
+                    returnData = new { msg_code = "1", msg_data = "<p>Transaction has removed from your database</p>" };
+                }
+                else
+                {
+                    returnData = new { msg_code = "0", msg_data = "<p>Permission deny for deletion</p>" };
+                }
+
+
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+
+
+            return Json(returnData, JsonRequestBehavior.DenyGet);  
+        
+        
         }
 
     }

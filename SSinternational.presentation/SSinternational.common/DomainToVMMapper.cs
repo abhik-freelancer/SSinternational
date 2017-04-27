@@ -34,6 +34,9 @@ namespace SSinternational.common
             Mapper.CreateMap<Damagetypes, DamagetypesVM>();
             Mapper.CreateMap<Brokers, BrokersVM>();
             Mapper.CreateMap<invoiceformat, InvoiceformatVM>();
+            Mapper.CreateMap<UnloadingmasterPOCO, UnloadingmasterVM>();
+            Mapper.CreateMap<UnloadingDetails, UnloadingDtlListVM>();
+            Mapper.CreateMap<floors, FloorVM>();
         }
     }
 }

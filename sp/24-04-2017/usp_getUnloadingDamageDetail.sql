@@ -15,12 +15,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Abhik
--- Create date: 17/04/2017
+-- Create date: 
 -- Description:	
 -- =============================================
-ALTER PROCEDURE usp_GetUnloadingmasterById 
+ALTER PROCEDURE usp_getUnloadingDamageDetail 
 	-- Add the parameters for the stored procedure here
-	@unloadingmasterId int	
+	@unloadingDetailId int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -28,25 +28,14 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [id]
-      ,[unloadingnumber]
-      ,CONVERT(VARCHAR(10), [receiptdate], 103)as [receiptdate]
-      ,[lotnumber]
-      ,[gardenid]
-      ,[carrier]
-      ,[lorrynum]
-      ,[brokerid]
-      ,[warehouseid]
-      ,[cnno]
-      ,CONVERT(Varchar(10),[cndate],103) as [cndate]
-      ,[gpno]
-      ,[wbno]
-      ,[companyid]
-      ,[yearid]
-  FROM [unloadingmaster]
-  WHERE unloadingmaster.id=@unloadingmasterId
-
-
-
+	SELECT damageBagDtl.id,damageBagDtl.damageTypeId,damageBagDtl.net,
+	damageBagDtl.noofpackage,damageBagDtl.unloadingDtlId,DamageTypes.[Description]
+	FROM
+	damageBagDtl
+	INNER JOIN
+	unloadingdetail ON damageBagDtl.unloadingDtlId = unloadingdetail.id
+	INNER JOIN
+	DamageTypes ON damageBagDtl.damageTypeId = DamageTypes.DamageId
+	Where damageBagDtl.unloadingDtlId = @unloadingDetailId
 END
 GO

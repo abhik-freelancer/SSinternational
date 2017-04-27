@@ -15,12 +15,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Abhik
--- Create date: 17/04/2017
--- Description:	
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
 -- =============================================
-ALTER PROCEDURE usp_GetUnloadingmasterById 
+CREATE PROCEDURE usp_getUnloadingShortDetail  
 	-- Add the parameters for the stored procedure here
-	@unloadingmasterId int	
+	@unloadingDetailId int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -28,25 +28,12 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [id]
-      ,[unloadingnumber]
-      ,CONVERT(VARCHAR(10), [receiptdate], 103)as [receiptdate]
-      ,[lotnumber]
-      ,[gardenid]
-      ,[carrier]
-      ,[lorrynum]
-      ,[brokerid]
-      ,[warehouseid]
-      ,[cnno]
-      ,CONVERT(Varchar(10),[cndate],103) as [cndate]
-      ,[gpno]
-      ,[wbno]
-      ,[companyid]
-      ,[yearid]
-  FROM [unloadingmaster]
-  WHERE unloadingmaster.id=@unloadingmasterId
-
-
-
+	Select shortBagDetail.id,shortBagDetail.shortpackage,
+	shortBagDetail.shortPkgNet,shortBagDetail.shortTypeId,shortBagDetail.unloadingDetailId,ShortTypes.ShortName
+	FROM shortBagDetail
+	INNER JOIN
+	unloadingdetail ON shortBagDetail.unloadingDetailId = unloadingdetail.id
+	INNER JOIN
+	ShortTypes ON shortBagDetail.shortTypeId = ShortTypes.ShortId
 END
 GO

@@ -18,7 +18,7 @@ GO
 -- Create date: 17/04/2017
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_getUnloadingMasterList 
+ALTER PROCEDURE usp_getUnloadingMasterList 
 	-- Add the parameters for the stored procedure here
 	@companyId Int,
 	@yearId int
@@ -29,22 +29,41 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [id]
-      ,[unloadingnumber]
-      ,[receiptdate]
-      ,[lotnumber]
-      ,[gardenid]
-      ,[carrier]
-      ,[lorrynum]
-      ,[brokerid]
-      ,[warehouseid]
-      ,[cnno]
-      ,[cndate]
-      ,[gpno]
-      ,[wbno]
-      ,[companyid]
-      ,[yearid]
-  FROM [unloadingmaster] WHERE [companyid] =@companyId AND [yearid]=@yearId
+	SELECT unloadingmaster.[id]
+      ,unloadingmaster.[unloadingnumber]
+       ,CONVERT(VARCHAR(10), [receiptdate], 103)as [receiptdate]
+      ,unloadingmaster.[lotnumber]
+      ,unloadingmaster.[gardenid],gardens.gardenname
+      ,unloadingmaster.[carrier]
+      ,unloadingmaster.[lorrynum]
+      ,unloadingmaster.[brokerid],Brokers.BrokerName
+      ,unloadingmaster.[warehouseid],Warehouses.Name
+      ,unloadingmaster.[cnno]
+      ,unloadingmaster.[cndate]
+      ,unloadingmaster.[gpno]
+      ,unloadingmaster.[wbno]
+      ,unloadingmaster.[companyid]
+      ,unloadingmaster.[yearid]
+      ,COUNT(unloadingdetail.id)as cnt
+  FROM [unloadingmaster] 
+  INNER JOIN gardens ON unloadingmaster.gardenid = gardens.gardenId
+  INNER JOIN Warehouses ON unloadingmaster.warehouseid = Warehouses.WarehouseId
+  INNER JOIN Brokers ON unloadingmaster.brokerid = Brokers.BrokerId
+  LEFT JOIN unloadingdetail ON unloadingmaster.id = unloadingdetail.unloadingmasterid
+  WHERE unloadingmaster.[companyid] =@companyId AND unloadingmaster.[yearid]=@yearId
+  GROUP BY unloadingmaster.id,unloadingmaster.[unloadingnumber]
+   ,unloadingmaster.[receiptdate],unloadingmaster.[lotnumber]
+   ,unloadingmaster.[gardenid],gardens.gardenname
+      ,unloadingmaster.[carrier]
+      ,unloadingmaster.[lorrynum]
+      ,unloadingmaster.[brokerid],Brokers.BrokerName
+      ,unloadingmaster.[warehouseid],Warehouses.Name
+      ,unloadingmaster.[cnno]
+      ,unloadingmaster.[cndate]
+      ,unloadingmaster.[gpno]
+      ,unloadingmaster.[wbno]
+      ,unloadingmaster.[companyid]
+      ,unloadingmaster.[yearid]
 
 
 
