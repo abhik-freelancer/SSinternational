@@ -21,15 +21,8 @@
                 </ul>
             </div>
             <div class="col-md-6">
-
-              
-               
                  <ul class="header-info-right">
-                    
-                    <li>
-                        <a href="@Url.Action("addEdit","Unloadingmaster")" class="btn btn-primary" role="button">ADD NEW</a>
-                    </li>
-                    <li><a href="@Url.Action("Index","Unloadingmaster")" class="btn btn-primary" role="button">LIST</a></li>
+                    <li><a href="@Url.Action("listofInvoices", "Unloadingdetail", new {masterid= Model.unloadingmasterid})" class="btn btn-primary" role="button">LIST</a></li>
                 </ul> 
             </div>
        
@@ -37,17 +30,74 @@
          </div><!--end row panel-->
  </div>
 <div style="width:100% ;margin:0 auto;">
+     @using(Html.BeginForm("addInvoice","Unloadingdetail",FormMethod.Post, new { @class = "form-horizontal" })){
         <div class="container-fluid">
              <div class="panel panel-default">
                              <div class="panel-heading"> <i class="fa fa-files-o" aria-hidden="true"></i> Invoice</div>
-                           @using(Html.BeginForm("addInvoice","Unloadingdetail",FormMethod.Post, new { @class = "form-horizontal" })){
+                          
+                               @Html.HiddenFor(m => m.unloadingmasterid)
+                               @Html.HiddenFor(m => m.unloadingDetailId)
+
+                               @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                
+                                <!-- for action url  in js file-->
+                               <input type="hidden" value="@Url.Action("Saveunloadingdetail","Unloadingdetail")" id="hdbasepth" /> 
+                              
+                               <input type="hidden" value="@Url.Action("Index","Login")" id="hdRedirectpath" />
+
+
+                              @*<input type="hidden" value="Url.Action("listofInvoices", "Unloadingdetail", new {masterid= Model.unloadingmasterid })" id="hdListPath" />*@
+
+                               <input type="hidden" value="@Url.Action("addInvoice", "Unloadingdetail", new {unloadMasterId=Model.unloadingmasterid})" id="hdListPath" />
+                  
                              <div class="panel-body">
+
+                                 @if(Model.invoiceformatId==1){
+                                 <div class="row">
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="prfx" type="text" placeholder="prfx">
+                                         </div></div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="grcode" type="text" placeholder="Code" value="@Model.gardenCode" readonly="readonly">
+                                         </div>
+                                     </div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="srl" type="text" placeholder="Serial">
+                                         </div>
+
+                                     </div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="Sfx" type="text"  placeholder="Sfx" >
+                                         </div>
+                                     </div>
+                                     <div class="col-xs-1">
+                                         
+                                     </div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                 </div>
+                                 }
+
                                   <div class="row">
                                        <div class="col-sm-3">
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.invoice, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.invoice, new {@class="form-control",@placeholder="Invoice number"})
+                                                    @(Model.invoiceformatId==1? @Html.TextBoxFor(m => m.invoice, new {@class="form-control",@placeholder="Invoice number",@readonly="readonly"}):
+                                                        @Html.TextBoxFor(m => m.invoice, new {@class="form-control",@placeholder="Invoice number"})
+                                                    )
+
+                                                 
+                                                 <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.invoice)</span>
                                                 </div>
                                                </div>
                                        </div>
@@ -63,7 +113,7 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.package, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control",@placeholder="Package"})
+                                                 @Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control decimalonly",@placeholder="Package" })
                                                 </div>
                                                </div>
 
@@ -84,7 +134,8 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.pkgsrlfrm, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.pkgsrlfrm, "{0:#.#}", new {@class="form-control",@placeholder="from"})
+                                                 @Html.TextBoxFor(m => m.pkgsrlfrm, "{0:#.#}", new {@class="form-control numericOnly",@placeholder="from"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.pkgsrlfrm)</span>
                                                 </div>
                                                </div>
                                        </div>
@@ -92,7 +143,8 @@
                                               <div class="form-group">
                                                  @Html.LabelFor(m => m.pkgsrlto, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.pkgsrlto,"{0:#.#}", new {@class="form-control",@placeholder="to"})
+                                                 @Html.TextBoxFor(m => m.pkgsrlto,"{0:#.#}", new {@class="form-control numericOnly",@placeholder="to"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.pkgsrlto)</span>
                                                 </div>
                                                </div>
                                        </div>
@@ -100,7 +152,8 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.invoicequantity, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.invoicequantity, "{0:#.#}",new {@class="form-control",@placeholder="Invoice quantity"})
+                                                 @Html.TextBoxFor(m => m.invoicequantity, "{0:#.#}",new {@class="form-control decimalonly",@placeholder="Invoice quantity"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.invoicequantity)</span>
                                                 </div>
                                                </div>
 
@@ -109,7 +162,8 @@
                                            <div class="form-group">
                                                  @Html.LabelFor(m => m.receivequantity, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.receivequantity, "{0:#.#}",new {@class="form-control",@placeholder="Received Quantity"})
+                                                 @Html.TextBoxFor(m => m.receivequantity, "{0:#.#}",new {@class="form-control decimalonly",@placeholder="Received Quantity"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.receivequantity)</span>
                                                 </div>
                                             </div>
                                        </div>
@@ -120,7 +174,8 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.gross, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.gross,"{0:#.#}", new {@class="form-control",@placeholder="Gross"})
+                                                 @Html.TextBoxFor(m => m.gross,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Gross"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.gross)</span>
                                                 </div>
                                                </div>
                                        </div>
@@ -128,7 +183,7 @@
                                               <div class="form-group">
                                                  @Html.LabelFor(m => m.tare, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.tare, "{0:#.#}",new {@class="form-control",@placeholder="Tare"})
+                                                 @Html.TextBoxFor(m => m.tare, "{0:#.#}",new {@class="form-control decimalonly",@placeholder="Tare"})
                                                 </div>
                                                </div>
                                        </div>
@@ -136,7 +191,8 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.net, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.net,"{0:#.#}", new {@class="form-control",@placeholder="Net"})
+                                                 @Html.TextBoxFor(m => m.net,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Net"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.net)</span>
                                                 </div>
                                                </div>
 
@@ -154,7 +210,7 @@
 
                              </div>
                                 
-                           }
+                          
              </div>
         </div>
 
@@ -178,43 +234,44 @@
                                                     }
                                                 </select>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <!--<div class="col-sm-2">
                                                 <input type="text" class="form-control input-sm" id="dmgPkt">
+                                            </div>-->
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="dmgPktNet" placeholder="Net">
                                             </div>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control input-sm" id="dmgPktNet">
-                                            </div>
+                                                <input type="text" class="form-control input-sm" id="dmgSerial" placeholder="Serial">
+                                            </div>    
+
                                             <div class="col-sm-3">
-                                                <button type="button" class="btn btn-primary btn-sm">Add</button>
+                                                <button type="button" class="btn btn-primary btn-sm dmg-add">Add</button>
                                             </div>
                                     </div>
                                     <!-- table-->
                                     <div class="row">
                                         <div class="col-sm-12">
-                                        <table class="table table-condensed">
+                                        <table class="table table-condensed" id="damageTable">
                                             <thead>
                                                 <tr>
                                                     <th>Type</th>
-                                                    <th>Package</th>
+                                                    @*<th>Package</th>*@
                                                     <th>Net</th>
+                                                    <th>Serial</th>
+                                                    <th>Act</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>Doe</td>
-                                                    <td>john@example.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mary</td>
-                                                    <td>Moe</td>
-                                                    <td>mary@example.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>July</td>
-                                                    <td>Dooley</td>
-                                                    <td>july@example.com</td>
-                                                </tr>
+                                            <tbody >
+                                                <!--forEdit-->
+                                                @foreach (var itemDmg in Model.damageBagDtls) { 
+                                                
+                                                     <tr> 
+                                                     <td> <input type='hidden' id='damagetypeId' value='@itemDmg.damageTypeId'/>@itemDmg.damageType </td>
+                                                     <td>@itemDmg.net</td>
+                                                     <td>@itemDmg.serial</td>
+                                                     <td><button type='button' class='btn btn-danger btn-xs shrtg-del'>Del</button></td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                             </div>
@@ -236,39 +293,45 @@
                                                     }
                                                 </select>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <!--<div class="col-sm-3">
                                                 <input type="text" class="form-control input-sm" id="shrtgPkt">
-                                            </div>
+                                            </div>-->
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control input-sm" id="shrtgPktNet">
+                                                <input type="text" class="form-control input-sm" id="shrtgPktNet" placeholder="net">
                                             </div>
+
                                             <div class="col-sm-3">
-                                                <button type="button" class="btn btn-primary btn-sm">Add</button>
+                                                <input type="text" class="form-control input-sm" id="shrtgSerial" placeholder="serial">
+                                            </div>
+                                            
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm shrt-add">Add</button>
                                             </div>
                                     </div>
                                      <!-- table-->
                                     <div class="row">
                                         <div class="col-sm-12">
-                                        <table class="table table-condensed">
+                                        <table class="table table-condensed" id="tblShort">
                                             <thead>
                                                 <tr>
                                                     <th>Type</th>
-                                                    <th>Package</th>
+                                                    @*<th>Package</th>*@
                                                     <th>Net</th>
+                                                    <th>Serial</th>
+                                                    <th>Act</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>John</td>
-                                                    <td>Doe</td>
-                                                    <td>john@example.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mary</td>
-                                                    <td>Moe</td>
-                                                    <td>mary@example.com</td>
-                                                </tr>
-                                               
+                                            <tbody >
+                                                @foreach (var itemShortage in Model.shortBagDtls) {
+
+                                                    <tr>
+                                                    <td> <input type='hidden' id='shrtTypeId' value='@itemShortage.shortTypeId'/>@itemShortage.ShortName </td>
+                                                    <td>@itemShortage.shortPkgNet</td>
+                                                    <td>@itemShortage.serial</td>
+                                                    <td><button type='button' class='btn btn-danger btn-xs shrtg-del'>Del</button></td>
+                                                    </tr>
+                                                
+                                                }
                                             </tbody>
                                         </table>
                                             </div>
@@ -291,10 +354,10 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-lg-6" style="text-align: right;">
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary btnUnldInvoiceSave">Save</button>
                     </div>
                     <div class="col-lg-6">
-                        <button type="button" class="btn btn-primary">Cancel</button>
+                        <a href="@Url.Action("listofInvoices", "Unloadingdetail", new {masterid= Model.unloadingmasterid })" class="btn btn-primary" role="button">Cancel</a>
                     </div>
                 </div>
             </div>
@@ -302,6 +365,56 @@
         
     </div>
 
-   
+     }
 </div>
+
+@{ Html.RenderAction("partialListInadd", "Unloadingdetail", new { unloadMasterId =Model.unloadingmasterid}); }
+
+<div class="modal fade" id="unload-dtl-form-validmsg" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Following fields are required </h4>
+        </div>
+        <div class="modal-body">
+            <ul>
+              <li>Invoice number is required.</li>
+              <li>Form serial is required</li>
+              <li>To serial is required</li>
+              <li>Invoice Qty is required</li>
+              <li>Recv Qty is required</li>
+              <li>Gross is required</li>
+              <li>Net is required</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<div class="modal fade" id="unload-dtl-saveunsuccess" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Following fields are required </h4>
+        </div>
+        <div class="modal-body">
+            <p>Internal error occured for saving</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 

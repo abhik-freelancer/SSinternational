@@ -21,9 +21,9 @@
                
                 <ul class="header-info-right">
                     <li>
-                        <a href="@Url.Action("addEdit","Unloadingmaster")" class="btn btn-primary" role="button">ADD NEW</a>
+                        <a href="@Url.Action("addInvoice", "Unloadingdetail", new {unloadMasterId=@ViewBag.unloadMasterId})" class="btn btn-primary" role="button">ADD NEW</a>
                     </li>
-                    <li><a href="@Url.Action("Index","Unloadingmaster")" class="btn btn-primary" role="button">LIST</a></li>
+                    <li><a href="@Url.Action("listofInvoices", "Unloadingdetail", new { masterid=@ViewBag.unloadMasterId})" class="btn btn-primary" role="button">LIST</a></li>
                 </ul> 
             </div>
        
@@ -52,14 +52,14 @@
                                                 @foreach(var unldDtl in Model){
 												<tr>
                                                         <td>@unldDtl.unloadingnumber</td>
-                                                        <td>@unldDtl.receiptdate</td>
+                                                        <td>@unldDtl.receiptdate.ToString("dd/MM/yyyy")</td>
                                                         <td>@unldDtl.invoice</td>
                                                         <td>@unldDtl.grade</td>
                                                         <td>@unldDtl.invoicequantity</td>
                                                         <td>@unldDtl.receivequantity</td>
                                                         <td>@unldDtl.yearofproduction</td>
                                                         <td>
-                                                            <a href="@Url.Action("addEdit", "Unloadingmaster", new  {unloadingDetailId = @unldDtl.unloadingDetailId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <a href="@Url.Action("addInvoice", "Unloadingdetail", new  {unloadMasterId=@unldDtl.unloadingmasterid ,unloadingdetailId = @unldDtl.unloadingDetailId })" class="btn btn-xs btn-primary" role="button">Edit</a>
                                                             <button class='btn btn-danger btn-xs unldmst-del' data-id="@unldDtl.unloadingDetailId"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>
                                                             
                                                         </td>

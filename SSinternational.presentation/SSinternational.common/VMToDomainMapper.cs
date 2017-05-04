@@ -30,6 +30,9 @@ namespace SSinternational.common
           Mapper.CreateMap<DamagetypesVM, Damagetypes>();
           Mapper.CreateMap<BrokersVM, Brokers>();
           Mapper.CreateMap<UnloadingmasterVM,UnloadingmasterPOCO>();
+          Mapper.CreateMap<UnloadingDtlAddEditVM,UnloadingDetails>();
+          Mapper.CreateMap<ShortBagDtlsVM, ShortBagDtls>();
+          Mapper.CreateMap<DamageBagDtlsVM, DamageBagDtl>();
           
         }
     }

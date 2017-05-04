@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SSinternational.viewmodel.UnloadingDtlListVM>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="invoiceList-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Unloading No.</th>
+                                                    <th>Receipt Date</th>
+                                                    <th>Invoice</th>
+                                                    <th>Grade</th>
+                                                    <th>Inv Qty</th>
+                                                    <th>Recv Qty</th>
+                                                    <th>Year of Prod</th>
+                                                    <th>Action</th>
+
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var unldDtl in Model){
+												<tr>
+                                                        <td>@unldDtl.unloadingnumber</td>
+                                                        <td>@unldDtl.receiptdate.ToString("dd/MM/yyyy")</td>
+                                                        <td>@unldDtl.invoice</td>
+                                                        <td>@unldDtl.grade</td>
+                                                        <td>@unldDtl.invoicequantity</td>
+                                                        <td>@unldDtl.receivequantity</td>
+                                                        <td>@unldDtl.yearofproduction</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addInvoice", "Unloadingdetail", new  {unloadMasterId=@unldDtl.unloadingmasterid ,unloadingdetailId = @unldDtl.unloadingDetailId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <button class='btn btn-danger btn-xs unldmst-del' data-id="@unldDtl.unloadingDetailId"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>
+                                                            
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>

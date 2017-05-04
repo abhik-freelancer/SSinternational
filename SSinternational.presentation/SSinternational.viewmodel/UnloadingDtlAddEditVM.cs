@@ -14,6 +14,7 @@ namespace SSinternational.viewmodel
        
        public int unloadingmasterid { get; set; }
        [Display(Name="Invoice")]
+       [Required(ErrorMessage="Invoice is rquired")]
        public string invoice { get; set; }
        
        [Display(Name="Grade")]
@@ -26,20 +27,30 @@ namespace SSinternational.viewmodel
        public string yearofproduction { get; set; }
        
        [Display(Name="From")]
+       [Required(ErrorMessage="From serial is required")]
        public int pkgsrlfrm { get; set; }
+       
        [Display(Name = "To")]
+       [Required(ErrorMessage = "To serial is required")]
        public int pkgsrlto { get; set; }
+       
        [Display(Name = "Inv. Qty.")]
+       [Required(ErrorMessage="Invoice qty is required")]
        public decimal invoicequantity { get; set; }
 
        [Display(Name = "Recv.Qty.")]
+       [Required (ErrorMessage="Received is required")]
        public decimal receivequantity { get; set; }
 
        [Display(Name = "Gross")]
+       [Required(ErrorMessage="Gross is required")]
        public decimal gross { get; set; }
+       
        [Display(Name = "Tare")]
        public decimal tare { get; set; }
+      
        [Display(Name = "Net")]
+       [Required(ErrorMessage="Net is required")]
        public decimal net { get; set; }
 
        [Display(Name = "Floor")]
@@ -55,6 +66,10 @@ namespace SSinternational.viewmodel
 
        public IEnumerable<DamagetypesVM> damageSelectList { get; set; }
        public IEnumerable<ShorttypesVM> shorttypeSelectList { get; set; }
+
+       /*******************************/
+       public int invoiceformatId { get; set; }
+       public string gardenCode { get; set; }
 
 
     }

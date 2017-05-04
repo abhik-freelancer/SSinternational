@@ -15,5 +15,6 @@ namespace SSinternational.viewmodel
         public decimal shortpackage { get; set; }
         public decimal shortPkgNet { get; set; }
         public int unloadingDetailId { get; set; }
+        public int serial { get; set; }
     }
 }

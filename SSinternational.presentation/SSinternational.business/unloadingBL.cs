@@ -48,5 +48,40 @@ namespace SSinternational.business
             return _SL.getListOfUnloadingInvoices(unloadingmasterId);
         }
 
+        public int UnloadedInvoiceInsert(UnloadingDtlAddEditVM VM) {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.UnloadedInvoiceInsert(VM);
+        }
+
+        public UnloadingDtlAddEditVM GetUnloadingDtlById(int unloadingmasterId, int unloadingdetailId) {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.GetUnloadingDtlById(unloadingmasterId, unloadingdetailId);
+        
+        }
+        public IEnumerable<DamageBagDtlsVM> GetDamageBagDetailById(int unloadingDtlId) {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.GetDamageBagDetailById(unloadingDtlId);
+        }
+
+        public IEnumerable<ShortBagDtlsVM> GetShoertBagDtlById(int unloadingDtlId) { 
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.GetShoertBagDtlById(unloadingDtlId);
+        }
+
+        public int UpadateunloadingInvoices(UnloadingDtlAddEditVM _VM) {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.UpadateunloadingInvoices(_VM);
+        }
+        public int checkInvoiceFormatId(int unloadingmasterId) {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.checkInvoiceFormatId(unloadingmasterId);
+        }
+
+        public string getGardenCode(int unloadingmasterId)
+        {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.getGardenCode(unloadingmasterId);
+        }
+
     }
 }

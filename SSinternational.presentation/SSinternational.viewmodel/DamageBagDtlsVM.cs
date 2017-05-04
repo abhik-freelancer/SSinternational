@@ -14,5 +14,6 @@ namespace SSinternational.viewmodel
         public decimal noofpackage { get; set; }
         public decimal net { get; set; }
         public int unloadingDtlId { get; set; }
+        public int serial { get; set; }
     }
 }

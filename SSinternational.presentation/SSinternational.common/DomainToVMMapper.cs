@@ -37,6 +37,9 @@ namespace SSinternational.common
             Mapper.CreateMap<UnloadingmasterPOCO, UnloadingmasterVM>();
             Mapper.CreateMap<UnloadingDetails, UnloadingDtlListVM>();
             Mapper.CreateMap<floors, FloorVM>();
+            Mapper.CreateMap<UnloadingDetails, UnloadingDtlAddEditVM>();
+            Mapper.CreateMap<ShortBagDtls, ShortBagDtlsVM>();
+            Mapper.CreateMap<DamageBagDtl, DamageBagDtlsVM>();
         }
     }
 }

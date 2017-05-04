@@ -52,7 +52,7 @@
                                                 @foreach(var unldmst in Model){
 												<tr>
                                                         <td>@unldmst.unloadingnumber</td>
-                                                        <td>@unldmst.receiptdate</td>
+                                                        <td>@(unldmst.receiptdate.HasValue?unldmst.receiptdate.Value.ToString("dd/MM/yyyy"):"")</td>
                                                         <td>@unldmst.lotnumber</td>
                                                         <td>@unldmst.gardenName</td>
                                                         <td>@unldmst.brokername</td>
