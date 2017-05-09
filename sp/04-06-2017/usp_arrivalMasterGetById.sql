@@ -18,7 +18,7 @@ GO
 -- Create date: 04/05/2017
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_arrivalMasterGetById
+ALTER PROCEDURE usp_arrivalMasterGetById
 	-- Add the parameters for the stored procedure here
 	@arrivalId int
 AS
@@ -29,22 +29,27 @@ BEGIN
 
     -- Insert statements for procedure here
 	SELECT [arrivalId]
-      ,[unloadingId]
-      ,[arrivalNumber]
-      ,[dateofarrival]
-      ,[lotnumber]
-      ,[gardenid]
-      ,[carrier]
-      ,[lorrynum]
-      ,[brokerid]
-      ,[warehouseid]
-      ,[cnno]
-      ,[cndate]
-      ,[gpno]
-      ,[wbno]
-      ,[companyid]
-      ,[yearid]
+      ,arrivalMaster.[unloadingId]
+      ,arrivalMaster.[arrivalNumber]
+      --,arrivalMaster.[dateofarrival]
+      ,Convert(VARCHAR(10),CONVERT(date,[arrivalMaster].[dateofarrival],106),103)as dateofarrival
+      ,arrivalMaster.[lotnumber]
+      ,arrivalMaster.[gardenid]
+      ,arrivalMaster.[carrier]
+      ,arrivalMaster.[lorrynum]
+      ,arrivalMaster.[brokerid]
+      ,arrivalMaster.[warehouseid]
+      ,arrivalMaster.[cnno]
+      ,arrivalMaster.[cndate]
+      ,arrivalMaster.[gpno]
+      ,arrivalMaster.[wbno]
+      ,arrivalMaster.[companyid]
+      ,arrivalMaster.[yearid]
+      ,unloadingmaster.unloadingnumber
+      ,CONVERT(varchar(10),convert(date, unloadingmaster.receiptdate,106),103) as receiptdate
 FROM [arrivalMaster]
+LEFT JOIN unloadingmaster ON arrivalMaster.unloadingId = unloadingmaster.id
 WHERE [arrivalMaster].[arrivalId] =@arrivalId
 END
 GO
+--usp_arrivalMasterGetById 4

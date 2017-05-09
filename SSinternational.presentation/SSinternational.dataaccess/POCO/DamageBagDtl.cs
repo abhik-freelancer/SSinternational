@@ -43,5 +43,34 @@ namespace SSinternational.dataaccess.POCO
         
         }
 
+        public IEnumerable<DamageBagDtl> GetArrivedDamageBagDetailById(int arrivalDtlId)
+        {
+            ArrivalDAL _arrivalDAL = new ArrivalDAL();
+            DataTable dt = _arrivalDAL.GetDamageBagDetailById(arrivalDtlId);
+
+            List<DamageBagDtl> _lst = new List<DamageBagDtl>();
+
+            if (dt.Rows.Count > 0)
+            {
+
+                foreach (DataRow rows in dt.Rows)
+                {
+                    DamageBagDtl _obj = new DamageBagDtl();
+                    _obj.id = Convert.ToInt32(rows["id"].ToString());
+                    _obj.damageTypeId = Convert.ToInt32(rows["damageTypeId"].ToString());
+                    _obj.damageType = rows["DamageCode"].ToString();
+                    _obj.net = Convert.ToDecimal(rows["net"].ToString());
+                    _obj.serial = Convert.ToInt32(rows["serial"].ToString());
+                    _lst.Add(_obj);
+                }
+
+
+            }
+            return _lst;
+
+        }
+
+
+
     }
 }

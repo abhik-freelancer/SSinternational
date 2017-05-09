@@ -70,5 +70,7 @@ BEGIN
 		@wbno ,
 		@companyid ,
 		@yearid )
+		
+		SET @lastinsertId =SCOPE_IDENTITY();
 END
 GO

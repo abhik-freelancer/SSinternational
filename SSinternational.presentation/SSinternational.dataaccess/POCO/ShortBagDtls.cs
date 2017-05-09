@@ -41,5 +41,33 @@ namespace SSinternational.dataaccess.POCO
 
             return _lstShortBagDtl;
         }
+
+        public IEnumerable<ShortBagDtls> GetArrivedShortBagDtlById(int arrivalId)
+        {
+            ArrivalDAL _arrivalDAL = new ArrivalDAL();
+            DataTable dt = _arrivalDAL.GetShoertBagDtlById(arrivalId);
+            List<ShortBagDtls> _lstShortBagDtl = new List<ShortBagDtls>();
+
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow rows in dt.Rows)
+                {
+                    ShortBagDtls _objShrt = new ShortBagDtls();
+                    _objShrt.id = Convert.ToInt32(rows["id"].ToString());
+                    _objShrt.shortTypeId = Convert.ToInt32(rows["shortTypeId"].ToString());
+                    _objShrt.ShortName = rows["ShortCode"].ToString();
+                    _objShrt.shortPkgNet = Convert.ToDecimal(rows["shortPkgNet"].ToString());
+                    _objShrt.serial = Convert.ToInt32(rows["serial"].ToString());
+
+                    _lstShortBagDtl.Add(_objShrt);
+                }
+
+            }
+
+            return _lstShortBagDtl;
+        }
+
+
+
     }
 }

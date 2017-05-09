@@ -40,6 +40,12 @@ namespace SSinternational.common
             Mapper.CreateMap<UnloadingDetails, UnloadingDtlAddEditVM>();
             Mapper.CreateMap<ShortBagDtls, ShortBagDtlsVM>();
             Mapper.CreateMap<DamageBagDtl, DamageBagDtlsVM>();
+
+            //Arrival 
+            Mapper.CreateMap<ArrivalMaster, ArrivalMasterVM>();
+           Mapper.CreateMap<ArrivalInvoices,ArrivalInvoicesListVM>();
+           Mapper.CreateMap<ArrivalInvoices, ArrivalDtlAddEditVM>();
+            
         }
     }
 }

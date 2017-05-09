@@ -1,0 +1,229 @@
+﻿@model SSinternational.viewmodel.ArrivalMasterVM
+
+@{
+    ViewBag.Title = "WmsPro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var gardenlst = Model.gardenList.Select(m => new SelectListItem { Value=m.gardenId.ToString(),Text=m.gardenname.ToString()});
+    var brokerlst = Model.brokerList.Select(m => new SelectListItem { Value = m.BrokerId.ToString(), Text = m.BrokerName.ToString() });
+    var warehouselst = Model.warehouseList.Select(m => new SelectListItem { Value = m.WarehouseId.ToString(), Text = m.Name.ToString() });  
+  }
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Add Arrival</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                 <ul class="header-info-right">
+                    
+                    <li>
+                        <a href="@Url.Action("addEdit","Arrivalmaster")" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("Index","Arrivalmaster")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+<div style="width:80% ;margin:0 auto;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading"> <i class="fa fa-truck" aria-hidden="true"></i> Arrival</div>
+            <div class="panel-body">
+                 @using (Html.BeginForm("addEdit", "Arrivalmaster", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                     <!--block1 -->
+                     
+                     @Html.AntiForgeryToken()
+                     @Html.ValidationSummary(true, "", new { @class="text-danger"})
+                     @Html.HiddenFor(m =>m.arrivalId)
+                     <div class="row">
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.unloadingId, new { @class="col-md-4 control-label"})
+                                 <div class="col-md-8">
+                                      @Html.TextBoxFor(m => m.unloadingnumber, new {@class="form-control",@placeholder="Unloading No" ,@readonly="readonly"})
+                                      @Html.HiddenFor(m => m.unloadingId)
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.unloadingDate, new { @class="col-md-4 control-label"})
+                                 <div class="col-md-8">
+                                      @Html.TextBoxFor(m => m.unloadingDate, new {@class="form-control",@placeholder="Date of unloading",@readonly="readonly"})
+                                      
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                    <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.arrivalNumber, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.arrivalNumber, new {@class="form-control",@placeholder="Arrival number"})
+                                   
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.dateofarrival, new { @class="col-sm-4 control-label"})
+                            
+                                <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.dateofarrival, new {@Value = Model.dateofarrival.ToString("d"), @class="form-control",@readonly="readonly", @Type="date",@id="arvlDt"})
+                                   <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.dateofarrival)</span>
+                                </div>
+                           </div>
+                      </div>
+
+                    </div>
+                     
+                     <!--block2 -->
+                      <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.lotnumber, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.lotnumber, new {@class="form-control",@placeholder="Lot Number" })
+                                   <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.lotnumber)</span>
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.gardenid, new { @class="col-sm-4 control-label"})
+                               <div class="col-sm-8">
+                                   @Html.DropDownListFor(m => m.gardenid, (IEnumerable<SelectListItem>)gardenlst, "--Select--", new {@class="form-control" }) 
+                                    <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.gardenid)</span>
+                               </div>
+                           </div>
+                      </div>
+
+                    </div>
+                     <!--block3-->
+                     <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.carrier, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.carrier, new {@class="form-control",@placeholder="Carrier" })
+                                   
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.lorrynum, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                   @Html.TextBoxFor(m => m.lorrynum, new {@class="form-control",@placeholder="Lorry Number" })
+                                   
+                                </div>
+                           </div>
+                      </div>
+
+                    </div>
+                    <!--block4-->
+                      <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.brokerid, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.DropDownListFor(m => m.brokerid, (IEnumerable<SelectListItem>)brokerlst, "--Select--", new {@class="form-control" })
+                                  <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.brokerid)</span> 
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.warehouseid, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.DropDownListFor(m => m.warehouseid, (IEnumerable<SelectListItem>)warehouselst, "--Select--", new { @class="form-control"})
+                                   <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.warehouseid)</span> 
+                                </div>
+                           </div>
+                      </div>
+
+                    </div>
+                     <!--block 5-->
+                     <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.cnno, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.cnno, new {@class="form-control",@placeholder="Cn Number" })
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.cndate, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.cndate,"{0:dd/MM/yyyy}", new {@class="form-control",@readonly="readonly" ,@id="cnnDate"})
+                               </div>
+                           </div>
+                      </div>
+
+                    </div>
+                    
+                     <!--block6-->
+                      <div class="row">
+
+                      <div class="col-md-6">
+                           <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.gpno, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.gpno, new {@class="form-control",@placeholder="GP Number" })
+                                </div>
+                           </div>
+                      </div>
+                      <div class="col-md-6">
+                             <div class="form-group">
+                            
+                               @Html.LabelFor(m => m.wbno, new {@class="col-sm-4 control-label" })
+                               <div class="col-sm-8">
+                                  @Html.TextBoxFor(m => m.wbno, new {@class="form-control",@placeholder="WB Number" })
+                               </div>
+                           </div>
+                      </div>
+
+                    </div> 
+                     <div class="row ">
+                      <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary" style="float:right;">Save</button>
+                      </div>
+                      <div class="col-md-6">
+                                <a href="@Url.Action("Index","Arrivalmaster")" class="btn btn-primary"  role="button">Cancel</a>
+                      </div>
+                    </div>
+                 }
+            </div>
+        </div>
+    </div>
+</div>

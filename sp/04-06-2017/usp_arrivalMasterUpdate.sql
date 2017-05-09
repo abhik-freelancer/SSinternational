@@ -18,11 +18,12 @@ GO
 -- Create date: 04/05/2017
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_arrivalMasterUpdate 
+ALTER
+ PROCEDURE usp_arrivalMasterUpdate 
 	-- Add the parameters for the stored procedure here
 		@arrivalId int,
 		@unloadingId int,
-		@arrivalNumber varchar,
+		@arrivalNumber varchar(MAX),
 		@dateofarrival date,
 		@lotnumber varchar(50),
 		@gardenid int,

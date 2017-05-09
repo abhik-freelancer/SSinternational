@@ -33,6 +33,11 @@ namespace SSinternational.common
           Mapper.CreateMap<UnloadingDtlAddEditVM,UnloadingDetails>();
           Mapper.CreateMap<ShortBagDtlsVM, ShortBagDtls>();
           Mapper.CreateMap<DamageBagDtlsVM, DamageBagDtl>();
+
+
+          //arrival master
+          Mapper.CreateMap<ArrivalMasterVM, ArrivalMaster>();
+          Mapper.CreateMap<ArrivalDtlAddEditVM, ArrivalInvoices>();
           
         }
     }

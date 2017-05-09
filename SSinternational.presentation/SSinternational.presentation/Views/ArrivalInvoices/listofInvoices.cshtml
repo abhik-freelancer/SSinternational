@@ -1,0 +1,126 @@
+﻿@model IEnumerable<SSinternational.viewmodel.ArrivalInvoicesListVM>
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>List of Invoices</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+              
+               
+                <ul class="header-info-right">
+                    <li>
+                        <a href="@Url.Action("addInvoice", "ArrivalInvoices", new {arrivalMasterId=@ViewBag.arrivalMasterId})" class="btn btn-primary" role="button">ADD NEW</a>
+                    </li>
+                    <li><a href="@Url.Action("listofInvoices", "ArrivalInvoices", new { arrivalId=@ViewBag.arrivalMasterId})" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+    </div>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="arrvlDtl-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Arrival No.</th>
+                                                    <th>Arrival Date</th>
+                                                    <th>Invoice</th>
+                                                    <th>Grade</th>
+                                                    <th>Inv Qty</th>
+                                                    <th>Recv Qty</th>
+                                                    <th>Floor</th>
+                                                    <th>Action</th>
+
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var arrvlDtl in Model){
+												<tr>
+                                                        <td>@arrvlDtl.arrivalNumber</td>
+                                                        <td>@arrvlDtl.dateofarrival.ToString("dd/MM/yyyy")</td>
+                                                        <td>@arrvlDtl.invoice</td>
+                                                        <td>@arrvlDtl.grade</td>
+                                                        <td>@arrvlDtl.invoicequantity</td>
+                                                        <td>@arrvlDtl.receivequantity</td>
+                                                        <td>@arrvlDtl.floorName</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addInvoice", "ArrivalInvoices", new  {@arrivalMasterId=@arrvlDtl.arrivalId ,@arrivalDetailId = @arrvlDtl.arrivalDetailid })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <button class='btn btn-danger btn-xs unldmst-del' data-id="@arrvlDtl.arrivalDetailid"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>
+                                                            
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Modal for confirmation-->
+<div id="unldmstMsgModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Unloding Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are sure to delete this record ?</p>
+          <p><input type="hidden" value="" id="hd-unldmst" />
+              <input type="hidden" value="@Url.Action("DeleteUnloadMaster","Unloadingmaster")" id="hdbasepth" />
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default unldmst-del-confirm" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal for successfull/unsuccessfull delete-->
+<div id="unloadmst-delete-success" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Unloading Master Delete</h4>
+      </div>
+      <div class="modal-body message-unldmst">
+        
+      </div>
+      <div class="modal-footer">
+          <input type="hidden" value="@Url.Action("Index","Unloadingmaster")" id="hdbasepthredirect" />
+        <button type="button" class="btn btn-default btn-unldmstsuccdel" data-dismiss="modal">Okay</button>
+       </div>
+    </div>
+
+  </div>
+</div>
+
+

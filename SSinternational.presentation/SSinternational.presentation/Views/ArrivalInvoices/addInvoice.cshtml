@@ -1,0 +1,422 @@
+﻿@model SSinternational.viewmodel.ArrivalDtlAddEditVM
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var floorLst = Model.floorList.Select(m => new SelectListItem { Value=m.floorId.ToString(),Text=m.floorName.ToString()});
+  
+  
+ }
+
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Arrival Invoices</li>
+                     
+                </ul>
+            </div>
+            <div class="col-md-6">
+                 <ul class="header-info-right">
+                    <li><a href="@Url.Action("listofInvoices", "ArrivalInvoices", new {arrivalId= Model.arrivalId})" class="btn btn-primary" role="button">LIST</a></li>
+                </ul> 
+            </div>
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+<div style="width:100% ;margin:0 auto;">
+     @using (Html.BeginForm("addInvoice", "ArrivalInvoices", FormMethod.Post, new { @class = "form-horizontal" }))
+     {
+        <div class="container-fluid">
+             <div class="panel panel-default">
+                             <div class="panel-heading"> <i class="fa fa-files-o" aria-hidden="true"></i> Invoice</div>
+                          
+                               @Html.HiddenFor(m => m.arrivalId)
+                               @Html.HiddenFor(m => m.arrivalDetailid)
+
+                               @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                
+                                <!-- for action url  in js file-->
+                               <input type="hidden" value="@Url.Action("SaveArrivaldetail","ArrivalInvoices")" id="hdbasepthSave" /> 
+                              
+                               <input type="hidden" value="@Url.Action("Index","Login")" id="hdArrivalRedirectpath" />
+
+
+                              @*<input type="hidden" value="Url.Action("listofInvoices", "Unloadingdetail", new {masterid= Model.unloadingmasterid })" id="hdListPath" />*@
+
+                               <input type="hidden" value="@Url.Action("addInvoice", "ArrivalInvoices", new {arrivalMasterId= Model.arrivalId})" id="hdArrivalListPath" />
+                  
+                             <div class="panel-body">
+
+                                 @if(Model.invoiceformatId==1){
+                                 <div class="row">
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="prfx-arrival" type="text" placeholder="prfx">
+                                         </div></div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="grcode-arrival" type="text" placeholder="Code" value="@Model.gardenCode" readonly="readonly">
+                                         </div>
+                                     </div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="srl-arrival" type="text" placeholder="Serial">
+                                         </div>
+
+                                     </div>
+                                     <div class="col-xs-1">
+                                         <div class="form-group">
+                                            <input class="form-control" id="Sfx-arrival" type="text"  placeholder="Sfx" >
+                                         </div>
+                                     </div>
+                                     <div class="col-xs-1">
+                                         
+                                     </div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                     <div class="col-xs-1"></div>
+                                 </div>
+                                 }
+
+                                  <div class="row">
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.invoice, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                    @(Model.invoiceformatId==1? @Html.TextBoxFor(m => m.invoice, new {@class="form-control",@placeholder="Invoice number",@readonly="readonly",@id="invoice_arrival"}):
+                                                        @Html.TextBoxFor(m => m.invoice, new {@class="form-control",@placeholder="Invoice number",@id="invoice_arrival"})
+                                                    )
+
+                                                 
+                                                 <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.invoice)</span>
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                              <div class="form-group">
+                                                 @Html.LabelFor(m => m.grade, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.grade, new {@class="form-control",@placeholder="Grade",@id="grade_arrival"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.package, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control decimalonly",@placeholder="Package",@id="package_arrival" })
+                                                </div>
+                                               </div>
+
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                                 @Html.LabelFor(m => m.yearofproduction, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.yearofproduction, new {@class="form-control",@placeholder="Cropping Year",@id="yearofproduction_arrival"})
+                                                </div>
+                                            </div>
+                                       </div>
+                                  </div>
+
+                                 <!--block2-->
+                                  <div class="row">
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.pkgsrlfrm, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.pkgsrlfrm, "{0:#.#}", new {@class="form-control numericOnly",@placeholder="from",@id="pkgsrlfrm_arrival"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.pkgsrlfrm)</span>
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                              <div class="form-group">
+                                                 @Html.LabelFor(m => m.pkgsrlto, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.pkgsrlto,"{0:#.#}", new {@class="form-control numericOnly",@placeholder="to",@id="pkgsrlto_arrival"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.pkgsrlto)</span>
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.invoicequantity, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.invoicequantity, "{0:#.#}",new {@class="form-control decimalonly",@placeholder="Invoice quantity",@id="invoicequantity_arrival"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.invoicequantity)</span>
+                                                </div>
+                                               </div>
+
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                                 @Html.LabelFor(m => m.receivequantity, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.receivequantity, "{0:#.#}",new {@class="form-control decimalonly",@placeholder="Received Quantity",@id="receivequantity_arrival"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.receivequantity)</span>
+                                                </div>
+                                            </div>
+                                       </div>
+                                  </div>
+                                 <!--block3-->
+                                  <div class="row">
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.gross, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.gross,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Gross",@id="gross_arrival"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.gross)</span>
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                              <div class="form-group">
+                                                 @Html.LabelFor(m => m.tare, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.tare, new {@class="form-control decimalonly",@placeholder="Tare",@id="tare_arrival"})
+                                                </div>
+                                               </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                               <div class="form-group">
+                                                 @Html.LabelFor(m => m.net, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                 @Html.TextBoxFor(m => m.net,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Net",@id="net_arrival"})
+                                                     <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.net)</span>
+                                                </div>
+                                               </div>
+
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                                 @Html.LabelFor(m => m.floorId, new {@class="col-sm-6 control-label" })
+                                                <div class="col-sm-6">
+                                                @Html.DropDownListFor(m=>m.floorId,(IEnumerable<SelectListItem>)floorLst, "--Select--", new {@class="form-control",@id="floorId_arrival" })
+                                                </div>
+                                            </div>
+                                       </div>
+                                  </div>
+
+
+                             </div>
+                                
+                          
+             </div>
+        </div>
+
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">Damage & Short</div>
+            <div class="panel-body">
+                <div class="row">
+                    <!--Damage bags-->
+                        <div class="col-md-4">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">Damages</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                            <div class="col-sm-3">
+                                                
+                                                <select class="form-control input-sm" id="dmgType_arrival">
+                                                    <option value="">Select</option>
+                                                    @foreach (var damage in Model.damageSelectList) { 
+                                                            <option value="@damage.DamageId">@damage.DamageCode</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <!--<div class="col-sm-2">
+                                                <input type="text" class="form-control input-sm" id="dmgPkt">
+                                            </div>-->
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="dmgPktNet_arrival" placeholder="Net">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="dmgSerial_arrival" placeholder="Serial">
+                                            </div>    
+
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm dmg-add-arrival">Add</button>
+                                            </div>
+                                    </div>
+                                    <!-- table-->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <table class="table table-condensed" id="damageTableArrival">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    @*<th>Package</th>*@
+                                                    <th>Net</th>
+                                                    <th>Serial</th>
+                                                    <th>Act</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!--forEdit-->
+                                              @foreach (var arrivedDmg in Model.damageBagDtls) { 
+                                                
+                                                     <tr> 
+                                                     <td> <input type='hidden' id='damagetypeId_arrival' value='@arrivedDmg.damageTypeId'/>@arrivedDmg.damageType </td>
+                                                     <td>@arrivedDmg.net</td>
+                                                     <td>@arrivedDmg.serial</td>
+                                                     <td><button type='button' class='btn btn-danger btn-xs shrtg-del'>Del</button></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--Short bags-->
+                        <div class="col-md-4">
+                             <div class="panel panel-primary">
+                                <div class="panel-heading">Shortage</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                            <div class="col-sm-3">
+                                               <select class="form-control input-sm" id="shrtType_arrival">
+                                                    <option value="">Select</option>
+                                                    @foreach (var shortype in Model.shorttypeSelectList) { 
+                                                            <option value="@shortype.ShortId">@shortype.ShortCode</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <!--<div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="shrtgPkt">
+                                            </div>-->
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="shrtgPktNet_arrival" placeholder="net">
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control input-sm" id="shrtgSerial_arrival" placeholder="serial">
+                                            </div>
+                                            
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm shrt-add-arrival">Add</button>
+                                            </div>
+                                    </div>
+                                     <!-- table-->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <table class="table table-condensed" id="tblShort_arrival">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    @*<th>Package</th>*@
+                                                    <th>Net</th>
+                                                    <th>Serial</th>
+                                                    <th>Act</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody >
+                                               @foreach (var itemShortage in Model.shortBagDtls) {
+
+                                                    <tr>
+                                                    <td> <input type='hidden' id='shrtTypeId_arrival' value='@itemShortage.shortTypeId'/>@itemShortage.ShortName </td>
+                                                    <td>@itemShortage.shortPkgNet</td>
+                                                    <td>@itemShortage.serial</td>
+                                                    <td><button type='button' class='btn btn-danger btn-xs shrtg-del'>Del</button></td>
+                                                    </tr>
+                                                
+                                                }
+                                            </tbody>
+                                        </table>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--Remarks-->
+                        <div class="col-md-4">
+                             <div class="panel panel-success">
+                                <div class="panel-heading">Remarks</div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="5" id="remarks"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-6" style="text-align: right;">
+                        <button type="button" class="btn btn-primary btnArrivalInvoicesSave">Save</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="@Url.Action("listofInvoices", "ArrivalInvoices", new {arrivalId= Model.arrivalId })" class="btn btn-primary" role="button">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+     }
+</div>
+
+@*{ Html.RenderAction("partialListInadd", "Unloadingdetail", new { unloadMasterId =Model.unloadingmasterid}); }*@
+
+<div class="modal fade" id="arrival-dtl-form-validmsg" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Following fields are required </h4>
+        </div>
+        <div class="modal-body">
+            <ul>
+              <li>Invoice number is required.</li>
+              <li>Form serial is required</li>
+              <li>To serial is required</li>
+              <li>Invoice Qty is required</li>
+              <li>Recv Qty is required</li>
+              <li>Gross is required</li>
+              <li>Net is required</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<div class="modal fade" id="arrival-dtl-saveunsuccess" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Following fields are required </h4>
+        </div>
+        <div class="modal-body">
+            <p>Internal error occured for saving</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+

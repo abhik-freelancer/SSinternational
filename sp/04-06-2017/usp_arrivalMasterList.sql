@@ -18,7 +18,7 @@ GO
 -- Create date: 03/05/2017
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_arrivalMasterList 
+ALTER PROCEDURE usp_arrivalMasterList 
 	-- Add the parameters for the stored procedure here
 	@companyId int,
 	@yearid int
@@ -31,6 +31,33 @@ BEGIN
     -- Insert statements for procedure here
 	SELECT [arrivalMaster].[arrivalId]
       ,[arrivalMaster].[unloadingId]
+      ,[arrivalMaster].[arrivalNumber]
+      ,Convert(VARCHAR(10),CONVERT(date,[arrivalMaster].[dateofarrival],106),103)as dateofarrival
+      
+      ,[arrivalMaster].[lotnumber]
+      ,[arrivalMaster].[gardenid]
+      ,[arrivalMaster].[carrier]
+      ,[arrivalMaster].[lorrynum]
+      ,[arrivalMaster].[brokerid]
+      ,[arrivalMaster].[warehouseid]
+      ,[arrivalMaster].[cnno]
+      ,[arrivalMaster].[cndate]
+      ,[arrivalMaster].[gpno]
+      ,[arrivalMaster].[wbno]
+      ,[Brokers].BrokerName
+      ,[unloadingmaster].unloadingnumber
+      ,COUNT(arrivalDetail.id)as cnt
+      ,[arrivalMaster].[companyid]
+      ,[arrivalMaster].[yearid]
+  FROM [arrivalMaster]
+  LEFT JOIN
+  unloadingmaster ON [arrivalMaster].[unloadingId] = unloadingmaster.id
+  INNER JOIN   Brokers ON [arrivalMaster].[brokerid]=Brokers.BrokerId
+  LEFT JOIN arrivalDetail ON arrivalMaster.arrivalId = arrivalDetail.arrivalId
+  WHERE [arrivalMaster].[companyid] =@companyId  AND [arrivalMaster].[yearid] = @yearid
+  GROUP BY 
+  arrivalMaster.arrivalId
+  ,[arrivalMaster].[unloadingId]
       ,[arrivalMaster].[arrivalNumber]
       ,[arrivalMaster].[dateofarrival]
       ,[arrivalMaster].[lotnumber]
@@ -45,14 +72,7 @@ BEGIN
       ,[arrivalMaster].[wbno]
       ,[Brokers].BrokerName
       ,[unloadingmaster].unloadingnumber
-      ,[arrivalMaster].[companyid]
+       ,[arrivalMaster].[companyid]
       ,[arrivalMaster].[yearid]
-  FROM [arrivalMaster]
-  LEFT JOIN
-  unloadingmaster ON [arrivalMaster].[unloadingId] = unloadingmaster.id
-  INNER JOIN 
-  Brokers ON [arrivalMaster].[brokerid]=Brokers.BrokerId
-  WHERE [arrivalMaster].[companyid] =@companyId
-  AND [arrivalMaster].[yearid] = @yearid
 END
 GO
