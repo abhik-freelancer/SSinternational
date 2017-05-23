@@ -65,6 +65,9 @@ namespace SSinternational.service
             return _unloadingDetails.getGardenCode(unloadingmasterId);
         }
 
-
+        public Boolean gereneratearrival(string unloadingMasterId, string arrivalNumber,string arrivalDate){
+            UnloadingDetails _unloadingDetails = new UnloadingDetails();
+            return _unloadingDetails.gereneratearrival(unloadingMasterId, arrivalNumber, arrivalDate);
+        }
     }
 }

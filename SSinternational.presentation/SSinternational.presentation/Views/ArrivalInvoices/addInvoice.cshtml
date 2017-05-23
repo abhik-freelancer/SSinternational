@@ -5,7 +5,7 @@
 }
 @{
     var floorLst = Model.floorList.Select(m => new SelectListItem { Value=m.floorId.ToString(),Text=m.floorName.ToString()});
-  
+    var packageLst = Model.packageList.Select(m => new SelectListItem { Value = m.PackageId.ToString(), Text = m.Description.ToString() });
   
  }
 
@@ -114,7 +114,8 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.package, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control decimalonly",@placeholder="Package",@id="package_arrival" })
+                                                 @*Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control decimalonly",@placeholder="Package",@id="package_arrival" })*@
+                                                    @Html.DropDownListFor(m => m.package, (IEnumerable<SelectListItem>)packageLst, "--Select--", new { @class = "form-control", @id = "package_arrival" })
                                                 </div>
                                                </div>
 
@@ -175,7 +176,7 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.gross, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.gross,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Gross",@id="gross_arrival"})
+                                                 @Html.TextBoxFor(m => m.gross,new {@class="form-control decimalonly",@placeholder="Gross",@id="gross_arrival"})
                                                      <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.gross)</span>
                                                 </div>
                                                </div>
@@ -369,7 +370,7 @@
      }
 </div>
 
-@*{ Html.RenderAction("partialListInadd", "Unloadingdetail", new { unloadMasterId =Model.unloadingmasterid}); }*@
+@{ Html.RenderAction("arrivalPartialList", "ArrivalInvoices", new { arrivalId = Model.arrivalId }); }
 
 <div class="modal fade" id="arrival-dtl-form-validmsg" role="dialog">
     <div class="modal-dialog">

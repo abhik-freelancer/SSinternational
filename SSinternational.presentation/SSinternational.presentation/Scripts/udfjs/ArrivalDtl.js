@@ -13,8 +13,8 @@
 
 
     
-    //invoiceList-tbl
-    /*$("#invoiceList-tbl").DataTable({
+    //arrvlPartialDtl-tbl
+    $("#arrvlPartialDtl-tbl").DataTable({
         "columnDefs": [{
             "targets": 7,
             "orderable": false
@@ -23,11 +23,11 @@
             search: "_INPUT_",
             searchPlaceholder: "Search..."
         }
-    });*/
+    });
 
     $(".dmg-add-arrival").click(function () {
         
-        if (damageRowValidation()) {
+        if (damageRowValidationArrival()) {
             
             var damageTypeId = $("#dmgType_arrival").val()||"";
             var damageType = $("#dmgType_arrival :selected").text() || "";
@@ -43,13 +43,13 @@
 
             // console.log(row);
             $("#damageTableArrival").append(row);
-            clearDamageField();
+            clearDamageFieldArrival();
         }
 
     });
 
     $(".shrt-add-arrival").click(function () {
-        if (shortageRowvalidation()) {
+        if (shortageRowvalidationArrival()) {
             var shortatageTypeId = $("#shrtType_arrival").val() || "";
             var shortageType = $("#shrtType_arrival option:selected").text() || "";
             
@@ -65,7 +65,7 @@
             //console.log(row);
 
             $("#tblShort_arrival").append(row);
-            clearShortageField();
+            clearShortageFieldArrival();
 
         }
 
@@ -74,7 +74,7 @@
     $("#pkgsrlto_arrival").blur(function () {
         var SerialFrom = parseInt($("#pkgsrlfrm_arrival").val() || 0);
         var SerialTo = parseInt($("#pkgsrlto_arrival").val() || 0);
-        calculateSerial(SerialFrom, SerialTo);
+        calculateSerialArrival(SerialFrom, SerialTo);
     });
 
     $("#tblShort_arrival").on("click", ".shrtg-del", function () {
@@ -229,17 +229,25 @@
 
     $(document).on("blur", "#Sfx-arrival", function () {
        
-        var invoicenumber = getGeneratedInvoicceNumber();
+        var invoicenumber = getGeneratedInvoicceNumberArrival();
         $("#invoice_arrival").val(invoicenumber);
 
     });
 
 
+    $(document).on("blur", "#tare_arrival", function () {
+
+        var netAmount = CalculateNetArrival();
+        console.log(netAmount);
+        $("#net_arrival").val(netAmount);
+
+    });
+
     /**********************************/
 });
 /**********************************/
 
-function getGeneratedInvoicceNumber() {
+function getGeneratedInvoicceNumberArrival() {
     var pfx = $("#prfx-arrival").val();
     var garden = $("#grcode-arrival").val();
     var serial = parseInt($("#srl-arrival").val() || 0);
@@ -315,19 +323,19 @@ function isNumber(evt, element) {
     return true;
 }
 
-function clearDamageField() {
+function clearDamageFieldArrival() {
     $("#dmgType_arrival").val("");
     $("#dmgPktNet_arrival").val("");
     $("#dmgSerial_arrival").val("");
 }
 
-function clearShortageField() {
+function clearShortageFieldArrival() {
     $("shrtType_arrival").val("");
     $("#shrtgPktNet_arrival").val("");
     $("#shrtgSerial_arrival").val("");
 }
 
-function calculateSerial(SerialFrom, SerialTo) {
+function calculateSerialArrival(SerialFrom, SerialTo) {
     if(SerialFrom!=0 && SerialTo!=0){
         var fromSerialLength = SerialFrom.toString().length;
         var toSerialLenght = SerialTo.toString().length;
@@ -355,7 +363,7 @@ function calculateSerial(SerialFrom, SerialTo) {
 }
 
 
-function damageRowValidation() {
+function damageRowValidationArrival() {
     if ($("#dmgType_arrival").val() == "") { return false; }
     if ($("#dmgPktNet_arrival").val() == "") { return false;}
     if ($("#dmgSerial_arrival").val() == "") { return false; }
@@ -373,7 +381,7 @@ function damageRowValidation() {
     return true;
 }
 
-function shortageRowvalidation() {
+function shortageRowvalidationArrival() {
     if ($("shrtType_arrival").val() == "") { return false;}
     if ($("#shrtgPktNet_arrival").val() == "") { return false; }
     if ($("#shrtgSerial_arrival").val() == "") { return false; }
@@ -390,7 +398,16 @@ function shortageRowvalidation() {
 
     return true;
 }
+function CalculateNetArrival() {
 
+    var gross = $("#gross_arrival").val() || 0;
+    var tare = $("#tare_arrival").val() || 0;
+    var net_amount = 0;
+
+    net_amount = parseFloat(gross) - parseFloat(tare);
+
+    return net_amount;
+}
 
 
 

@@ -38,6 +38,8 @@ namespace SSinternational.common
           //arrival master
           Mapper.CreateMap<ArrivalMasterVM, ArrivalMaster>();
           Mapper.CreateMap<ArrivalDtlAddEditVM, ArrivalInvoices>();
+
+          Mapper.CreateMap<CatalogueVM, Catalogue>();
           
         }
     }

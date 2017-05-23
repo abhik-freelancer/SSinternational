@@ -412,6 +412,8 @@ namespace SSinternational.dataaccess
                             shortBagInsert(shrtBagDtl, lastInsertId, cnn, trans);
                         }
 
+                        StockInsertion(null, lastInsertId, _arrivalInvoices, cnn, trans);
+
                         trans.Commit();
                         cnn.Close();
                         return 1;
@@ -466,6 +468,23 @@ namespace SSinternational.dataaccess
 
         }
 
+
+        private void StockInsertion(int? stockId,int arrivalDetailId, ArrivalInvoices _invoices,SqlConnection cnn,SqlTransaction trans) { 
+        //to do
+            using (SqlCommand cmd = new SqlCommand("usp_arrivalStockInsertion",cnn,trans))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@arrivalId", _invoices.arrivalId);
+                cmd.Parameters.AddWithValue("@arrivalInvoiceId", arrivalDetailId);
+                cmd.Parameters.AddWithValue("@invoice", _invoices.invoice);
+                cmd.Parameters.AddWithValue("@grade", _invoices.grade);
+                cmd.Parameters.AddWithValue("@yearofproduction", _invoices.yearofproduction);
+                cmd.Parameters.AddWithValue("@net", _invoices.net);
+                cmd.Parameters.AddWithValue("@invoicequantity", _invoices.receivequantity);
+                cmd.ExecuteNonQuery();
+            }
+        
+        }
 
         public DataTable GetArrivalDtlById(int arrivalMasterId, int arrivalDetailId)
         {   //usp_GetUnloadingDtlById 
@@ -576,6 +595,8 @@ namespace SSinternational.dataaccess
                             shortBagInsert(shortBag, updtUnldInvc.arrivalDetailid, cnn, trans);
                         }
 
+                        /****************Stock update****************/
+                        updateStock(updtUnldInvc, cnn, trans);
 
                         trans.Commit();
                         cnn.Close();
@@ -626,6 +647,23 @@ namespace SSinternational.dataaccess
             }
 
 
+        }
+
+        private void updateStock(ArrivalInvoices updtUnldInvc,SqlConnection cnn,SqlTransaction trans)
+        {
+            using (SqlCommand cmd = new SqlCommand("usp_arrivalStockUpdate",cnn,trans))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@arrivalId",updtUnldInvc.arrivalId);
+                cmd.Parameters.AddWithValue("@arrivalInvoiceId", updtUnldInvc.arrivalDetailid);
+                cmd.Parameters.AddWithValue("@invoice", updtUnldInvc.invoice);
+                cmd.Parameters.AddWithValue("@grade", updtUnldInvc.grade);
+                cmd.Parameters.AddWithValue("@yearofproduction", updtUnldInvc.yearofproduction);
+                cmd.Parameters.AddWithValue("@net", updtUnldInvc.net);
+                cmd.Parameters.AddWithValue("@invoicequantity", updtUnldInvc.receivequantity);
+                cmd.ExecuteNonQuery();
+
+            }
         }
 
 /******************************************/

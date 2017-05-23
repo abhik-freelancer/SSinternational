@@ -18,14 +18,14 @@ GO
 -- Create date: 
 -- Description:	
 -- =============================================
-CREATE PROCEDURE usp_arrivalDetailUpdate 
+ALTER PROCEDURE usp_arrivalDetailUpdate 
 	-- Add the parameters for the stored procedure here
 	@arrivalDetailId int,
 	
 	@arrivalId int,
 	@invoice varchar(100),
 	@grade varchar(100)=null,
-	@package decimal(12,2)=null,
+	@package int =null,
 	@yearofproduction varchar(100)=null,
 	@pkgsrlfrm int,
 	@pkgsrlto int,

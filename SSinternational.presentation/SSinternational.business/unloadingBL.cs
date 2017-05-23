@@ -83,5 +83,9 @@ namespace SSinternational.business
             return _SL.getGardenCode(unloadingmasterId);
         }
 
+        public Boolean gereneratearrival(string unloadingMasterId, string arrivalNumber, string arrivalDate) {
+            UnloadingDtlSL _SL = new UnloadingDtlSL();
+            return _SL.gereneratearrival(unloadingMasterId, arrivalNumber, arrivalDate);
+        }
     }
 }

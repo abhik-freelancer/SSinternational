@@ -16,7 +16,7 @@ namespace SSinternational.viewmodel
         
        [Display (Name="Receipt Date")]
        [Required (ErrorMessage="Receipt date cannot be blank")]
-       public Nullable<DateTime> receiptdate { get; set; }
+       public DateTime receiptdate { get; set; }
        
        [Display (Name="Lot No.")]
        [Required (ErrorMessage="Lot number is required")]
@@ -63,5 +63,7 @@ namespace SSinternational.viewmodel
        public string brokername { get; set; }
        public string warehousename { get; set; }
        public int numberofinvoices { get; set; }
+
+       public string arrivalNumber { get; set; }
     }
 }

@@ -1,0 +1,77 @@
+﻿@model SSinternational.viewmodel.CatalogueVM
+
+@{
+    ViewBag.Title = "catalogueEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var brokerLst = Model.brokerList.Select(m => new SelectListItem { Value = m.BrokerId.ToString(), Text = m.BrokerName.ToString() });
+  }
+
+<div style="width:60% ;margin:0 auto;">
+<div class="container-fluid">
+
+     <div class="panel panel-default">
+            <div class="panel-heading"> <i class="fa fa-info" aria-hidden="true"></i> Catalogue</div>
+            <div class="panel-body">
+                @using (@Html.BeginForm("catalogueEdit", "Catalogue", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.ValidationSummary(true,"",new { @class="text-danger"})
+                    @Html.HiddenFor(m=>m.catalogId)
+                    @Html.HiddenFor(m=>m.arrivalInvoiceId)
+                 
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="ctlgDt">Date:</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.catalougedate, new { @class = "form-control" })
+                            <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.catalougedate)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="catlgSale">Sale no:</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.saleNumber, new { @class = "form-control" })
+                            <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.saleNumber)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="catlgLot">Lot no:</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.lotNumber, new { @class = "form-control" })
+                            <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.lotNumber)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="catlgSerial">Serial:</label>
+                        <div class="col-sm-8">
+                          @*@Html.DropDownList("Serial", ViewData["serialEdit"] as List<SelectListItem>, "---Select---", new { @class = "form-control", @id = "chstSerial" })*@
+                              @Html.DropDownListFor(m => m.bagSerial,ViewData["serialEdit"] as List<SelectListItem>, "--Select--", new { @class = "form-control" })   
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="catlgBroker">Broker:</label>
+                        <div class="col-sm-8">
+                          @Html.DropDownListFor(m => m.brokerId, (IEnumerable<SelectListItem>)brokerLst, "--Select--", new { @class = "form-control", @id = "catlgbroker" }) 
+                        </div>
+                        <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.brokerId)</span>
+                    </div>
+
+                
+                    
+                     <div class="form-group">
+                        <div class="col-sm-2 control-label"></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="@Url.Action("catalogList","Catalogue",new{@invoiceId=Model.arrivalInvoiceId})" class="btn btn-primary" role="button">Cancel</a>
+                        </div>
+                    </div>
+                }
+             </div>
+     </div>
+</div>
+</div>

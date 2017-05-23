@@ -5,7 +5,7 @@
 }
 @{
     var floorLst = Model.floorList.Select(m => new SelectListItem { Value=m.floorId.ToString(),Text=m.floorName.ToString()});
-  
+    var packageLst = Model.packageList.Select(m=>new SelectListItem {Value=m.PackageId.ToString(),Text=m.Description.ToString()});
   
  }
 
@@ -113,7 +113,8 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.package, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control decimalonly",@placeholder="Package" })
+                                                 @*Html.TextBoxFor(m => m.package, "{0:#.#}", new {@class="form-control decimalonly",@placeholder="Package" })*@
+                                                    @Html.DropDownListFor(m=>m.package,(IEnumerable<SelectListItem>)packageLst,"--Select--", new {@class="form-control" })
                                                 </div>
                                                </div>
 
@@ -174,7 +175,7 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.gross, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.gross,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Gross"})
+                                                 @Html.TextBoxFor(m => m.gross, new {@class="form-control decimalonly",@placeholder="Gross"})
                                                      <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.gross)</span>
                                                 </div>
                                                </div>
@@ -183,7 +184,7 @@
                                               <div class="form-group">
                                                  @Html.LabelFor(m => m.tare, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.tare, "{0:#.#}",new {@class="form-control decimalonly",@placeholder="Tare"})
+                                                 @Html.TextBoxFor(m => m.tare, new {@class="form-control decimalonly",@placeholder="Tare"})
                                                 </div>
                                                </div>
                                        </div>
@@ -191,7 +192,7 @@
                                                <div class="form-group">
                                                  @Html.LabelFor(m => m.net, new {@class="col-sm-6 control-label" })
                                                 <div class="col-sm-6">
-                                                 @Html.TextBoxFor(m => m.net,"{0:#.#}", new {@class="form-control decimalonly",@placeholder="Net"})
+                                                 @Html.TextBoxFor(m => m.net, new {@class="form-control decimalonly",@placeholder="Net"})
                                                      <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.net)</span>
                                                 </div>
                                                </div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SSinternational.viewmodel.ArrivalInvoicesListVM>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="arrvlPartialDtl-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Arrival No.</th>
+                                                    <th>Arrival Date</th>
+                                                    <th>Invoice</th>
+                                                    <th>Grade</th>
+                                                    <th>Inv Qty</th>
+                                                    <th>Recv Qty</th>
+                                                    <th>Floor</th>
+                                                    <th>Action</th>
+
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var arrvlDtl in Model){
+												<tr>
+                                                        <td>@arrvlDtl.arrivalNumber</td>
+                                                        <td>@arrvlDtl.dateofarrival.ToString("dd/MM/yyyy")</td>
+                                                        <td>@arrvlDtl.invoice</td>
+                                                        <td>@arrvlDtl.grade</td>
+                                                        <td>@arrvlDtl.invoicequantity</td>
+                                                        <td>@arrvlDtl.receivequantity</td>
+                                                        <td>@arrvlDtl.floorName</td>
+                                                        <td>
+                                                            <a href="@Url.Action("addInvoice", "ArrivalInvoices", new  {@arrivalMasterId=@arrvlDtl.arrivalId ,@arrivalDetailId = @arrvlDtl.arrivalDetailid })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            <!--<button class='btn btn-danger btn-xs unldmst-del' data-id="@arrvlDtl.arrivalDetailid"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>-->
+                                                            
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>

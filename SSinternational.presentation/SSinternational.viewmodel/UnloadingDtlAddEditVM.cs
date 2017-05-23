@@ -20,8 +20,11 @@ namespace SSinternational.viewmodel
        [Display(Name="Grade")]
        public string grade { get; set; }
        
-       [Display(Name="Packages")]
-       public decimal package { get; set; }
+       [Display(Name="Package Type")]
+       public int? package { get; set; }
+       public IEnumerable<PackagesVM> packageList { get; set; }
+
+
        
        [Display(Name="Cropping Year")]
        public string yearofproduction { get; set; }
@@ -54,7 +57,7 @@ namespace SSinternational.viewmodel
        public decimal net { get; set; }
 
        [Display(Name = "Floor")]
-       public int floorId { get; set; }
+       public int? floorId { get; set; }
        public IEnumerable<FloorVM> floorList { get; set; }
 
        public string floorName { get; set; }

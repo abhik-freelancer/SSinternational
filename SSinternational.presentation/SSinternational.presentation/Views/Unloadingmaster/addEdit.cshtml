@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.receiptdate, new { @class="col-sm-4 control-label"})
                                <div class="col-sm-8">
-                                   @Html.TextBoxFor(m => m.receiptdate, new { @class="form-control",@readonly="readonly", @Type="date",@id="rcptdt"})
+                                   @Html.TextBoxFor(m => m.receiptdate,"{0:dd-MM-yyyy}", new {@class="form-control",@readonly="readonly", @id="rcptdt"})
                                    <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.receiptdate)</span>
                                 </div>
                            </div>
@@ -163,7 +163,7 @@
                             
                                @Html.LabelFor(m => m.cndate, new {@class="col-sm-4 control-label" })
                                <div class="col-sm-8">
-                                  @Html.TextBoxFor(m => m.cndate, new {@class="form-control",@readonly="readonly" ,@id="cnnDate"})
+                                  @Html.TextBoxFor(m => m.cndate, "{0:dd-MM-yyyy}",new {@class="form-control",@readonly="readonly" ,@id="cnnDate"})
                                </div>
                            </div>
                       </div>

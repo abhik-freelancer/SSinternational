@@ -37,6 +37,8 @@ namespace SSinternational.presentation.Controllers
         }
 
 
+       
+
 
         public ActionResult addEditArrivalDetail(int arrivalId)
         {
@@ -78,11 +80,13 @@ namespace SSinternational.presentation.Controllers
                 if (arrivalMasterId != 0)
                 {
                     ViewBag.companyName = this.LoggedCompanyName;
+                    int companyId = this.companyId;
                     ArrivalDtlAddEditVM _VM = new ArrivalDtlAddEditVM();
                     ArrivalBL _BL = new ArrivalBL();
                     FloorsBL _floorList = new FloorsBL();
                     DamagetypesBL _damageList = new DamagetypesBL();
                     ShorttypesBL _shortList = new ShorttypesBL();
+                    PackagesBL _packageBL = new PackagesBL();
 
                     if (arrivalDetailId != 0)
                     {
@@ -95,6 +99,7 @@ namespace SSinternational.presentation.Controllers
                     _VM.floorList = _floorList.getFloorList();
                     _VM.damageSelectList = _damageList.GetAllDamageTypes();
                     _VM.shorttypeSelectList = _shortList.GetAllShortTypes();
+                    _VM.packageList = _packageBL.GetAllPackages(companyId);
                     _VM.arrivalId = arrivalMasterId;
 
                     _VM.invoiceformatId = _BL.checkInvoiceFormatId(arrivalMasterId);
@@ -188,8 +193,13 @@ namespace SSinternational.presentation.Controllers
 
         }
 
-
-
+        [ChildActionOnly]
+        public ActionResult arrivalPartialList(int arrivalId)
+        {
+            ArrivalBL _BL = new ArrivalBL();
+            IEnumerable<ArrivalInvoicesListVM> _VM = _BL.getArrivalInvoicesList(arrivalId);
+            return PartialView(_VM); 
+        }
 
 
 

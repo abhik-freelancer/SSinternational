@@ -44,12 +44,17 @@ namespace SSinternational.presentation.Controllers
                 BrokersBL _brokerBL = new BrokersBL();
                 WarehousesBL _warehouseBL = new WarehousesBL();
                 unloadingBL _unlndBL = new unloadingBL();
+                int unloadingMasterId = Convert.ToInt32(unloadmstId);
 
-                
-                if (unloadmstId != 0) { 
+
+                if (unloadingMasterId != 0)
+                {
                     //to do
                     _unloadmstVM = _unlndBL.getUnldMasterDataById(Convert.ToInt32(unloadmstId));
 
+                }
+                else {
+                    _unloadmstVM.receiptdate = DateTime.Today;
                 }
                 _unloadmstVM.gardenList = _gardenBL.getGardenList(companyId);
                 _unloadmstVM.brokerList = _brokerBL.GetAllBrokers();
@@ -149,6 +154,45 @@ namespace SSinternational.presentation.Controllers
 
             return Json(returnData, JsonRequestBehavior.DenyGet);  
         
+        
+        }
+
+        public ActionResult generateArrival(string unloadingMasterId, string arrivalNumber, string arrivalDate) {
+
+            var returnData = new object();
+            if (this.LoggedUserId != 0)
+            {
+                unloadingBL _unloadingBl = new unloadingBL();
+                
+                
+
+                if (arrivalNumber != "" && arrivalDate != "")
+                {
+                    Boolean gereneratearrival = _unloadingBl.gereneratearrival(unloadingMasterId, arrivalNumber, arrivalDate);
+
+                    if (gereneratearrival)
+                    {
+                        returnData = new { msg_code = "1", msg_data = "<p>Arrival has been generated successfully.</p>" };
+                    }
+                    else
+                    {
+                        returnData = new { msg_code = "0", msg_data = "<p>Internal error occured.</p>" };
+                    }
+                }
+                else {
+
+                    returnData = new { msg_code = "2", msg_data = "<p>Arrival number and date are mandatory for generating arrival.</p>" };
+                }
+
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
+
+
+            return Json(returnData, JsonRequestBehavior.DenyGet);  
         
         }
 

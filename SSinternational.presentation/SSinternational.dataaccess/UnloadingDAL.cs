@@ -276,9 +276,12 @@ namespace SSinternational.dataaccess
                         cmd.ExecuteNonQuery();
                         int lastInsertId = Convert.ToInt32(cmd.Parameters["@lastInsertId"].Value.ToString());
 
+                        // get brokerId by unloadingmasterid
+                        int brokerId = getBrokerId(_unloadingDetails.unloadingmasterid);
+
                         foreach (var dmjBagDtl in _unloadingDetails.damageBagDtls) {
 
-                            damageBagInsert(dmjBagDtl, lastInsertId, cnn,trans);  
+                            damageBagInsert(dmjBagDtl, lastInsertId, cnn,trans,brokerId);  
                         }
                         foreach (var shrtBagDtl in _unloadingDetails.shortBagDtls) {
 
@@ -306,8 +309,30 @@ namespace SSinternational.dataaccess
         
         }
 
+        /// <summary>
+        /// get broker id using masterid for insertion
+        /// into damagebagdetails
+        /// </summary>
+        /// <date>23/05/2017</date>
+        /// <param name="msterId"></param>
+        private int getBrokerId(int msterId) {
+            int brokerId;
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                string sql = "select unloadingmaster.brokerid from unloadingmaster where unloadingmaster.id= " + msterId;
+                using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                {
+                    brokerId =Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                cnn.Close();
+            }
+            return brokerId;
+        }
 
-        private void damageBagInsert(DamageBagDtl damageBag,int unldDtlId,SqlConnection cnn,SqlTransaction trns) {
+
+
+        private void damageBagInsert(DamageBagDtl damageBag,int unldDtlId,SqlConnection cnn,SqlTransaction trns,int brokerId) {
 
             using (SqlCommand cmd = new SqlCommand("usp_UnloadingDamageBagDtlInser",cnn,trns))
             {
@@ -316,6 +341,8 @@ namespace SSinternational.dataaccess
                 cmd.Parameters.AddWithValue("@damageTypeId", damageBag.damageTypeId);
                 cmd.Parameters.AddWithValue("@net", damageBag.net);
                 cmd.Parameters.AddWithValue("@serial", damageBag.serial);
+                cmd.Parameters.AddWithValue("@brokerId", brokerId);
+
                 cmd.ExecuteNonQuery();
             }
            
@@ -433,8 +460,10 @@ namespace SSinternational.dataaccess
                         DeleteDamageBagDtl(updtUnldInvc.unloadingDetailId, cnn, trans);
                         DeleteShortBagDtl(updtUnldInvc.unloadingDetailId, cnn, trans);
 
+                        int brokerId = getBrokerId(updtUnldInvc.unloadingmasterid);
+
                         foreach (var damageBag in updtUnldInvc.damageBagDtls) {
-                            damageBagInsert(damageBag, updtUnldInvc.unloadingDetailId, cnn, trans);
+                            damageBagInsert(damageBag, updtUnldInvc.unloadingDetailId, cnn, trans, brokerId);
                         }
                         foreach (var shortBag in updtUnldInvc.shortBagDtls)
                         {
@@ -538,6 +567,43 @@ namespace SSinternational.dataaccess
             return gardenCode;
         }
 
+        public Boolean gereneratearrival(string unloadingMasterId, string arrivalNumber, string arrivalDate) {
+
+            int _unloadingMasterId = Convert.ToInt32(unloadingMasterId);
+            DateTime _arrivalDate = Convert.ToDateTime(arrivalDate);
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+                {
+                    cnn.Open();
+                    using (SqlCommand cmd = new SqlCommand("usp_generateUnloadingFromArrival", cnn))
+                    {
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@unloadingMasterId", _unloadingMasterId);
+                        cmd.Parameters.AddWithValue("@arrivalnumber", arrivalNumber);
+                        cmd.Parameters.AddWithValue("@arrivalDate", _arrivalDate);
+                        cmd.ExecuteNonQuery();
+                        cnn.Close();
+
+
+
+
+                    }
+                    cnn.Close();
+
+
+                }
+                return true;
+            }
+            catch (SqlException sex) {
+
+                return false;
+            
+            }
+        
+        
+        }
 
 
         /**********/

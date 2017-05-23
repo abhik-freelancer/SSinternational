@@ -68,8 +68,11 @@ namespace SSinternational.presentation.Controllers
                 if (unloadMasterId != 0)
                 {
                     ViewBag.companyName = this.LoggedCompanyName;
+                    int companyId = this.companyId;
                     UnloadingDtlAddEditVM _VM = new UnloadingDtlAddEditVM();
                     unloadingBL _BL = new unloadingBL();
+
+                    PackagesBL _packageList = new PackagesBL();
                     FloorsBL _floorList = new FloorsBL();
                     DamagetypesBL _damageList = new DamagetypesBL();
                     ShorttypesBL _shortList = new ShorttypesBL();
@@ -80,7 +83,7 @@ namespace SSinternational.presentation.Controllers
                         _VM.shortBagDtls = _BL.GetShoertBagDtlById(Convert.ToInt32(unloadingdetailId));
                     }
 
-                   
+                    _VM.packageList = _packageList.GetAllPackages(companyId);
                     _VM.floorList = _floorList.getFloorList();
                     _VM.damageSelectList = _damageList.GetAllDamageTypes();
                     _VM.shorttypeSelectList = _shortList.GetAllShortTypes();

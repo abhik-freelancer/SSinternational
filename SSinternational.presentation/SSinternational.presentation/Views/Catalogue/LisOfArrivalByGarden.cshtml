@@ -1,0 +1,103 @@
+﻿@model IEnumerable<SSinternational.viewmodel.CatalogueVM>
+<script>
+    $("#catalog-arrival").DataTable({
+        "columnDefs": [{
+            "targets": [6],
+            "orderable": false
+        }],
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search..."
+        }
+    });
+</script>
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="catalog-arrival" > 
+										<thead>
+												 <tr>
+                                                    <th>Arrival No.</th>
+                                                    <th>Arrival Date</th>
+                                                    <th>Invoice</th>
+                                                    <th>Grade</th>
+                                                    <th>Recv Qty</th>
+                                                    <th>Net</th>
+                                                    <th>Action</th>
+
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var arrvlDtl in Model){
+												<tr>
+                                                        <td>@arrvlDtl.arrivalNumber</td>
+                                                        <td>@arrvlDtl.arrivalDate</td>
+                                                        <td>@arrvlDtl.invoices</td>
+                                                        <td>@arrvlDtl.grade</td>
+                                                        <td>@arrvlDtl.receiveQty</td>
+                                                        <td>@arrvlDtl.net</td>
+                                                        <td>
+                                                            
+                                                           <button class='btn btn-primary btn-xs catlgadd' data-id="@arrvlDtl.arrivalInvoiceId"  data-toggle="modal" ><span class="fa fa-universal-access"></span> Catalogue</button>
+                                                           <a href="@Url.Action("catalogList", "Catalogue", new  {@invoiceId=@arrvlDtl.arrivalInvoiceId })" class="btn btn-xs btn-success" role="button">List</a> 
+                                                        </td>
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="catlogModal" class="modal fade " role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add catalogue</h4>
+          <input type="hidden" id="arrivalInvoiceId" value="" />
+          <input type="hidden" id="savepath" value="@Url.Action("SaveCataLogue","Catalogue")" />
+      </div>
+        
+            <div class="alert alert-danger alert-dismissable" style="display:none;">
+            <a href="#" class="close alclose"  aria-label="close">×</a>
+            <strong>Sorry</strong> All fields are mandatory.
+            </div>
+        
+      <div class="modal-body catlog">
+         
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default save-catalogue" >Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" id="message-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Catalogue</h4>
+        </div>
+        <div class="modal-body">
+          <div id="msg-area">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -85,7 +85,7 @@
                                 @Html.LabelFor(m => m.dateofarrival, new { @class="col-sm-4 control-label"})
                             
                                 <div class="col-sm-8">
-                                   @Html.TextBoxFor(m => m.dateofarrival, new {@Value = Model.dateofarrival.ToString("d"), @class="form-control",@readonly="readonly", @Type="date",@id="arvlDt"})
+                                   @Html.TextBoxFor(m => m.dateofarrival, "{0:dd-MM-yyyy}",new {@class="form-control",@readonly="readonly", @id="arvlDt"})
                                    <span  class="help-block" style="color:red">@Html.ValidationMessageFor(m=>m.dateofarrival)</span>
                                 </div>
                            </div>
@@ -184,7 +184,7 @@
                             
                                @Html.LabelFor(m => m.cndate, new {@class="col-sm-4 control-label" })
                                <div class="col-sm-8">
-                                  @Html.TextBoxFor(m => m.cndate,"{0:dd/MM/yyyy}", new {@class="form-control",@readonly="readonly" ,@id="cnnDate"})
+                                  @Html.TextBoxFor(m => m.cndate,"{0:dd-MM-yyyy}", new {@class="form-control",@readonly="readonly" ,@id="cnnDate"})
                                </div>
                            </div>
                       </div>

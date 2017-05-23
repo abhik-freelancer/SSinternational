@@ -13,7 +13,9 @@ namespace SSinternational.dataaccess.POCO
         public int unloadingmasterid { get; set; }
         public string invoice { get; set; }
         public string grade { get; set; }
-        public decimal package { get; set; }
+        
+        public int package { get; set; }
+
         public string yearofproduction { get; set; }
         public int pkgsrlfrm { get; set; }
         public int pkgsrlto { get; set; }
@@ -52,7 +54,7 @@ namespace SSinternational.dataaccess.POCO
                     _unldDtl.unloadingmasterid = Convert.ToInt32(rows["unloadingmasterid"].ToString());
                     _unldDtl.invoice = rows["invoice"].ToString();
                     _unldDtl.grade = rows["grade"].ToString();
-                    _unldDtl.package = Convert.ToDecimal(rows["package"].ToString());
+                    _unldDtl.package = Convert.ToInt32(rows["package"].ToString());
                     _unldDtl.yearofproduction = rows["yearofproduction"].ToString();
                     _unldDtl.pkgsrlfrm = Convert.ToInt32(rows["pkgsrlfrm"].ToString());
                     _unldDtl.pkgsrlto = Convert.ToInt32(rows["pkgsrlfrm"].ToString());
@@ -107,7 +109,7 @@ namespace SSinternational.dataaccess.POCO
 
                 if (DBNull.Value != rows["package"])
                 {
-                    _objUnloadingDtls.package = Convert.ToDecimal(rows["package"].ToString());
+                    _objUnloadingDtls.package = Convert.ToInt32(rows["package"].ToString());
                 }
                 else {
                     _objUnloadingDtls.package = 0;
@@ -161,6 +163,12 @@ namespace SSinternational.dataaccess.POCO
             UnloadingDAL _unldDAL = new UnloadingDAL();
             return _unldDAL.getGardenCode(unloadingmasterId);
         }
+
+        public Boolean gereneratearrival(string unloadingMasterId, string arrivalNumber, string arrivalDate) {
+            UnloadingDAL _unldDAL = new UnloadingDAL();
+            return  _unldDAL.gereneratearrival(unloadingMasterId, arrivalNumber, arrivalDate);
+        }
+
         /*****************************************************/
 
     }

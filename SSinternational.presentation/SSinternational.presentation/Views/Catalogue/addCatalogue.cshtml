@@ -1,0 +1,51 @@
+﻿@model SSinternational.viewmodel.CatalogueVM
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var gardenLst = Model.gardenList.Select(m => new SelectListItem { Value = m.gardenId.ToString(), Text = m.gardenname.ToString() });
+    }
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+         
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+
+<div style="width:60% ;margin:0 auto;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading"> <i class="fa fa-address-book-o" aria-hidden="true"></i> Catalogue</div>
+            <div class="panel-body">
+                
+                   
+                    
+                        
+                   <div class="form-group">
+                         
+                       <label class="col-sm-2 control-label">Garden</label>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="hdlstpath" value="@Url.Action("LisOfArrivalByGarden","Catalogue")"/>
+                             <input type="hidden" id="hdlstatlgadd" value="@Url.Action("CatalogEntry","Catalogue")"/>
+                            @Html.DropDownListFor(m => m.gardenId, (IEnumerable<SelectListItem>)gardenLst, "--Select--", new {@class="form-control",@id="garden"})
+                        </div>
+                    </div>
+
+      
+       
+            
+            
+            </div>
+    </div>
+
+</div>
+</div>
+<div id="lstdata">
+
+</div>
+

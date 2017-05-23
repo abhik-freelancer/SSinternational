@@ -220,10 +220,17 @@
 
 
     $(document).on("blur", "#Sfx", function () {
-       
+        
         var invoicenumber = getGeneratedInvoicceNumber();
         $("#invoice").val(invoicenumber);
 
+    });
+
+    $(document).on("blur", "#tare", function () {
+        
+        var netamount = CalculateNet();
+        console.log(netamount);
+        $("#net").val(netamount);
     });
 
 
@@ -238,6 +245,7 @@ function getGeneratedInvoicceNumber() {
     var sfx = $("#Sfx").val();
 
     var invoiceNumber = pfx + "/" + garden + "/" + serial + "/" + sfx;
+    
     return invoiceNumber;
 
 }
@@ -380,6 +388,17 @@ function shortageRowvalidation() {
     }
 
     return true;
+}
+
+function CalculateNet() {
+
+    var gross = $("#gross").val() || 0;
+    var tare = $("#tare").val() || 0;
+    var net_amount = 0;
+
+    net_amount = parseFloat(gross) - parseFloat(tare);
+
+    return net_amount;
 }
 
  

@@ -32,6 +32,8 @@ namespace SSinternational.dataaccess.POCO
         public string warehousename { get; set; }
         public int numberofinvoices { get; set; }
 
+        public string arrivalNumber { get; set; }
+
         public IEnumerable<UnloadingmasterPOCO> getUnloadingMasterList(int companyId, int yearId) {
 
             UnloadingDAL _unloadingDAL = new UnloadingDAL();
@@ -67,6 +69,7 @@ namespace SSinternational.dataaccess.POCO
                     _unldmst.brokername = rows["BrokerName"].ToString();
                     _unldmst.warehousename = rows["Name"].ToString();
                     _unldmst.numberofinvoices =Convert.ToInt32(rows["cnt"].ToString());
+                    _unldmst.arrivalNumber = rows["arrivalNumber"].ToString();
                     
                     _lstUnloadingMaster.Add(_unldmst);
 

@@ -16,7 +16,7 @@ namespace SSinternational.dataaccess.POCO
 
         public string invoice { get; set; }
         public string grade { get; set; }
-        public decimal package { get; set; }
+        public int package { get; set; }
         public string yearofproduction { get; set; }
         public int pkgsrlfrm { get; set; }
         public int pkgsrlto { get; set; }
@@ -65,7 +65,7 @@ namespace SSinternational.dataaccess.POCO
                     _objArrival.dateofarrival = Convert.ToDateTime(rows["dateofarrival"].ToString());
                     _objArrival.invoice = rows["invoice"].ToString();
                     _objArrival.grade = rows["grade"].ToString();
-                    _objArrival.package = Convert.ToDecimal(rows["package"].ToString());
+                    _objArrival.package = Convert.ToInt32(rows["package"].ToString());
                     _objArrival.yearofproduction = rows["yearofproduction"].ToString();
                     _objArrival.pkgsrlfrm = Convert.ToInt32(rows["pkgsrlfrm"].ToString());
                     _objArrival.pkgsrlto = Convert.ToInt32(rows["pkgsrlfrm"].ToString());
@@ -139,7 +139,7 @@ namespace SSinternational.dataaccess.POCO
 
                 if (DBNull.Value != rows["package"])
                 {
-                    _objArrivalInvoice.package = Convert.ToDecimal(rows["package"].ToString());
+                    _objArrivalInvoice.package = Convert.ToInt32(rows["package"].ToString());
                 }
                 else
                 {

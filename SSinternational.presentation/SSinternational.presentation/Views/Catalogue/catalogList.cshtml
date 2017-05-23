@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SSinternational.viewmodel.ArrivalInvoicesListVM>
+﻿@model IEnumerable<SSinternational.viewmodel.CatalogueVM>
+
 @{
     ViewBag.Title = "Wms-Pro";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +12,7 @@
         
             <div class="col-md-6">
                 <ul class="header-info-left">
-                    <li>List of Invoices</li>
+                    <li>List of Catalogue</li>
                      
                 </ul>
             </div>
@@ -20,10 +21,7 @@
               
                
                 <ul class="header-info-right">
-                    <li>
-                        <a href="@Url.Action("addInvoice", "ArrivalInvoices", new {arrivalMasterId=@ViewBag.arrivalMasterId})" class="btn btn-primary" role="button">ADD NEW</a>
-                    </li>
-                    <li><a href="@Url.Action("listofInvoices", "ArrivalInvoices", new { arrivalId=@ViewBag.arrivalMasterId})" class="btn btn-primary" role="button">LIST</a></li>
+                    <li><a href="@Url.Action("addCatalogue", "Catalogue")" class="btn btn-primary" role="button">Back to search</a></li>
                 </ul> 
             </div>
        
@@ -34,33 +32,33 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="table-responsive">
-									<table class="table table-bordered table-hover" id="arrvlDtl-tbl" > 
+									<table class="table table-bordered table-hover" id="tbl-ctlgList" > 
 										<thead>
 												 <tr>
-                                                    <th>Arrival No.</th>
-                                                    <th>Arrival Date</th>
-                                                    <th>Invoice</th>
-                                                    <th>Grade</th>
-                                                    <th>Inv Qty</th>
-                                                    <th>Recv Qty</th>
-                                                    <th>Floor</th>
+                                                    <th>Catalogue</th>
+                                                    <th>Date</th>
+                                                    
+                                                    <th>Lot</th>
+                                                    <th>Sale</th>
+                                                    <th>Serial</th>
                                                     <th>Action</th>
 
                                                  </tr>
 											</thead>
 											<tbody>
-                                                @foreach(var arrvlDtl in Model){
+                                                @foreach(var catalgLst in Model){
 												<tr>
-                                                        <td>@arrvlDtl.arrivalNumber</td>
-                                                        <td>@arrvlDtl.dateofarrival.ToString("dd/MM/yyyy")</td>
-                                                        <td>@arrvlDtl.invoice</td>
-                                                        <td>@arrvlDtl.grade</td>
-                                                        <td>@arrvlDtl.invoicequantity</td>
-                                                        <td>@arrvlDtl.receivequantity</td>
-                                                        <td>@arrvlDtl.floorName</td>
+                                                        <td>@catalgLst.catalognumber</td>
+                                                        <td>@(catalgLst.catalougedate.Value.ToString("dd/MM/yyyy"))</td>
+                                                        <td>@catalgLst.lotNumber</td>
+                                                        <td>@catalgLst.saleNumber</td>
+                                                        <td>@catalgLst.bagSerial</td>
+
+
+
                                                         <td>
-                                                            <a href="@Url.Action("addInvoice", "ArrivalInvoices", new  {@arrivalMasterId=@arrvlDtl.arrivalId ,@arrivalDetailId = @arrvlDtl.arrivalDetailid })" class="btn btn-xs btn-primary" role="button">Edit</a>
-                                                            <!--<button class='btn btn-danger btn-xs unldmst-del' data-id="@arrvlDtl.arrivalDetailid"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>-->
+                                                            <a href="@Url.Action("catalogueEdit", "catalogue", new  {catalogId = @catalgLst.catalogId,arrivalInvoiceId=@catalgLst.arrivalInvoiceId })" class="btn btn-xs btn-primary" role="button">Edit</a>
+                                                            
                                                             
                                                         </td>
                                                         
@@ -122,5 +120,4 @@
 
   </div>
 </div>
-
 

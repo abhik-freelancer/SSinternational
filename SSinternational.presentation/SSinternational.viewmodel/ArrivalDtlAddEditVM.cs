@@ -22,7 +22,8 @@ namespace SSinternational.viewmodel
         public string grade { get; set; }
 
         [Display(Name = "Packages")]
-        public decimal package { get; set; }
+        public int? package { get; set; }
+        public IEnumerable<PackagesVM> packageList { get; set; }
 
         [Display(Name = "Cropping Year")]
         public string yearofproduction { get; set; }
