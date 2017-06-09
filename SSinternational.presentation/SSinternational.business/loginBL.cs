@@ -39,5 +39,12 @@ namespace SSinternational.business
           _loginSL.getUpdateUserLoginTime(userId);
           
       }
+
+      public financialVM getFiscalYearById(int YearId)
+      {
+          financialyearSL _financialSL = new financialyearSL();
+          return _financialSL.getFiscalYearById(YearId);
+      }
+
     }
 }

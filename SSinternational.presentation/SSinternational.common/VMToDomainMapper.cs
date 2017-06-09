@@ -40,6 +40,11 @@ namespace SSinternational.common
           Mapper.CreateMap<ArrivalDtlAddEditVM, ArrivalInvoices>();
 
           Mapper.CreateMap<CatalogueVM, Catalogue>();
+          Mapper.CreateMap<OkaybybrokerVM, OkaybybrokerPOCO>();
+
+          Mapper.CreateMap<BillVM, BillPOCO>();
+          Mapper.CreateMap<BillDetailsVM, BillDetails>();
+          Mapper.CreateMap<ratemasterVM, rateMasterPOCO>();
           
         }
     }

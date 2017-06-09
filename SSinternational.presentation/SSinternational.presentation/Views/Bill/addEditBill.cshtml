@@ -1,0 +1,498 @@
+﻿@model SSinternational.viewmodel.BillVM
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var gardenList = Model.gardenList.Select(m => new SelectListItem { Value = m.gardenId.ToString(), Text = m.gardencode.ToString() });
+}
+<!-- js file bill.js-->
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Billing</li>
+
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="header-info-right">
+                    <li><a href="@Url.Action("Index", "Bill")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--end row panel-->
+</div>
+<div style="width: 96%; margin: 0 auto;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Bill Info</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <!--bill id for edit-->
+                                @Html.HiddenFor(m=>m.billId)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.billnumber)
+                                    @Html.TextBoxFor(m => m.billnumber, new { @class = "form-control", @placeholder = "Bill Number" ,@disabled="disabled"})
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.deliverydate)
+                                    @Html.TextBoxFor(m => m.deliverydate, "{0:dd-MM-yyyy}", new { @class = "form-control", @placeholder = "Date" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.doNumber)
+                                    @Html.TextBoxFor(m => m.doNumber, new { @class = "form-control", @placeholder = "Do number" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.doDate)
+                                    @Html.TextBoxFor(m => m.doDate, "{0:dd-MM-yyyy}", new { @class = "form-control", @placeholder = "Do Date" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.sarkar)
+                                    @Html.TextBoxFor(m => m.sarkar, new { @class = "form-control", @placeholder = "Sarkar" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.buyer)
+                                    @Html.TextBoxFor(m => m.buyer, new { @class = "form-control", @placeholder = "Buyer" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Find Invoices</div>
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom: 5px;">
+                            <!--hiden path for ajax-->
+                            <input type="hidden" id="hdInvoicePath" value="@Url.Action("getInvoiceByGarden", "Bill")" />
+                            <input type="hidden" id="hdGradePath" value="@Url.Action("getGradeByGardenAndInvoice", "Bill")" />
+                            <input type="hidden" id="hdNettPath" value="@Url.Action("getNettByGardenAndInvoiceAndGrade", "Bill")"/>
+                            <input type="hidden" id="hdStockBagPath" value="@Url.Action("getStockBags","Bill")" />
+                            <input type="hidden" id="hdLogoutPath" value="@Url.Action("Index","Login")" />
+                            <input type="hidden" id="listRedirect" value="@Url.Action("Index","Bill")" />
+
+                            <!--hiden path for ajax-->
+                            <div class="col-md-12">
+                                <div class="row" style="margin-left: 0px;">
+                                    <div class="col-md-3">@Html.LabelFor(m => m.gardenId)</div>
+                                    <div class="col-md-9">@Html.DropDownListFor(m => m.gardenId, (IEnumerable<SelectListItem>)gardenList, "--Select--", new { @id = "Searchgarden", @class = "form-control" })</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-md-12">
+                                <div class="row" style="margin-left: 0px;" id="invoiceList">
+                                    <div class="col-md-3">
+                                        <label>Invoice</label>
+
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="srchInvoice">
+                                            <option>--Select--</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-md-12">
+                                <div class="row" style="margin-left: 0px;" id="gradeList">
+                                    <div class="col-md-3">
+                                        <label>Grade</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select id="srchGrade" class="form-control">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row" style="margin-left: 0px;" id="nettList">
+                                    <div class="col-md-3">
+                                        <label>Net</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select id="srchNett" class="form-control">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--stockbag and others-->
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                 <div class="panel panel-primary">
+                    <div class="panel-heading">Bill Info</div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-1">
+                                <div class="form-group">
+
+                                    <!--  invoice id -[01/06/2017]-->
+                                            <input type="hidden" id="hdInvoiceidpath" value="@Url.Action("getArrivalInvoiceId","Bill")" />
+                                            <input type="hidden" id="hdArrivalInvoiceId" value="" />
+                                    <!-- stockLedgerId [01/06/2017]--->
+                                            <input type="hidden" id="hdStockLedgerPath" value="@Url.Action("getStockLedgerId","Bill")" />
+                                            <input type="hidden" id="hdStockLedgerId" value="" />
+
+
+                                    <label>Bags</label>
+                                    <input type="text" value="" id="stkBag" class="form-control"  />
+
+                                </div>
+
+                            </div>
+                            <!-- invoice number -->
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Invoice</label>
+                                    <input type="text" value="" id="invoice-string" class="form-control" disabled="disabled" />
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="col-lg-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.saleno)
+                                    @Html.TextBoxFor(m => m.saleno, new { @class = "form-control", @placeholder = "Sale No" })
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.lotnumber)
+                                    @Html.TextBoxFor(m => m.lotnumber, new { @class = "form-control", @placeholder = "Lot number" })
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.doLodgDate)
+                                    @Html.TextBoxFor(m => m.doLodgDate, "{0:dd-MM-yyyy}", new { @class = "form-control", @placeholder = "Do Lodge Date" })
+                                </div>
+                            </div>
+                             <div class="col-lg-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.promptdate)
+                                    @Html.TextBoxFor(m => m.promptdate,"{0:dd-MM-yyyy}", new { @class = "form-control", @placeholder = "Prompt Date" })
+                                </div>
+                            </div>
+                             <div class="col-lg-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.extdDate)
+                                    @Html.TextBoxFor(m => m.extdDate,"{0:dd-MM-yyyy}" , new { @class = "form-control", @placeholder = "Extd. Date" })
+
+                                    <!--week Rate slab-->
+                                        <span class="label label-success slab-one-rate">@Model.rateslab.slab_rate1</span>
+                                        <span class="label label-info slab-two-rate">@Model.rateslab.slab_rate2</span>
+                                        <span class="label label-warning slab-three-rate">@Model.rateslab.slab_rate3</span>
+                                        <span class="label label-danger slab-rest-rate">@Model.rateslab.slab_rate4</span>
+                                </div>
+                            </div>
+                             <div class="col-lg-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(m=>m.weeksdue)
+                                    @Html.TextBoxFor(m=>m.weeksdue,new { @class = "form-control", @placeholder = "Week Due" })
+                                    <!--week slab-->
+                                        <span class="label label-success slab-one"></span>
+                                        <span class="label label-info slab-two"></span>
+                                        <span class="label label-warning slab-three"></span>
+                                        <span class="label label-danger slab-rest"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Addl Bag</label>
+                                    <input type ="text" id="addlBag" class="form-control" disabled="disabled" placeholder="Additional Bag" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Rate</label>
+                                     <input type ="text" class="form-control" disabled="disabled" placeholder="Rate"  id="additionalRent"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Amount</label>
+                                    <input type ="text" id="addlBagAmount" class="form-control" disabled="disabled" placeholder="Amount" />
+                                </div>
+                            </div>
+                            <!--additional-rent-->
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Street Removal Bag</label>
+                                    <input type ="text" id="strtBag" class="form-control" disabled="disabled" placeholder="Street Rmv Bag" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Rate</label>
+                                     @*Html.TextBoxFor(m=>m.streetRemovalRent,new{@class="form-control", @disabled="disabled", placeholder="Rate"})*@
+                                    <input type="text" class="form-control" id="streetRemovalRent" disabled="disabled" placeholder="Rate" value="@Model.rateslab.StrRemRate" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Amount</label>
+                                    <input type ="text" id="strtAmount" class="form-control" disabled="disabled" placeholder="Amount" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                   <label>Check weighment</label>
+                                    <input type ="text" id="chkwghmnt" class="form-control"  placeholder="Check weighment" />
+                                </div>
+                                
+                            </div>
+                            <div class="col-lg-2">
+                               <div class="form-group">
+                                   <label>Rate</label>
+                                     @*Html.TextBoxFor(m=>m.checkWeighmentRent,new{@class="form-control", @disabled="disabled", placeholder="Rate"})*@
+
+                                   <input type="text" class="form-control" disabled="disabled" placeholder="Rate" id="checkWeighmentRent" value="@Model.rateslab.ChkWghRate" />
+                                </div>
+                             </div>
+
+                             <div class="col-lg-2">
+                               <div class="form-group">
+                                   <label>Amount</label>
+                                    <input type ="text" id="chkAmount" class="form-control" disabled="disabled" placeholder="Amount" />
+                                </div>
+                             </div>
+
+                            <div class="col-lg-2">
+                               <div class="form-group">
+                                   <label>Sampling</label>
+                                    <input type ="text" id="samplBag" class="form-control"  placeholder="Bag" />
+                                </div>
+                             </div>
+
+                             <div class="col-lg-2">
+                               <div class="form-group">
+                                   <label>Rate</label>
+                                     @*Html.TextBoxFor(m=>m.samplingRate,new{@class="form-control", @disabled="disabled", placeholder="Rate"})*@
+                                   <input type="text" id="samplingRate" class="form-control" disabled="disabled" placeholder="Rate" value="@Model.rateslab.SamplingRate"/>
+                                </div>
+                             </div>
+
+                             <div class="col-lg-2">
+                               <div class="form-group">
+                                   <label>Amount</label>
+                                    <input type ="text" id="samplAmount" class="form-control" disabled="disabled" placeholder="Amount" />
+                                </div>
+                             </div>
+
+
+                        </div>
+                        
+                        <div class="row">
+
+                             <button type="button" class="btn btn-primary" style="float:right;margin-right:20px">Total <span class="badge totalAmt">0.00</span></button> 
+                        </div>
+                        
+                        <div class="row">
+                             
+                             <div class="col-lg-12"><button type="button" class="btn btn-block btn-success adddtl">Add detail</button> </div>
+                             
+
+                        </div>
+                        
+                    </div>
+                </div>
+               
+            </div>
+
+            
+        </div>
+        <!--table for detail-->
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-condensed table-bordered tblDtl">
+                     <thead>
+                  <tr>
+                    <th>Invoice</th>
+                    <th>Bag</th>
+                    <th>Sale</th>
+                    <th>Lot</th>
+                    <th>Doldg Dt</th>
+                    <th>Prompt Dt</th>
+                    <th>Ext Dt</th>
+                    <th>Week Due </th>
+                    <th>Addl</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Strt Rmvl</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Chk Wgh</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Sampl</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                   </tr>
+                 </thead>
+                     <tbody>
+
+                     @if(Model.BillDetails!=null){
+                         foreach(var billDtl in Model.BillDetails){
+                         
+                        <tr> 
+                        <td style='display:none'>  <input type='hidden' id='invoice-id' value='@billDtl.invoiceId'/> </td> 
+                        <td style='display:none'>  <input type='hidden' id='stock-id' value='@billDtl.stockid'/> </td> 
+                        <td>@billDtl.invoice</td> 
+                        <td>@billDtl.numberofbags</td> 
+                        <td>@billDtl.saleno</td> 
+                        <td>@billDtl.lotnumber</td> 
+                        <td>@(billDtl.doLodgDate.HasValue?@billDtl.doLodgDate.Value.ToString("dd/MM/yyyy"):"")</td> 
+                        <td>@(billDtl.promptdate.HasValue?@billDtl.promptdate.Value.ToString("dd/MM/yyyy"):"")</td> 
+                        <td>@(billDtl.extdDate.HasValue?@billDtl.extdDate.Value.ToString("dd/MM/yyyy"):"")</td> 
+                        <td>@billDtl.weeksdue</td> 
+                        <td>@billDtl.addtionalRentBgas</td> 
+                        <td>@billDtl.addtionalRentRate</td> 
+                        <td>@billDtl.addtionalRentAmount</td> 
+                        <td>@billDtl.streetRmvBags</td> 
+                        <td>@billDtl.streetRmvRent</td> 
+                        <td>@billDtl.streetRmvAmount</td> 
+                        <td>@billDtl.chkWghBags</td> 
+                        <td>@billDtl.chkWghRate</td> 
+                        <td>@billDtl.chkWghAmount</td> 
+                        <td>@billDtl.samplingWghBag</td> 
+                        <td>@billDtl.samplingRate</td> 
+                        <td>@billDtl.samplingAmount</td> 
+                        <td>@billDtl.totalAmount</td> 
+                        <td>
+                            <button class='btn btn-primary btn-xs bill-dtl-edit'>Edit</button>
+                            <button class='btn btn-danger btn-xs bill-dtl-del'>Del</button>
+
+                        </td>
+                        </tr>
+                             
+                         }
+                     }
+
+
+                    </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary" style="float:right;margin-right:20px">
+               <i class="fa fa-inr" aria-hidden="true"></i><span class="badge grandtotalAmt">@Model.grandtotalamount</span>
+
+            </button> 
+        </div>
+<!--table for detail-->
+        <div class="row">
+            <div class="panel panel-info">
+                <div class="panel-body">
+             <div class="col-lg-6" style="text-align: right;">
+                        <!--Save Path-->
+                        <input type="hidden" value="@Url.Action("SaveBill","Bill")" id="hdSavePath" />
+                        <button type="button" class="btn btn-primary btnBillSave">Save</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="@Url.Action("Index", "Bill")" class="btn btn-primary" role="button">Cancel</a>
+                    </div>
+                </div>
+                </div>
+        </div>
+
+    </div>
+    <!---save unsuccess modal-->
+    <div class="modal fade" id="bill-unsuccsavemsg" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Billing </h4>
+                </div>
+                <div class="modal-body msg-data">
+                    <p>Sorry!! Something is going wrong..</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- validation message -->
+     <div class="modal fade" id="bill-validationmsg" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Billing </h4>
+                </div>
+                <div class="modal-body">
+                    
+                        <ul class="list-group">
+                          <li class="list-group-item">Following fields are required</li>
+                          <li class="list-group-item list-group-item-success">Delivery date is required</li>
+                          <li class="list-group-item list-group-item-info">Do number is required</li>
+                          <li class="list-group-item list-group-item-warning">Do date is required</li>
+                          <li class="list-group-item list-group-item-danger">Buyer is required</li>
+                        </ul>
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+

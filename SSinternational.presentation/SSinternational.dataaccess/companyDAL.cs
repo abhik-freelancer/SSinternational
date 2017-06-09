@@ -64,6 +64,28 @@ namespace SSinternational.dataaccess
         
         }
 
+        public DataTable getCompanyHeader(int companyId)
+        {
+
+            DataTable dt = new DataTable();
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("Usp_CompanyGetById", cnn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@companyId", companyId);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+
+                }
+                cnn.Close();
+
+            }
+            return dt;
+
+        }
+
 
     }
 }

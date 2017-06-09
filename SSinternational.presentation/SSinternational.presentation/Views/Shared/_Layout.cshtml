@@ -63,7 +63,8 @@
 	            <li>@Html.ActionLink("Unloading","Index","Unloadingmaster")</li>
 	            <li>@Html.ActionLink("Arrival","Index","Arrivalmaster")</li>
                 <li>@Html.ActionLink("Catalogue","addCatalogue","Catalogue")</li>
-	            <li><a href="#">Opt2-3</a></li>
+	            <li>@Html.ActionLink("Okay By Broker","Index","Okaybybroker")</li>
+	            <li>@Html.ActionLink("Buyer Bill","Index","Bill")</li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Opt2-last</a></li>
 	          </ul>
@@ -103,8 +104,8 @@
    <footer class="footer">
       <div class="container">
           <div class="row">
-              <div class="col-md-6"><p class="footer-company-name">@ViewBag.companyName</p></div>
-              <div class="col-md-6" ><p class="footer-year">Year (2016-2017)</p></div>
+              <div class="col-md-6"><p class="footer-company-name">Company: @Session["companyname"]</p></div>
+              <div class="col-md-6" ><p class="footer-year">Year: (@Session["YearDesc"])</p></div>
           </div>
       </div>
     </footer>
@@ -130,6 +131,8 @@
     <script src="~/Scripts/udfjs/Arrivalmaster.js" type="text/javascript"></script>
     <script src="~/Scripts/udfjs/ArrivalDtl.js" type="text/javascript"></script>
     <script src="~/Scripts/udfjs/catalogue.js" type="text/javascript"></script>
+    <script src="~/Scripts/udfjs/okaybybroker.js" type="text/javascript"></script>
+    <script src="~/Scripts/udfjs/bill.js" type="text/javascript"></script>
     
 
     

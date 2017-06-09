@@ -38,5 +38,27 @@ namespace SSinternational.dataaccess.POCO
             }
             return _lst;
         }
+
+        public financialyears getFiscalYearById(int YearId)
+        {
+
+            financialyearsDAL _financialyearDAL = new financialyearsDAL();
+            DataTable dt = _financialyearDAL.getFiscalYearById(YearId);
+
+            financialyears _objfinancial = new financialyears();
+            if (dt.Rows.Count > 0)
+            {
+                DataRow row = dt.Rows[0];
+
+
+                _objfinancial.fiscalid = Convert.ToInt32(row["fiscalid"].ToString());
+                _objfinancial.fiscalstartdate = Convert.ToDateTime(row["startdate"].ToString());
+                _objfinancial.fiscalenddate = Convert.ToDateTime(row["enddate"].ToString());
+                _objfinancial.fiscalyear = row["fiscalyear"].ToString();
+
+
+            }
+            return _objfinancial;
+        }
     }
 }

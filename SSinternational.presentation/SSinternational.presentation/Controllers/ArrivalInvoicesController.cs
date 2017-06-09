@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using SSinternational.viewmodel;
 using SSinternational.business;
+using Microsoft.Reporting.WebForms;
+using System.IO;
+
+
 
 namespace SSinternational.presentation.Controllers
 {
@@ -200,7 +204,86 @@ namespace SSinternational.presentation.Controllers
             IEnumerable<ArrivalInvoicesListVM> _VM = _BL.getArrivalInvoicesList(arrivalId);
             return PartialView(_VM); 
         }
+        /// <summary>
+        /// Print arrival 
+        /// weblogs.asp.net/rajbk/Contents/Item/Display/331
+        /// </summary>
+        /// <param name="arrivalId"></param>
+        /// <returns></returns>
 
+        [HttpGet]
+         public ActionResult PrintArrival(int arrivalId) {
+
+             LocalReport lr = new LocalReport();
+
+             string path = Path.Combine(Server.MapPath("~/Content/Reports"), "rdlArrival.rdlc");
+             if (System.IO.File.Exists(path))
+             {
+                 lr.ReportPath = path;
+             }
+             else
+             {
+                 return View("Index");
+             }
+
+
+             SSinternational.dataaccess.ArrivalDAL _dal = new SSinternational.dataaccess.ArrivalDAL();
+             System.Data.DataTable _arrivalMaster = _dal.getRptArrivalMaster(arrivalId);
+             ReportDataSource arrivalMaster = new ReportDataSource("ArrivalMaster", _arrivalMaster);
+             lr.DataSources.Add(arrivalMaster);
+
+
+             System.Data.DataTable arrivalDtl = _dal.getRptArrivalDetail(arrivalId);
+             ReportDataSource arrivalDtlDs = new ReportDataSource("ArrivalDetail", arrivalDtl);
+             lr.DataSources.Add(arrivalDtlDs);
+
+            
+
+             SSinternational.dataaccess.companyDAL _cpmDAL = new SSinternational.dataaccess.companyDAL();
+             System.Data.DataTable Cmpdt = _cpmDAL.getCompanyHeader(this.companyId);
+             ReportDataSource cmp = new ReportDataSource("CompanyHeader", Cmpdt);
+             lr.DataSources.Add(cmp);
+
+             
+            // lr.SetParameters(new ReportParameter[] { Sdesc });
+
+             string reportType = "PDF";
+             string mimeType;
+             string encoding;
+             string fileNameExtension;
+
+
+
+             string deviceInfo =
+
+             "<DeviceInfo>" +
+             "  <OutputFormat>" + "PDF" + "</OutputFormat>" +
+             "  <PageWidth>8.27in</PageWidth>" +
+             "  <PageHeight>11.69in</PageHeight>" +
+             "  <MarginTop>0in</MarginTop>" +
+             "  <MarginLeft>0in</MarginLeft>" +
+             "  <MarginRight>0in</MarginRight>" +
+             "  <MarginBottom>0in</MarginBottom>" +
+             "</DeviceInfo>";
+
+             Warning[] warnings;
+             string[] streams;
+             byte[] renderedBytes;
+
+             renderedBytes = lr.Render(
+                 reportType,
+                 deviceInfo,
+                 out mimeType,
+                 out encoding,
+                 out fileNameExtension,
+                 out streams,
+                 out warnings);
+
+
+
+             return File(renderedBytes, mimeType);
+
+        }
 
 
 

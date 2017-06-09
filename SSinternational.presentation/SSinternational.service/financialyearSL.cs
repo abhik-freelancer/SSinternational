@@ -15,5 +15,15 @@ namespace SSinternational.service
            IEnumerable<financialVM> _financialVM = Mapper.Map<IEnumerable<financialyears>,IEnumerable<financialVM>>(_financialPOCO.getfinancialyearsList());
            return _financialVM;
        }
+
+
+       public financialVM getFiscalYearById(int YearId)
+       {
+           financialyears _financialPOCO = new financialyears();
+           financialVM _financialVM = Mapper.Map<financialyears, financialVM>(_financialPOCO.getFiscalYearById(YearId));
+           return _financialVM;
+       }
     }
+
+
 }

@@ -37,5 +37,27 @@ namespace SSinternational.dataaccess
           return ds.Tables[0];
       
       }
+      public DataTable getFiscalYearById(int YearId)
+      {
+
+          DataSet ds = new DataSet();
+
+          using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+          {
+              cnn.Open();
+              using (SqlCommand cmd = new SqlCommand("usp_getFiscalYearById", cnn))
+              {
+                  SqlDataAdapter da;
+                  cmd.CommandType = CommandType.StoredProcedure;
+                  cmd.Parameters.AddWithValue("@YearId", YearId);
+                  da = new SqlDataAdapter(cmd);
+                  da.Fill(ds);
+              }
+              cnn.Close();
+          }
+
+          return ds.Tables[0];
+
+      }
     }
 }

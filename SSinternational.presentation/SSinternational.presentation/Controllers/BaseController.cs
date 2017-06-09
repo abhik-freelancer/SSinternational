@@ -58,6 +58,32 @@ namespace SSinternational.presentation.Controllers
         
         }
 
+       /***************************/
+        public string financialyearDescription
+        {
+            get
+            {
+                return (Session["YearDesc"].ToString());
+            }
+        }
+
+        public string fiscalStartDate
+        {
+            get
+            {
+                return (Session["fiscalStartDate"].ToString());
+            }
+        }
+        public string fiscalEndDate
+        {
+            get
+            {
+                return (Session["fiscalEndDate"].ToString());
+            }
+        }
+
+       
+
 
 
     }

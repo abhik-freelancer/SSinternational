@@ -1,0 +1,200 @@
+﻿@model SSinternational.viewmodel.OkaybybrokerVM
+@{
+    ViewBag.Title = "Wms-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    
+    var brokerLst = Model.brokersList.Select(m => new SelectListItem { Value = m.BrokerId.ToString(), Text = m.BrokerName.ToString() });
+    var damagetypeLst = Model.damageDropDownList.Select(m => new SelectListItem { Value = m.DamageId.ToString(), Text = m.DamageCode.ToString() });
+}
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Arrival Invoices</li>
+
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="header-info-right">
+                    <li><a href="@Url.Action("Index", "Okaybybroker")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--end row panel-->
+</div>
+<div style="width: 80%; margin: 0 auto;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-thumbs-up" aria-hidden="true"></i>Okay by broker </div>
+            @using(Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal" })){
+            <div class="panel-body">
+                     @Html.HiddenFor(m=>m.arrivalDetailId)
+                    <input type="hidden" id="savePath" value="@Url.Action("EditdamageBag","Okaybybroker")" />
+                    <input type="hidden" id="retrnPath" value="@Url.Action("Index","Okaybybroker")" />
+                    <input type="hidden" id="LogoutPath" value="@Url.Action("Index","Login")" />
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.arrivalNumber, new { @class="col-md-4 control-label"})
+                                 <div class="col-md-8">
+                                      @Html.TextBoxFor(m => m.arrivalNumber, new {@class="form-control",@disabled="@disabled"})
+                                     
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                  @Html.LabelFor(m => m.invoices, new { @class="col-md-4 control-label"})
+                                 <div class="col-md-8">
+                                       @Html.TextBoxFor(m => m.invoices, new {@class="form-control",@disabled="@disabled"})
+                                      
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                <!--block2-->
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.garden, new { @class = "col-md-4 control-label" })
+                                 <div class="col-md-8">
+                                     @Html.TextBoxFor(m => m.garden, new { @class = "form-control", @disabled = "disabled" })
+                                     
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.grade, new { @class = "col-md-4 control-label" })
+                                 <div class="col-md-8">
+                                      @Html.TextBoxFor(m => m.grade, new { @class = "form-control", @placeholder = "Grade", @disabled = "disabled" })
+                                      
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                 <!--block3-->
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.yearofproduction, new { @class = "col-md-4 control-label" })
+                                 <div class="col-md-8">
+                                     @Html.TextBoxFor(m => m.yearofproduction, new { @disabled = "disabled", @class = "form-control" })
+                                     
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.net, new { @class = "col-md-4 control-label" })
+                                 <div class="col-md-8">
+                                      @Html.TextBoxFor(m => m.net, new { @class = "form-control", @disabled = "disabled" })
+                                      
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                    
+                    <!--block4-->
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                 @Html.LabelFor(m => m.brokerId, new { @class = "col-md-4 control-label" })
+                                 <div class="col-md-8">
+                                     @Html.DropDownListFor(m => m.brokerId, (IEnumerable<SelectListItem>)brokerLst,  new { @class="form-control"})
+                                     
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             
+                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <table class="table table-bordered" style="margin-left:98px;width:60%" id="tbl-damagebagdtl">
+                                <thead>
+                                    <tr>
+                                        <th>Damage</th>
+                                        <th>Net</th>
+                                        <th>Serial</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                    @foreach(var dmgbgs in Model.damageBagDetails){
+                                        
+                                    <tr>
+                                      
+                                        <td>
+                                            
+                                           @Html.DropDownListFor(model => dmgbgs.damageTypeId, new SelectList(damagetypeLst, "Value", "Text", dmgbgs.damageTypeId), new {@class="form-control" })
+                                    
+                                        </td>
+                                        <td>
+                                             
+                                             @Html.TextBoxFor(model => dmgbgs.net, new {@class="form-control"})
+                                             
+                                        </td>
+                                        <td>
+                                           
+                                            @dmgbgs.serial
+                                              
+                                        </td>
+                                    </tr>
+                                   
+                                    }
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  
+
+                
+            </div>
+              <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-6" style="text-align: right;">
+                        <button type="button" class="btn btn-primary btnOkayBySave">Save</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="@Url.Action("Index", "Okaybybroker")" class="btn btn-primary" role="button">Cancel</a>
+                    </div>
+                </div>
+             </div>
+                    
+                }
+        </div>
+    </div>
+
+    <div class="modal fade" id="okaybybroker-dtl-saveunsuccess" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Okay By broker </h4>
+        </div>
+        <div class="modal-body">
+            <p>Internal error occured for saving</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

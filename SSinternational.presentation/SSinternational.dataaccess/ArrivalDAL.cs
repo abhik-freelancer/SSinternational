@@ -400,11 +400,11 @@ namespace SSinternational.dataaccess
                         cmd.Parameters["@lastInsertId"].Direction = ParameterDirection.Output;
                         cmd.ExecuteNonQuery();
                         int lastInsertId = Convert.ToInt32(cmd.Parameters["@lastInsertId"].Value.ToString());
-
+                        int brokerId = getBrokerId(_arrivalInvoices.arrivalId);
                         foreach (var dmjBagDtl in _arrivalInvoices.damageBagDtls)
                         {
 
-                            damageBagInsert(dmjBagDtl, lastInsertId, cnn, trans);
+                            damageBagInsert(dmjBagDtl, lastInsertId, cnn, trans,brokerId);
                         }
                         foreach (var shrtBagDtl in _arrivalInvoices.shortBagDtls)
                         {
@@ -436,8 +436,31 @@ namespace SSinternational.dataaccess
 
         }
 
+        /// <summary>
+        /// get broker id using masterid for insertion
+        /// into damagebagdetails
+        /// </summary>
+        /// <date>23/05/2017</date>
+        /// <param name="msterId"></param>
+        private int getBrokerId(int msterId)
+        {
+            int brokerId;
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                string sql = "select arrivalMaster.brokerid from arrivalMaster where arrivalMaster.arrivalId= " + msterId;
+                using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                {
+                    brokerId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                cnn.Close();
+            }
+            return brokerId;
+        }
 
-        private void damageBagInsert(DamageBagDtl damageBag, int arrivalDetailId, SqlConnection cnn, SqlTransaction trns)
+
+
+        private void damageBagInsert(DamageBagDtl damageBag, int arrivalDetailId, SqlConnection cnn, SqlTransaction trns,int brokerId)
         {
 
             using (SqlCommand cmd = new SqlCommand("usp_arrivalDamageBagDetailInsertion", cnn, trns))
@@ -447,6 +470,9 @@ namespace SSinternational.dataaccess
                 cmd.Parameters.AddWithValue("@damageTypeId", damageBag.damageTypeId);
                 cmd.Parameters.AddWithValue("@net", damageBag.net);
                 cmd.Parameters.AddWithValue("@serial", damageBag.serial);
+                cmd.Parameters.AddWithValue("@brokerId", brokerId);
+                //@brokerId
+
                 cmd.ExecuteNonQuery();
             }
 
@@ -585,10 +611,10 @@ namespace SSinternational.dataaccess
                         //delete first
                         DeleteDamageBagDtl(updtUnldInvc.arrivalDetailid, cnn, trans);
                         DeleteShortBagDtl(updtUnldInvc.arrivalDetailid, cnn, trans);
-
+                        int brokerid = getBrokerId(updtUnldInvc.arrivalId);
                         foreach (var damageBag in updtUnldInvc.damageBagDtls)
                         {
-                            damageBagInsert(damageBag, updtUnldInvc.arrivalDetailid, cnn, trans);
+                            damageBagInsert(damageBag, updtUnldInvc.arrivalDetailid, cnn, trans, brokerid);
                         }
                         foreach (var shortBag in updtUnldInvc.shortBagDtls)
                         {
@@ -665,6 +691,79 @@ namespace SSinternational.dataaccess
 
             }
         }
+
+        /// <summary>
+        /// for rdlc
+        /// </summary>
+        /// <param name="arrivalId"></param>
+        /// <returns></returns>
+
+        public DataTable getRptArrivalMaster(int arrivalId) {
+            DataTable dt = new DataTable();
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_rptGetArrivalMasterData", cnn)) {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@arrivalMasterId", arrivalId);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                
+                }
+                cnn.Close();
+            
+            }
+            return dt;
+        
+        }
+
+        public DataTable getRptArrivalDetail(int arrivalId) {
+
+            DataTable dt = new DataTable();
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_rptGetArrivalDetails", cnn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@arrivalid", arrivalId);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+
+                }
+                cnn.Close();
+
+            }
+            return dt;
+        
+        }
+
+       
+
+        public DataTable getFinancialHeader(int yearid)
+        {
+
+            DataTable dt = new DataTable();
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_HeaderFinancialYear", cnn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@yearId", yearid);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+
+                }
+                cnn.Close();
+
+            }
+            return dt;
+
+        }
+
+        
+
 
 /******************************************/
     }

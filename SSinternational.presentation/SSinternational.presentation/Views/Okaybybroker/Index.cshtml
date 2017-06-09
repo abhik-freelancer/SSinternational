@@ -1,0 +1,50 @@
+﻿@model SSinternational.viewmodel.OkaybybrokerVM
+@{
+    ViewBag.Title = "WMS-Pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var arrivalLst = Model.arrivalList.Select(m => new SelectListItem { Value=m.arrivalId.ToString(),Text = m.arrivalNumber.ToString()});
+    }
+
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+        
+         
+       
+        </div> 
+         </div><!--end row panel-->
+ </div>
+
+<div style="width:60% ;margin:0 auto;">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading"> <i class="fa fa-address-book-o" aria-hidden="true"></i> List of arrival</div>
+            <div class="panel-body">
+                
+                   
+                    
+                        
+                   <div class="form-group">
+                         
+                       <label class="col-sm-2 control-label">Arrival</label>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="hdListOfInvoicesPath" value="@Url.Action("ArrivalInvoicesList","Okaybybroker")"/>
+                            <input type="hidden" id="hdLogoutPath" value="@Url.Action("Index","Login")" />
+                            @Html.DropDownListFor(m => m.arrivalId, (IEnumerable<SelectListItem>)arrivalLst, "--Select--", new {@class="form-control",@id="arrival"})
+                        </div>
+                    </div>
+
+      
+       
+            
+            
+            </div>
+    </div>
+
+</div>
+</div>
+<div id="arrival-lstdata">
+
+</div>

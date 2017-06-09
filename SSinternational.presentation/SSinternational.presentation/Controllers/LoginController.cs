@@ -30,6 +30,7 @@ namespace SSinternational.presentation.Controllers
             ViewBag.Title = "WMSPro";
             loginBL _loginBL = new loginBL();
             companyBL _companyBL = new companyBL(); 
+
             if (ModelState.IsValid)
             {
                 try
@@ -39,19 +40,23 @@ namespace SSinternational.presentation.Controllers
                    
                     int verifieduserId = 0;
                     UserVM _userVM = new UserVM();
-
+                    financialVM _ficalvm = new financialVM();
                     verifieduserId = _loginBL.checkLogin(login, password);
 
                     if (verifieduserId != 0)
                     {
                         _userVM = _loginBL.getUserDataById(verifieduserId);
-
+                        _ficalvm = _loginBL.getFiscalYearById(_loginVM.selectedYearId);
                         Session["userId"] = _userVM.userid;
                         Session["userlogin"] = _userVM.login;
                         Session["username"] = _userVM.firstname + " " + _userVM.lastname;
                         Session["companyid"] = _loginVM.selectedCompanyId;
                         Session["yearid"] = _loginVM.selectedYearId;
                         Session["companyname"] = _companyBL.getCompanyNameById(_loginVM.selectedCompanyId);
+
+                        Session["YearDesc"] = _ficalvm.fiscalyear;
+                        Session["fiscalStartDate"] = _ficalvm.fiscalstartdate;
+                        Session["fiscalEndDate"] = _ficalvm.fiscalenddate;
 
                         _loginBL.getUpdateUserLoginTime(_userVM.userid);
 
