@@ -11,7 +11,7 @@
         
             <div class="col-md-6">
                 <ul class="header-info-left">
-                    <li>List of Invoices</li>
+                    <li>List of Buyer Bill</li>
                      
                 </ul>
             </div>
@@ -21,9 +21,9 @@
                
                 <ul class="header-info-right">
                     <li>
-                        <a href="@Url.Action("addEditBill", "Bill", new {arrivalMasterId=@ViewBag.arrivalMasterId})" class="btn btn-primary" role="button">ADD NEW</a>
+                        <a href="@Url.Action("addEditBill", "Bill")" class="btn btn-primary" role="button">ADD NEW</a>
                     </li>
-                    <li><a href="@Url.Action("Index", "Bill", new { arrivalId=@ViewBag.arrivalMasterId})" class="btn btn-primary" role="button">LIST</a></li>
+                    <li><a href="@Url.Action("Index", "Bill")" class="btn btn-primary" role="button">LIST</a></li>
                 </ul> 
             </div>
        

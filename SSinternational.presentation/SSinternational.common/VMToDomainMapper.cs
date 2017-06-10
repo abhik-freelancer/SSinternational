@@ -45,6 +45,9 @@ namespace SSinternational.common
           Mapper.CreateMap<BillVM, BillPOCO>();
           Mapper.CreateMap<BillDetailsVM, BillDetails>();
           Mapper.CreateMap<ratemasterVM, rateMasterPOCO>();
+
+          Mapper.CreateMap<EntryBillMasterVM, EntryBillPOCO>();
+          Mapper.CreateMap<EntryBillDtlVM, EntryBillDetailsPOCO>();
           
         }
     }

@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Wms-pro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- js file EntryBill.js-->
+<div class="container-fluid">
+    <div class="header-panel-info">
+        <div class="row">
+
+            <div class="col-md-6">
+                <ul class="header-info-left">
+                    <li>Billing</li>
+
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="header-info-right">
+                    <li><a href="@Url.Action("Index", "Entrybill")" class="btn btn-primary" role="button">LIST</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--end row panel-->
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">Entry Bills</div>
+              <div class="panel-body">
+                  <div class="row">
+                      <div class="col-md-1">
+                             <label for="email">Bill:</label>
+                      </div>
+                      <div class="col-md-5">
+                           <div class="form-group">
+                               <input type="text" value="" class="form-control" placeholder="Bill number" />
+                           </div> 
+                      </div>
+                      <div class="col-md-1">
+                           <label for="email">Date:</label>
+                      </div>
+                      <div class="col-md-5">
+                          <input type="text" value="" class="form-control" placeholder="Bill Date" />
+                      </div>
+                      
+
+                  </div>
+                  <div class="row">
+                      <div class="col-md-1">
+                           <label for="email">Seller:</label>
+                      </div>
+                      <div class="col-md-5">
+                          <div class="form-group">
+                           <select class="form-control">
+                             <option>--Select--</option>
+                             <option>Parcon India Private Limited</option>
+                           </select>
+                          </div>
+                      </div>
+                      <div class="col-md-1">
+                           <label for="email">Seller:</label>
+                      </div>
+                      <div class="col-md-5">
+                          <div class="form-group">
+                           <select class="form-control">
+                             <option>--Select--</option>
+                             <option>Parcon India Private Limited</option>
+                           </select>
+                           </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-2"><label>Broker</label></div>
+                      <div class="col-sm-8">
+                           <div class="form-group">
+                                  <select class="form-control">
+                                     <option>--Select--</option>
+                                     <option>Parcon India Private Limited</option>
+                                   </select>
+                           </div>
+                      </div>
+                      <div class="col-sm-2"></div>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="panel panel-primary">
+              <div class="panel-heading">Search arrival</div>
+              <div class="panel-body">
+                  <div class="row">
+                      <div class="col-sm-4"><label for="">From</label></div>
+                      <div class="col-sm-8">
+                          <div class="form-group">
+                              <input type="text" value="" class="form-control" placeholder="Bill Date" />
+                          </div>
+                      </div>
+                  </div>
+                   <div class="row">
+                      <div class="col-sm-4"><label for="">To</label></div>
+                      <div class="col-sm-8">
+                          <div class="form-group">
+                              <input type="text" value="" class="form-control" placeholder="Bill Date" />
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-6">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-info">Show</button>
+                          </div>
+                      </div>
+                      <div class="col-sm-2"></div>
+                      
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">List of arrival</div>
+              <div class="panel-body">
+                  <table class="table table-bordered table-condensed">
+                      <thead>
+                          <tr>
+                              <th>Arrival</th>
+                              <th>Date</th>
+                              <th>Broker</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

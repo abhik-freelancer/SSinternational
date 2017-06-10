@@ -17,7 +17,27 @@ namespace SSinternational.presentation.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (this.LoggedUserId != 0)
+            {
+                EntryBillBL _BL = new EntryBillBL();
+                IEnumerable<EntryBillMasterVM> _VM = _BL.getEntryBillList(this.companyId, this.financialyearId);
+
+                return View(_VM);
+            }
+            else {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult addEditBillEntry(int? entryBillId) {
+            if (this.LoggedUserId != 0)
+            {
+                return View();
+
+            }else{
+                return RedirectToAction("Index", "Login");
+            }
         }
 
     }

@@ -22,14 +22,18 @@ namespace SSinternational.dataaccess
         public DataTable getEntryBillList(int company,int year) {
             DataTable dt = new DataTable();
             using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString)) {
+                cnn.Open();
                 using (SqlCommand cmd = new SqlCommand("usp_getEntryBillList",cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@companyId", company);
+                    cmd.Parameters.AddWithValue("@yearId", year);
                     using (SqlDataAdapter dr = new SqlDataAdapter(cmd)) {
                         dr.Fill(dt);
                     
                     }
                 }
+                cnn.Close();
             
             }
             return dt;

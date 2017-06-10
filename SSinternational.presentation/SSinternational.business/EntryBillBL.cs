@@ -10,7 +10,10 @@ namespace SSinternational.business
 {
    public class EntryBillBL
     {
-       public IEnumerable<
+       public IEnumerable<EntryBillMasterVM> getEntryBillList(int company, int year) {
+           EntryBillSL _SL = new EntryBillSL();
+           return _SL.getEntryBillList(company, year);
+       }
 
     }
 }

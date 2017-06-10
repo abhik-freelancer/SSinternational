@@ -761,6 +761,35 @@ namespace SSinternational.dataaccess
             return dt;
 
         }
+        /// <summary>
+        /// Fetching arrival by date range and gardenid
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+
+        public DataTable getArrivalByDateRange(int companyId,DateTime fromDate,DateTime toDate,int gardenId) {
+            DataTable dt = new DataTable();
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_GetarrivalByDateRange",cnn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@fromDate", fromDate);
+                    cmd.Parameters.AddWithValue("@toDate", toDate);
+                    cmd.Parameters.AddWithValue("@companyId", companyId);
+                    cmd.Parameters.AddWithValue("@gardenid", gardenId);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                }
+                cnn.Close();
+            }
+            return dt;
+        
+        }
 
         
 
