@@ -13,6 +13,9 @@ namespace SSinternational.viewmodel
         public string arrivalnumber { get; set; }
         public int arrivalId { get; set; }
         public int invoiceid { get; set; }
-        public int receiptbags { get; set; }
+        public string invoice { get; set; }
+        public decimal receiptbags { get; set; }
+        public string grade { get; set; }
+        public decimal nett { get; set; }
     }
 }

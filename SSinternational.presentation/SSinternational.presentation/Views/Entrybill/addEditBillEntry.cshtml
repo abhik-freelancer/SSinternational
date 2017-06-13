@@ -1,8 +1,15 @@
-﻿@{
+﻿@model SSinternational.viewmodel.EntryBillMasterVM
+@{
     ViewBag.Title = "Wms-pro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    var customerList = Model.customerList.Select(m => new SelectListItem { Value = m.customerId.ToString(), Text = m.customername.ToString() });
+    var gardenList = Model.gardenList.Select(m => new SelectListItem { Value = m.gardenId.ToString(), Text = m.gardencode.ToString() });
+    var brokerList = Model.brokerList.Select(m => new SelectListItem { Value=m.BrokerId.ToString(),Text=m.BrokerName.ToString()});
+    
+    }
 <!-- js file EntryBill.js-->
 <div class="container-fluid">
     <div class="header-panel-info">
@@ -31,6 +38,11 @@
             <div class="panel panel-primary">
               <div class="panel-heading">Entry Bills</div>
               <div class="panel-body">
+                  <!--hidden path field-->
+                   <input type="hidden" id="hdGardenListPath" value="@Url.Action("getGardenByCustomer","Entrybill")" />
+                   <input type="hidden" id="hdArrivallistPath" value ="@Url.Action("getArrivalList","Entrybill")" />
+                   <input type="hidden" id="hdArrivalInvoicesList" value ="@Url.Action("getArrivalInvoices","Entrybill")" />
+
                   <div class="row">
                       <div class="col-md-1">
                              <label for="email">Bill:</label>
@@ -51,36 +63,38 @@
                   </div>
                   <div class="row">
                       <div class="col-md-1">
-                           <label for="email">Seller:</label>
+                           <label for="seller">Seller:</label>
                       </div>
                       <div class="col-md-5">
                           <div class="form-group">
-                           <select class="form-control">
-                             <option>--Select--</option>
-                             <option>Parcon India Private Limited</option>
-                           </select>
+                              @Html.DropDownListFor(m => m.CustomerId, (IEnumerable<SelectListItem>)customerList, "--Select--", new { @class = "form-control" })
                           </div>
                       </div>
                       <div class="col-md-1">
-                           <label for="email">Seller:</label>
+                           <label for="Garden">Garden:</label>
                       </div>
                       <div class="col-md-5">
                           <div class="form-group">
-                           <select class="form-control">
-                             <option>--Select--</option>
-                             <option>Parcon India Private Limited</option>
-                           </select>
-                           </div>
+                             
+                              <div id="gardenlst">
+                                  @if(Model.EntryBillId!=0){
+                                    @Html.DropDownListFor(m => m.Garden, (IEnumerable<SelectListItem>)gardenList, "--Select--", new { @class = "form-control" })
+                                  }else{
+                                  
+                                    <select id="Garden" class="form-control">
+                                        <option>--Select--</option>
+                                    </select>
+                                  }
+
+                              </div>
+                          </div>
                       </div>
                   </div>
                   <div class="row">
                       <div class="col-sm-2"><label>Broker</label></div>
                       <div class="col-sm-8">
                            <div class="form-group">
-                                  <select class="form-control">
-                                     <option>--Select--</option>
-                                     <option>Parcon India Private Limited</option>
-                                   </select>
+                                  @Html.DropDownListFor(m => m.BrokerId, (IEnumerable<SelectListItem>)brokerList, "--Select--", new { @class="form-control"})
                            </div>
                       </div>
                       <div class="col-sm-2"></div>
@@ -97,7 +111,8 @@
                       <div class="col-sm-4"><label for="">From</label></div>
                       <div class="col-sm-8">
                           <div class="form-group">
-                              <input type="text" value="" class="form-control" placeholder="Bill Date" />
+                              <input type="text" class="form-control" placeholder="From Date" id="fromDate" />
+                              
                           </div>
                       </div>
                   </div>
@@ -105,7 +120,7 @@
                       <div class="col-sm-4"><label for="">To</label></div>
                       <div class="col-sm-8">
                           <div class="form-group">
-                              <input type="text" value="" class="form-control" placeholder="Bill Date" />
+                              <input type="text"  class="form-control" placeholder="To date"  id="toDate"/>
                           </div>
                       </div>
                   </div>
@@ -113,7 +128,7 @@
                       <div class="col-sm-4"></div>
                       <div class="col-sm-6">
                           <div class="form-group">
-                            <button type="button" class="btn btn-info">Show</button>
+                            <button type="button" class="btn btn-info btn-show">Show</button>
                           </div>
                       </div>
                       <div class="col-sm-2"></div>
@@ -126,20 +141,45 @@
             <div class="panel panel-primary">
               <div class="panel-heading">List of arrival</div>
               <div class="panel-body">
-                  <table class="table table-bordered table-condensed">
+                  <table class="table table-bordered table-condensed arrival-table">
                       <thead>
                           <tr>
                               <th>Arrival</th>
                               <th>Date</th>
-                              <th>Broker</th>
                               <th>Action</th>
                           </tr>
                       </thead>
-                      <tbody>
+                     <tbody>
+
+                     </tbody>
                           
-                      </tbody>
+                      
                   </table>
               </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Invoices</div>
+                <div class="panel-body">
+                     <table class="table table-bordered table-condensed">
+                         <thead>
+                          <tr>
+                              <th>Choose</th>
+                              <th>Invoice</th>
+                              <th>Grade</th>
+                              <th>Nett</th>
+                              <th>Bag</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                         <tbody id="arrival-invoices">
+
+                         </tbody>
+                     </table>
+                </div>
             </div>
         </div>
     </div>

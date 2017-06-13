@@ -168,10 +168,29 @@ namespace SSinternational.dataaccess
                 return false;
             }
 
+        }
 
+        public DataTable getGardenByCustomer(int customerid) {
+            DataTable dt = new DataTable();
+            using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
+            {
 
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_getGardenByCustomer",cnn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@customerid", customerid);
+                    using (SqlDataAdapter dr = new SqlDataAdapter(cmd)) {
 
+                        dr.Fill(dt);
+                    }
+                
+                }
+                cnn.Close();
 
+            }
+            return dt;
+        
         }
     //
     }

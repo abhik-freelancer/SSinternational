@@ -51,5 +51,12 @@ namespace SSinternational.service
 
 
         }
+
+        public IEnumerable<GardenListVM> getGardenByCustomer(int customerid) {
+            gardens _gardenPOCO = new gardens();
+            IEnumerable<GardenListVM> _lstgrdnVM = Mapper.Map<IEnumerable<gardens>, IEnumerable<GardenListVM>>(_gardenPOCO.getGardenByCustomer(customerid));
+            return _lstgrdnVM;
+        
+        }
     }
 }

@@ -1,0 +1,19 @@
+﻿@model SSinternational.viewmodel.EntryBillMasterVM
+
+@if (Model.arrivalLists != null) {
+    
+
+    foreach (var item in Model.arrivalLists) { 
+    
+            <tr>
+                              <td>@item.arrivalNumber</td>
+                              <td>@item.dateofarrival.ToString("dd/MM/yyyy")</td>
+                              <td><button type="button" class="btn btn-outline-success btn-xs add-invoice" id="@item.arrivalId">Add invoice</button></td>
+            </tr>
+
+    
+    }
+        
+
+}
+

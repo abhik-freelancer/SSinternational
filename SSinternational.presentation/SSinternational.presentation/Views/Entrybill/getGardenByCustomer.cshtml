@@ -1,0 +1,6 @@
+﻿@model SSinternational.viewmodel.EntryBillMasterVM
+
+@{
+    var gardens = Model.gardenList.Select(m => new SelectListItem { Value = m.gardenId.ToString(), Text = m.gardencode.ToString() });
+ }
+@Html.DropDownListFor(m=>m.Garden, (IEnumerable<SelectListItem>)gardens, "--Select--", new { @class="form-control"})

@@ -145,5 +145,14 @@ namespace SSinternational.service
 
        }
 
+       public IEnumerable<ArrivalMasterVM> getArrivalList(DateTime from, DateTime to, int companyId, int gardenid, int brokerid) {
+           ArrivalMaster _arrivalMaster = new ArrivalMaster();
+           IEnumerable<ArrivalMasterVM> _vm = Mapper.Map<IEnumerable<ArrivalMaster>, IEnumerable<ArrivalMasterVM>>(_arrivalMaster.getArrivalList(from, to, companyId, gardenid, brokerid));
+           return _vm;
+
+       }
+
+       
+
     }
 }

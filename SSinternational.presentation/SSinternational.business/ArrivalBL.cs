@@ -119,5 +119,11 @@ namespace SSinternational.business
             ArrivalSL _SL = new ArrivalSL();
             return _SL.UpadateunloadingInvoices(_VM);
         }
+
+        public IEnumerable<ArrivalMasterVM> getArrivalList(DateTime from, DateTime to, int companyId, int gardenid, int brokerid) {
+            ArrivalSL _SL = new ArrivalSL();
+            return _SL.getArrivalList(from, to, companyId, gardenid, brokerid);
+        
+        }
     }
 }

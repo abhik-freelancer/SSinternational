@@ -12,12 +12,19 @@ namespace SSinternational.viewmodel
         public int EntryBillId { get; set; }
         public string EntryBillNumber { get; set; }
         public DateTime EntrybillDate { get; set; }
+
         public int CustomerId { get; set; }
+        public IEnumerable<CustomerVM> customerList { get; set; }
         public string Customer { get; set; }
+       
         public int Garden { get; set; }
+        public IEnumerable<GardenListVM> gardenList { get; set; }
         public string gardencode { get; set; }
+
         public int BrokerId { get; set; }
+        public IEnumerable<BrokersVM> brokerList { get; set; }
         public string BrokerName { get; set; }
+
         public DateTime fromDate { get; set; }
         public DateTime toDate { get; set; }
         public int companyId { get; set; }
@@ -25,5 +32,8 @@ namespace SSinternational.viewmodel
         public decimal totalBillAmount { get; set; }
         public decimal Rate { get; set; }
         public int totalBags { get; set; }
+
+        public IEnumerable<ArrivalMasterVM> arrivalLists { get; set; }
+        public IEnumerable<EntryBillDtlVM> ListOfInvoices { get; set; }
     }
 }

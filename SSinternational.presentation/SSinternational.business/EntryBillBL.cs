@@ -15,5 +15,13 @@ namespace SSinternational.business
            return _SL.getEntryBillList(company, year);
        }
 
+
+       public IEnumerable<EntryBillDtlVM> getArrivalInvoices(int arrivalId) {
+           EntryBillSL _SL = new EntryBillSL();
+           return _SL.getArrivalInvoices(arrivalId);
+       
+       
+       }
+
     }
 }

@@ -154,6 +154,28 @@ namespace SSinternational.dataaccess.POCO
            return _objArrv;
        }
 
+
+       public IEnumerable<ArrivalMaster> getArrivalList(DateTime from, DateTime to, int companyId, int gardenid, int brokerid) {
+           ArrivalDAL _arrivalDAL = new ArrivalDAL();
+           DataTable dt = _arrivalDAL.getArrivalList(from, to, companyId, gardenid, brokerid);
+           List<ArrivalMaster> _lstArrival = new List<ArrivalMaster>();
+
+           if (dt.Rows.Count > 0) { 
+            
+               foreach(DataRow rows in dt.Rows){
+                   ArrivalMaster _objArrival = new ArrivalMaster();
+                   _objArrival.arrivalId = Convert.ToInt32(rows["arrivalId"].ToString());
+                   _objArrival.arrivalNumber = (rows["arrivalNumber"].ToString());
+                   _objArrival.dateofarrival = Convert.ToDateTime(rows["dateofarrival"].ToString());
+                   _lstArrival.Add(_objArrival);
+               }
+           
+           
+           }
+           return _lstArrival;
+       
+       }
+
        /*******************************************/
     }
 }

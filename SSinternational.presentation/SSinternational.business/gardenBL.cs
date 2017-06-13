@@ -46,6 +46,11 @@ namespace SSinternational.business
             return _gardenSL.deleteGardens(gardenId);
 
         }
+        public IEnumerable<GardenListVM> getGardenByCustomer(int customerid) {
+            gardenSL _gardenSL = new gardenSL();
+            return _gardenSL.getGardenByCustomer(customerid);
+        
+        }
 
     }
 }

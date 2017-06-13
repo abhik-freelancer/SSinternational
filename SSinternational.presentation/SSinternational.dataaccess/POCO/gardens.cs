@@ -131,6 +131,33 @@ namespace SSinternational.dataaccess.POCO
 
         }
 
+        public IEnumerable<gardens> getGardenByCustomer(int customerid){
+            gardenDAL _gardenDAL = new gardenDAL();
+            DataTable dt = _gardenDAL.getGardenByCustomer(customerid);
+            List<gardens> _lstgarden = new List<gardens>();
+            if (dt.Rows.Count > 0) {
+                foreach (DataRow rows in dt.Rows) {
+                    gardens _objGarden = new gardens();
+                    _objGarden.gardenId = Convert.ToInt32(rows["gardenId"].ToString());
+                    if (rows["gardencode"] == DBNull.Value)
+                    {
+                        _objGarden.gardencode = null;
+                    }
+                    else
+                    {
+                        _objGarden.gardencode = rows["gardencode"].ToString();
+                    }
+
+                    _lstgarden.Add(_objGarden);
+                
+                }
+            
+            }
+
+            return _lstgarden;
+        
+        }
+
 
     }
 }

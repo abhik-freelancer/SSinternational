@@ -770,25 +770,31 @@ namespace SSinternational.dataaccess
         /// <param name="gardenId"></param>
         /// <returns></returns>
 
-        public DataTable getArrivalByDateRange(int companyId,DateTime fromDate,DateTime toDate,int gardenId) {
+        public DataTable getArrivalList(DateTime from, DateTime to, int companyId, int gardenid, int brokerid)
+        {
+
             DataTable dt = new DataTable();
             using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnectionString"].ConnectionString))
             {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand("usp_GetarrivalByDateRange",cnn))
+                using (SqlCommand cmd = new SqlCommand("usp_getArrivalforEntryBill", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@fromDate", fromDate);
-                    cmd.Parameters.AddWithValue("@toDate", toDate);
+                    cmd.Parameters.AddWithValue("@fromDate", from);
+                    cmd.Parameters.AddWithValue("@toDate", to);
                     cmd.Parameters.AddWithValue("@companyId", companyId);
-                    cmd.Parameters.AddWithValue("@gardenid", gardenId);
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(dt);
+                    cmd.Parameters.AddWithValue("@gardenid", gardenid);
+                    cmd.Parameters.AddWithValue("@brokerId", brokerid);
+
+                    using (SqlDataAdapter dr = new SqlDataAdapter(cmd))
+                    {
+                        dr.Fill(dt);
+                    }
                 }
-                cnn.Close();
+
             }
+
             return dt;
-        
+
         }
 
         

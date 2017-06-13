@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SSinternational.viewmodel.EntryBillDtlVM>
+
+ @*<th>Choose</th>
+                              <th>Invoice</th>
+                              <th>Grade</th>
+                              <th>Nett</th>
+                              <th>Receipt</th>*@
+
+
+@foreach(var item in Model){
+    
+    <tr>
+        <td style="display:none">@item.arrivalId</td>
+        <td style="display:none">@item.invoiceid</td>
+        <td>
+           
+         <input type="checkbox" value="" class="chk-invoice">
+            
+        </td>
+        <td>
+            @item.invoice
+        </td>
+        <td>
+            @item.grade
+        </td>
+        <td>
+            @item.nett
+        </td>
+        <td>
+            @item.receiptbags
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-xs ">Del</button>
+        </td>
+
+
+    </tr>
+
+
+}
