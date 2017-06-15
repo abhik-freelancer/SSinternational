@@ -914,6 +914,8 @@ namespace SSinternational.presentation.Content.DataSets {
             
             private global::System.Data.DataColumn columntotalKgs;
             
+            private global::System.Data.DataColumn columnremarks;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public usp_rptGetArrivalDetailsDataTable() {
@@ -1077,6 +1079,14 @@ namespace SSinternational.presentation.Content.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn remarksColumn {
+                get {
+                    return this.columnremarks;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1112,7 +1122,23 @@ namespace SSinternational.presentation.Content.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public usp_rptGetArrivalDetailsRow Addusp_rptGetArrivalDetailsRow(int arrivalId, string invoice, string grade, int package, string yearofproduction, int pkgsrlfrm, int pkgsrlto, decimal invoicequantity, decimal receivequantity, decimal gross, decimal tare, decimal net, int floorId, string floorName, decimal totalKgs) {
+            public usp_rptGetArrivalDetailsRow Addusp_rptGetArrivalDetailsRow(
+                        int arrivalId, 
+                        string invoice, 
+                        string grade, 
+                        int package, 
+                        string yearofproduction, 
+                        int pkgsrlfrm, 
+                        int pkgsrlto, 
+                        decimal invoicequantity, 
+                        decimal receivequantity, 
+                        decimal gross, 
+                        decimal tare, 
+                        decimal net, 
+                        int floorId, 
+                        string floorName, 
+                        decimal totalKgs, 
+                        string remarks) {
                 usp_rptGetArrivalDetailsRow rowusp_rptGetArrivalDetailsRow = ((usp_rptGetArrivalDetailsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1130,7 +1156,8 @@ namespace SSinternational.presentation.Content.DataSets {
                         net,
                         floorId,
                         floorName,
-                        totalKgs};
+                        totalKgs,
+                        remarks};
                 rowusp_rptGetArrivalDetailsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowusp_rptGetArrivalDetailsRow);
                 return rowusp_rptGetArrivalDetailsRow;
@@ -1176,6 +1203,7 @@ namespace SSinternational.presentation.Content.DataSets {
                 this.columnfloorId = base.Columns["floorId"];
                 this.columnfloorName = base.Columns["floorName"];
                 this.columntotalKgs = base.Columns["totalKgs"];
+                this.columnremarks = base.Columns["remarks"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1213,6 +1241,8 @@ namespace SSinternational.presentation.Content.DataSets {
                 base.Columns.Add(this.columnfloorName);
                 this.columntotalKgs = new global::System.Data.DataColumn("totalKgs", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntotalKgs);
+                this.columnremarks = new global::System.Data.DataColumn("remarks", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnremarks);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrement = true;
@@ -1237,6 +1267,7 @@ namespace SSinternational.presentation.Content.DataSets {
                 this.columnfloorName.AllowDBNull = false;
                 this.columnfloorName.MaxLength = 100;
                 this.columntotalKgs.ReadOnly = true;
+                this.columnremarks.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1968,6 +1999,22 @@ namespace SSinternational.presentation.Content.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string remarks {
+                get {
+                    try {
+                        return ((string)(this[this.tableusp_rptGetArrivalDetails.remarksColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'remarks\' in table \'usp_rptGetArrivalDetails\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableusp_rptGetArrivalDetails.remarksColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IspackageNull() {
                 return this.IsNull(this.tableusp_rptGetArrivalDetails.packageColumn);
             }
@@ -2012,6 +2059,18 @@ namespace SSinternational.presentation.Content.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SettotalKgsNull() {
                 this[this.tableusp_rptGetArrivalDetails.totalKgsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsremarksNull() {
+                return this.IsNull(this.tableusp_rptGetArrivalDetails.remarksColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetremarksNull() {
+                this[this.tableusp_rptGetArrivalDetails.remarksColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2424,6 +2483,7 @@ namespace SSinternational.presentation.Content.DataSets.ArrivalDSTableAdapters {
             tableMapping.ColumnMappings.Add("floorId", "floorId");
             tableMapping.ColumnMappings.Add("floorName", "floorName");
             tableMapping.ColumnMappings.Add("totalKgs", "totalKgs");
+            tableMapping.ColumnMappings.Add("remarks", "remarks");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

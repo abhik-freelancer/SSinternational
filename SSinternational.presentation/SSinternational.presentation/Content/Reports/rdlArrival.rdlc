@@ -6,10 +6,10 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.10804in</Width>
+              <Width>1.34473in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.88862in</Width>
+              <Width>0.84985in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.77258in</Width>
@@ -1233,6 +1233,54 @@ Kgs</Value>
               </TablixCells>
             </TablixRow>
             <TablixRow>
+              <Height>0.17708in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="remarks">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!remarks.Value</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>7pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>remarks</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <ColSpan>10</ColSpan>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+                <TablixCell />
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
               <Height>0.26042in</Height>
               <TablixCells>
                 <TablixCell>
@@ -1630,25 +1678,48 @@ Kgs</Value>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
+            <TablixMember />
+            <TablixMember />
             <TablixMember>
-              <KeepWithGroup>After</KeepWithGroup>
+              <Group Name="id">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!id.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!id.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="Details" />
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="id1">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!id.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!id.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <Visibility>
+                    <Hidden>=iif(Fields!remarks.Value="",true,false)</Hidden>
+                  </Visibility>
+                </TablixMember>
+              </TablixMembers>
             </TablixMember>
-            <TablixMember>
-              <KeepWithGroup>After</KeepWithGroup>
-            </TablixMember>
-            <TablixMember>
-              <Group Name="Details" />
-            </TablixMember>
-            <TablixMember>
-              <KeepWithGroup>Before</KeepWithGroup>
-            </TablixMember>
+            <TablixMember />
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ArrivalDetail</DataSetName>
         <Top>1.25197in</Top>
         <Left>0.09193in</Left>
-        <Height>0.78125in</Height>
-        <Width>7.84233in</Width>
+        <Height>0.95832in</Height>
+        <Width>8.04026in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1674,8 +1745,8 @@ Kgs</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>customername</rd:DefaultName>
-        <Top>5.27022cm</Top>
-        <Left>0.17028in</Left>
+        <Top>6.23155cm</Top>
+        <Left>0.15694in</Left>
         <Height>0.25in</Height>
         <Width>4.43in</Width>
         <ZIndex>1</ZIndex>
@@ -1708,8 +1779,8 @@ Kgs</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>BrokerName</rd:DefaultName>
-        <Top>2.39433in</Top>
-        <Left>0.1732in</Left>
+        <Top>2.77281in</Top>
+        <Left>0.17028in</Left>
         <Height>0.25in</Height>
         <Width>4.42708in</Width>
         <ZIndex>2</ZIndex>
@@ -1743,8 +1814,8 @@ Kgs</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox81</rd:DefaultName>
-        <Top>2.70058in</Top>
-        <Left>4.31876in</Left>
+        <Top>3.07906in</Top>
+        <Left>4.31584in</Left>
         <Height>0.25in</Height>
         <Width>0.28152in</Width>
         <ZIndex>3</ZIndex>
@@ -1778,8 +1849,8 @@ Kgs</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>companyname1</rd:DefaultName>
-        <Top>2.68808in</Top>
-        <Left>4.66972in</Left>
+        <Top>3.06656in</Top>
+        <Left>4.6668in</Left>
         <Height>0.25in</Height>
         <Width>3.2944in</Width>
         <ZIndex>4</ZIndex>
@@ -2498,7 +2569,7 @@ Kgs</Value>
         <Top>0.1492in</Top>
         <Left>0.17028in</Left>
         <Height>1.02083in</Height>
-        <Width>7.61859in</Width>
+        <Width>7.61858in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -2507,14 +2578,14 @@ Kgs</Value>
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>3.08739in</Height>
+    <Height>3.32906in</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>7.96412in</Width>
+  <Width>8.13219in</Width>
   <Page>
     <PageHeader>
       <Height>0.66542in</Height>
@@ -2949,6 +3020,10 @@ Kgs</Value>
         <Field Name="totalKgs">
           <DataField>totalKgs</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="remarks">
+          <DataField>remarks</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

@@ -65,7 +65,7 @@
                                                             @*<button class='btn btn-danger btn-xs unldmst-del' data-id="@arrivalmst.arrivalId"  data-toggle="modal" data-target="#unldmstMsgModal"><span class="fa fa-times"></span> Delete</button>*@
                                                             <a href="@Url.Action("addEditArrivalDetail", "ArrivalInvoices", new  {arrivalId =@arrivalmst.arrivalId })" class="btn btn-xs btn-success" role="button">Add invoice</a>           
                                                         
-                                                             <a href="@Url.Action("PrintArrival", "ArrivalInvoices", new  {arrivalId =@arrivalmst.arrivalId })" class="btn btn-xs btn-success" role="button">Print</a> 
+                                                             <a href="@Url.Action("PrintArrival", "ArrivalInvoices", new  {arrivalId =@arrivalmst.arrivalId })" class="btn btn-xs btn-success" role="button" target="_blank">Print</a> 
                                                         </td>
                                                         
                                                 </tr>
