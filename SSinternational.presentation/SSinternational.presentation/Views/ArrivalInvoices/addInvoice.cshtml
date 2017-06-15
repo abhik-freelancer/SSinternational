@@ -271,7 +271,7 @@
                                                      <td> <input type='hidden' id='damagetypeId_arrival' value='@arrivedDmg.damageTypeId'/>@arrivedDmg.damageType </td>
                                                      <td>@arrivedDmg.net</td>
                                                      <td>@arrivedDmg.serial</td>
-                                                     <td><button type='button' class='btn btn-danger btn-xs shrtg-del'>Del</button></td>
+                                                     <td><button type='button' class='btn btn-danger btn-xs dmg-del'>Del</button></td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -346,7 +346,7 @@
                              <div class="panel panel-success">
                                 <div class="panel-heading">Remarks</div>
                                 <div class="panel-body">
-                                    <textarea class="form-control" rows="5" id="remarks"></textarea>
+                                    <textarea class="form-control" rows="5" id="remarks">@Model.remarks</textarea>
                                 </div>
                             </div>
                         </div>

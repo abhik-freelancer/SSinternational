@@ -44,6 +44,7 @@
             // console.log(row);
             $("#damageTableArrival").append(row);
             clearDamageFieldArrival();
+            createRemarks();
         }
 
     });
@@ -66,6 +67,7 @@
 
             $("#tblShort_arrival").append(row);
             clearShortageFieldArrival();
+            createRemarks();
 
         }
 
@@ -79,11 +81,13 @@
 
     $("#tblShort_arrival").on("click", ".shrtg-del", function () {
         $(this).closest("tr").remove();
+        createRemarks();
     });
 
     $("#damageTableArrival").on("click", ".dmg-del", function () {
 
         $(this).closest("tr").remove();
+        createRemarks();
 
     });
 
@@ -143,6 +147,7 @@
         var tare = $("#tare_arrival").val() || "";
         var net = $("#net_arrival").val() || "";
         var floorId = $("#floorId_arrival").val() || "";
+        var remarks = $("#remarks").val() || "";
         
         var damageBagDetail = getDamageBagDetailsArrival();
         
@@ -164,7 +169,8 @@
             net: net,
             floorId: floorId,
             damageBagDtls: damageBagDetail,
-            shortBagDtls: shortBagDetails
+            shortBagDtls: shortBagDetails,
+            remarks: remarks
         };
        // console.log("data" + ":" + arrivalDTL);
         //alert("abhik");
@@ -191,7 +197,7 @@
                     //alert("Data fail to save");
                     $("#arrival-dtl-saveunsuccess").modal("show");
                 } else if (result.status == 3) {
-                    $("#unload-dtl-form-validmsg").modal("show");
+                    $("#arrival-dtl-form-validmsg").modal("show");
 
                 } else {
 
@@ -253,9 +259,34 @@ function getGeneratedInvoicceNumberArrival() {
     var serial = parseInt($("#srl-arrival").val() || 0);
     var sfx = $("#Sfx-arrival").val();
 
-    var invoiceNumber = pfx + "/" + garden + "/" + serial + "/" + sfx;
+    var invoiceNumber = pfx + "" + garden + "" + serial + "" + sfx;
     return invoiceNumber;
 
+}
+
+function createRemarks() {
+    var str = "";
+    $("#damageTableArrival tr:gt(0)").each(function () {
+
+        var this_row = $(this);
+        var damage = $.trim(this_row.find('td:eq(0)').text());
+        var nett = $.trim(this_row.find('td:eq(1)').html());
+        var serial = $.trim(this_row.find('td:eq(2)').html());
+
+        str += "[Type: "+damage + " Nett: " + nett + " Srl: " + serial + "] ";
+
+    });
+
+    $("#tblShort_arrival tr:gt(0)").each(function () {
+        var this_row = $(this);
+        var shortType = $.trim(this_row.find('td:eq(0)').text());//td:eq(0) means first td of this row
+        var shortPkgNet = parseFloat($.trim(this_row.find('td:eq(1)').html()));
+        var serial = parseInt($.trim(this_row.find('td:eq(2)').html()));
+
+        str += "[Type: " + shortType + " Nett: " + shortPkgNet + " Srl: " + serial + "] ";
+    });
+    $("#remarks").val(str);
+    console.log(str);
 }
 
 function getDamageBagDetailsArrival() {

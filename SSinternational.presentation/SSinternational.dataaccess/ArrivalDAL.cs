@@ -395,6 +395,7 @@ namespace SSinternational.dataaccess
                         cmd.Parameters.AddWithValue("@tare", _arrivalInvoices.tare);
                         cmd.Parameters.AddWithValue("@net", _arrivalInvoices.net);
                         cmd.Parameters.AddWithValue("@floorId", _arrivalInvoices.floorId);
+                        cmd.Parameters.AddWithValue("@remarks", _arrivalInvoices.remarks);
                         //cmd.Parameters.AddWithValue("@")
                         cmd.Parameters.Add("@lastInsertId", SqlDbType.Int, 0);
                         cmd.Parameters["@lastInsertId"].Direction = ParameterDirection.Output;
@@ -607,6 +608,8 @@ namespace SSinternational.dataaccess
                         cmd.Parameters.AddWithValue("@tare", updtUnldInvc.tare);
                         cmd.Parameters.AddWithValue("@net", updtUnldInvc.net);
                         cmd.Parameters.AddWithValue("@floorId", updtUnldInvc.floorId);
+                        cmd.Parameters.AddWithValue("@remarks ", updtUnldInvc.remarks);
+
                         cmd.ExecuteNonQuery();
                         //delete first
                         DeleteDamageBagDtl(updtUnldInvc.arrivalDetailid, cnn, trans);

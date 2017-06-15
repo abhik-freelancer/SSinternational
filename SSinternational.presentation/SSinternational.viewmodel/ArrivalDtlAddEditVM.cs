@@ -78,6 +78,7 @@ namespace SSinternational.viewmodel
         /*******************************/
         public int invoiceformatId { get; set; }
         public string gardenCode { get; set; }
+        public string remarks { get; set; }
 
 
     }

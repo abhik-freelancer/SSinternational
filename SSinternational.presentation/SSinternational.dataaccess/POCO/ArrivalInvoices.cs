@@ -39,7 +39,7 @@ namespace SSinternational.dataaccess.POCO
         /************************************/
         public int invoiceformatId { get; set; }
         public string gardenCode { get; set; }
-
+        public string remarks { get; set; }
 
         /// <summary>
         /// Get list of invoices against
@@ -174,6 +174,7 @@ namespace SSinternational.dataaccess.POCO
 
                     _objArrivalInvoice.floorId = 0;
                 }
+                _objArrivalInvoice.remarks = rows["remarks"].ToString();
 
             }
 

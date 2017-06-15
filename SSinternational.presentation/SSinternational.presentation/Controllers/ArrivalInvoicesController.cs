@@ -141,7 +141,9 @@ namespace SSinternational.presentation.Controllers
                 ModelState.Remove("arrivalDetailid");
                 ArrivalBL _BL = new ArrivalBL();
 
-
+               /* string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));*/
 
 
                 if (ModelState.IsValid)
