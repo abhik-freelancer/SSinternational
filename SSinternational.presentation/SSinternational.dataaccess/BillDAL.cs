@@ -290,11 +290,11 @@ namespace SSinternational.dataaccess
 
                         cmd.ExecuteNonQuery();
                         int lastInsertId = Convert.ToInt32(output.Value.ToString());
-
+                        int lastbilldetailinsertId = 0;
                         foreach (var BillDts in Bill.BillDetails) {
 
-                            insertBillDetails(BillDts, lastInsertId, trn, cnn);
-                            insertBillInStockLedger(BillDts.stockid, BillDts.invoiceId, BillNumber, Bill.deliverydate, Bill.companyId, Bill.yearId, BillDts.numberofbags, cnn, trn);
+                            lastbilldetailinsertId=insertBillDetails(BillDts, lastInsertId, trn, cnn);
+                            insertBillInStockLedger(BillDts.stockid, lastbilldetailinsertId, BillNumber, Bill.deliverydate, Bill.companyId, Bill.yearId, BillDts.numberofbags, cnn, trn);
                         }
 
 
@@ -339,8 +339,8 @@ namespace SSinternational.dataaccess
            return billno;
        }
 
-       private void insertBillDetails(BillDetails bDtls,int BillMasterId,SqlTransaction trn,SqlConnection cnn) {
-
+       private int insertBillDetails(BillDetails bDtls,int BillMasterId,SqlTransaction trn,SqlConnection cnn) {
+           int lastid = 0;
            using (SqlCommand cmd = new SqlCommand("usp_BillDtlInsertion",cnn,trn))
            {
                cmd.CommandType = CommandType.StoredProcedure;
@@ -367,10 +367,13 @@ namespace SSinternational.dataaccess
                cmd.Parameters.AddWithValue("@samplingRate", bDtls.samplingRate);
                cmd.Parameters.AddWithValue("@samplingAmount", bDtls.samplingAmount);
                cmd.Parameters.AddWithValue("@totalAmount", bDtls.totalAmount);
+               cmd.Parameters.Add("@lastinsertid", SqlDbType.Int);
+               
+                cmd.Parameters["@lastinsertid"].Direction = ParameterDirection.Output;
+                   cmd.ExecuteNonQuery();
+                   lastid = Convert.ToInt32(cmd.Parameters["@lastinsertid"].Value.ToString());
 
-               cmd.ExecuteNonQuery();
-
-
+                   return lastid;
            
            }
             
@@ -420,12 +423,12 @@ namespace SSinternational.dataaccess
 
                        deleteBillDetails(Bill.billId, cnn, trn);
                        deleteStockBill(Bill.billnumber, cnn, trn);
-
+                       int lastbilldetailinsertid = 0;
                        foreach (var BillDts in Bill.BillDetails)
                        {
 
-                           insertBillDetails(BillDts, Bill.billId, trn, cnn);
-                           insertBillInStockLedger(BillDts.stockid, BillDts.invoiceId, Bill.billnumber, Bill.deliverydate, Bill.companyId, Bill.yearId, BillDts.numberofbags, cnn, trn);
+                          lastbilldetailinsertid= insertBillDetails(BillDts, Bill.billId, trn, cnn);
+                          insertBillInStockLedger(BillDts.stockid, lastbilldetailinsertid, Bill.billnumber, Bill.deliverydate, Bill.companyId, Bill.yearId, BillDts.numberofbags, cnn, trn);
                        }
 
 
