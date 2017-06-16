@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SSinternational.viewmodel.StockReportVM>
+@{
+    ViewBag.Title = "Stockreport";
+}
+
+<div class="body-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+									<table class="table table-bordered table-hover" id="Stock-tbl" > 
+										<thead>
+												 <tr>
+                                                    <th>Arrival No.</th>
+                                                    <th>Arrival Date</th>
+                                                    <th>Invoice</th>
+                                                    <th>Grade</th>
+                                                      <th>Nett</th>
+                                                    <th>Arrived</th>
+                                                    <th>Billed</th>
+                                                    <th>Balnce</th>
+                                                   
+
+                                                 </tr>
+											</thead>
+											<tbody>
+                                                @foreach(var arrvlDtl in Model){
+												<tr>
+                                                        <td>@arrvlDtl.TransactionNumber</td>
+                                                        <td>@arrvlDtl.TransactionDate.ToString("dd/MM/yyyy")</td>
+                                                        <td>@arrvlDtl.Invoice</td>
+                                                        <td>@arrvlDtl.Grade</td>
+                                                        <td>@arrvlDtl.net</td>
+                                                        <td>@arrvlDtl.StockIn.ToString("#")</td>
+                                                        <td>@arrvlDtl.StockOut.ToString("#")</td>
+                                                        <td>@arrvlDtl.Balance.ToString("#")</td>
+                                                       
+                                                        
+                                                </tr>
+                                                }
+                                            </tbody>
+									</table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
