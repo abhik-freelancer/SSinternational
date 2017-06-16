@@ -17,6 +17,7 @@ namespace SSinternational.dataaccess.POCO
         public decimal ChkWghRate { get; set; }
         public decimal SamplingRate { get; set; }
         public decimal AdditionalRate { get; set; }
+        public decimal entryBillRate { get; set; }
         public int yearId { get; set; }
         public int companyId { get; set; }
 
@@ -44,6 +45,7 @@ namespace SSinternational.dataaccess.POCO
                _ratePOCO.ChkWghRate = Convert.ToDecimal(rows["ChkWghRate"].ToString()); // checkweghment rate
                _ratePOCO.AdditionalRate = Convert.ToDecimal(rows["AdditionalRate"].ToString()); //additional rate
                _ratePOCO.SamplingRate = Convert.ToDecimal(rows["SamplingRate"].ToString());//sampling rate
+               _ratePOCO.entryBillRate = Convert.ToDecimal(rows["entryBillRate"].ToString());
 
                _ratePOCO.yearId = Convert.ToInt32(rows["yearId"].ToString());
                _ratePOCO.companyId = Convert.ToInt32(rows["companyId"].ToString());

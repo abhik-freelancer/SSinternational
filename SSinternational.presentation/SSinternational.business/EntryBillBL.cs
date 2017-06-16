@@ -23,5 +23,12 @@ namespace SSinternational.business
        
        }
 
+       public ratemasterVM getEntryRentRate(int companyId, int yearId) {
+           EntryBillSL _SL = new EntryBillSL();
+           ratemasterVM _vm = _SL.getEntryRentRate(companyId, yearId);
+           return _vm;
+       
+       }
+
     }
 }

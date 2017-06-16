@@ -37,7 +37,9 @@ namespace SSinternational.presentation.Controllers
                 customerBL customerBL = new customerBL();
                 BrokersBL brokerBl = new BrokersBL();
                 gardenBL _gardenBl = new gardenBL();
+                EntryBillBL _entryBillBL = new EntryBillBL();
                 int companyId = this.companyId;
+                int yearId = this.financialyearId;
                 if (Convert.ToInt32(entryBillId) != 0)
                 {
 
@@ -45,6 +47,7 @@ namespace SSinternational.presentation.Controllers
                 }
                 else { 
                     //add mode
+                    _entryBillVm.entryRent = _entryBillBL.getEntryRentRate(companyId, yearId);
                 
                 }
                 _entryBillVm.customerList = customerBL.getCustomerList(companyId);

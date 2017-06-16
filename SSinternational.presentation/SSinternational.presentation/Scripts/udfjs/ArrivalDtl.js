@@ -246,6 +246,7 @@
         var netAmount = CalculateNetArrival();
         console.log(netAmount);
         $("#net_arrival").val(netAmount);
+        $("#dmgPktNet_arrival").val(netAmount);
 
     });
 
@@ -356,7 +357,7 @@ function isNumber(evt, element) {
 
 function clearDamageFieldArrival() {
     $("#dmgType_arrival").val("");
-    $("#dmgPktNet_arrival").val("");
+    //$("#dmgPktNet_arrival").val("");
     $("#dmgSerial_arrival").val("");
 }
 

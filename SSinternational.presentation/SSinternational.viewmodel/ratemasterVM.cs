@@ -17,6 +17,7 @@ namespace SSinternational.viewmodel
         public decimal ChkWghRate { get; set; }
         public decimal SamplingRate { get; set; }
         public decimal AdditionalRate { get; set; }
+        public decimal entryBillRate { get; set; }
         public int yearId { get; set; }
         public int companyId { get; set; }
     }

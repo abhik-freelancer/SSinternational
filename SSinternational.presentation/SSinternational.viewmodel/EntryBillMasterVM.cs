@@ -30,7 +30,7 @@ namespace SSinternational.viewmodel
         public int companyId { get; set; }
         public int yearId { get; set; }
         public decimal totalBillAmount { get; set; }
-        public decimal Rate { get; set; }
+        public ratemasterVM entryRent { get; set; }
         public int totalBags { get; set; }
 
         public IEnumerable<ArrivalMasterVM> arrivalLists { get; set; }

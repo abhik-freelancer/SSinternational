@@ -22,5 +22,12 @@ namespace SSinternational.service
             IEnumerable<EntryBillDtlVM> _VM = Mapper.Map<IEnumerable<EntryBillDetailsPOCO>, IEnumerable<EntryBillDtlVM>>(_entryBillPOCO.getArrivalInvoices(arrivalId));
             return _VM;
         }
+
+        public ratemasterVM getEntryRentRate(int companyId, int yearId) {
+            rateMasterPOCO _ratePOCO = new rateMasterPOCO();
+            ratemasterVM _VM = Mapper.Map<rateMasterPOCO, ratemasterVM>(_ratePOCO.getRateMasterData(companyId, yearId));
+            return _VM;
+        
+        }
     }
 }
