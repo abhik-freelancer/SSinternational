@@ -239,8 +239,25 @@
         $("#invoice_arrival").val(invoicenumber);
 
     });
+    ////////////// On Blur Gross/////////////////////////////
+    $(document).on("blur", "#gross_arrival", function () {
 
+        var gross = $('#gross_arrival').val() || 0.00;
+        console.log(gross);
+        var tare = gross.toString();
+        tare = tare.split('.');
+        var tarevalue = "." + tare[1].toString();
+        console.log(tare[1]);
+        console.log(tarevalue);
+        $("#tare_arrival").val(parseFloat(tarevalue.toString("0.00")));
+       
+        var netAmount = CalculateNetArrival();
+        console.log(netAmount);
+        $("#net_arrival").val(netAmount);
+        $("#dmgPktNet_arrival").val(netAmount);
 
+    });
+    ////////////////////On Blur Gross End///////////////////
     $(document).on("blur", "#tare_arrival", function () {
 
         var netAmount = CalculateNetArrival();

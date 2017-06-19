@@ -198,23 +198,23 @@
     });
 
   
-    $("#deliverydate").change(function () {
+    $("#deliverydate").blur(function () {
         globalCall();
     });
-    $("#doDate").change(function () {
+    $("#doDate").blur(function () {
         globalCall();
     });
     $("#saleno").blur(function () {
         globalCall();
     });
-    $("#doLodgDate").change(function () {
+    $("#doLodgDate").blur(function () {
         globalCall();
     });
-    $("#promptdate").change(function () {
+    $("#promptdate").blur(function () {
         globalCall();
     });
 
-    $("#extdDate").change(function () {
+    $("#extdDate").blur(function () {
         globalCall();
     });
 
@@ -539,7 +539,17 @@ function DateAndWeekCalculation() {
             deliveryDate = $("#deliverydate").datepicker('getDate');
 
             if (deliveryDate >= ExtDt) {
-                weekDue = Math.ceil(((deliveryDate - ExtDt) / 1000 / 60 / 60 / 24) / 7);
+
+                var objdeliveryDate = $("#deliverydate").val().toString();
+                var objextdDate = $("#extdDate").val().toString();
+
+                objdeliveryDate = objdeliveryDate.split("-");
+                objextdDate = objextdDate.split("-");
+
+                objdeliveryDate = new Date(objdeliveryDate[2], objdeliveryDate[1], objdeliveryDate[0]);
+                objextdDate = new Date(objextdDate[2], objextdDate[1], objextdDate[0]);
+
+                weekDue = Math.ceil(((objdeliveryDate.getTime() - objextdDate.getTime()) / (1000 * 60 * 60 * 24)) / 7);
             } else {
                 weekDue = 0;
             }
@@ -552,7 +562,16 @@ function DateAndWeekCalculation() {
                 promptDate = $("#promptdate").datepicker('getDate');
 
                 if (deliveryDate >= promptDate) {
-                    weekDue = Math.ceil(((deliveryDate - promptDate) / 1000 / 60 / 60 / 24) / 7);
+                    var ObjdeliveryDate = $("#deliverydate").val().toString();
+                    var ObjPromptDate = $("#promptdate").val().toString();
+
+                    ObjdeliveryDate = ObjdeliveryDate.split("-");
+                    ObjPromptDate = ObjPromptDate.split("-");
+
+                    ObjdeliveryDate = new Date(ObjdeliveryDate[2], ObjdeliveryDate[1], ObjdeliveryDate[0]);
+                    ObjPromptDate = new Date(ObjPromptDate[2], ObjPromptDate[1], ObjPromptDate[0]);
+
+                    weekDue = Math.ceil(((ObjdeliveryDate.getTime() - ObjPromptDate.getTime()) / (1000 * 60 * 60 * 24)) / 7);
                 } else {
                     weekDue = 0;
                 }
@@ -568,7 +587,27 @@ function DateAndWeekCalculation() {
                 deliveryDate = $("#deliverydate").datepicker('getDate');
                 if (deliveryDate >= extendedDate) {
 
-                    weekDue = Math.ceil(((deliveryDate - extendedDate) / 1000 / 60 / 60 / 24) / 7);
+                    var ObjDeliveryDate = $("#deliverydate").val().toString();
+                    var ObjExtendedDate = $("#extdDate").val().toString();
+
+                    /*console.log(ObjDeliveryDate);
+                    console.log(ObjExtendedDate);*/
+
+                    ObjDeliveryDate = ObjDeliveryDate.split('-');
+                    ObjExtendedDate = ObjExtendedDate.split('-');
+
+                    ObjDeliveryDate = new Date(ObjDeliveryDate[2], ObjDeliveryDate[1], ObjDeliveryDate[0]);
+                    ObjExtendedDate = new Date(ObjExtendedDate[2], ObjExtendedDate[1], ObjExtendedDate[0]);
+                  
+                   // var timeDiff = (ObjDeliveryDate.getTime() - ObjExtendedDate.getTime())
+                    var daysDiff = Math.ceil((ObjDeliveryDate.getTime() - ObjExtendedDate.getTime()) / (1000 * 60 * 60 * 24));
+                    
+
+                    weekDue = Math.ceil(daysDiff/7);
+
+                    /*console.log("deliveryDate = " + ObjDeliveryDate);
+                    console.log("extendedDate = " + ObjExtendedDate);
+                    console.log("WeekDue = " + weekDue);*/
                 } else {
                     weekDue = 0;
                 }
